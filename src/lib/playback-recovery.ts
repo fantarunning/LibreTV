@@ -25,6 +25,7 @@ export const HLS_ERROR_MEDIA = 'mediaError';
 const HARD_FAIL_DETAILS = new Set([
   'manifestParsingError',
   'manifestIncompatibleCodecsError',
+  'bufferIncompatibleCodecsError',
   'levelEmptyError',
 ]);
 
@@ -80,6 +81,9 @@ export class PlaybackRecovery {
     if (this.disposed) return { action: 'ignore', reason: '已销毁' };
     this.lastActionAt = Date.now();
 
+    if (details === 'manifestIncompatibleCodecsError' || details === 'bufferIncompatibleCodecsError') {
+      return { action: 'switch-source', reason: '当前浏览器不支持该视频编码，请更换支持该编码的设备或浏览器' };
+    }
     if (HARD_FAIL_DETAILS.has(details)) {
       return { action: 'switch-source', reason: '播放列表格式无法解析，重试无意义' };
     }
@@ -135,6 +139,7 @@ export class PlaybackRecovery {
 
 /** hls 错误 → 中文提示（用于 hint 浮层 / toast） */
 export function describeHlsError(type: string, details: string): string {
+  if (details === 'manifestIncompatibleCodecsError' || details === 'bufferIncompatibleCodecsError') return '视频编码不受支持';
   if (HARD_FAIL_DETAILS.has(details)) return '播放列表格式无法解析';
   switch (details) {
     case 'manifestLoadError':

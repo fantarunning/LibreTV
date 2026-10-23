@@ -367,20 +367,8 @@ export function PlayerShell({
     restoreCleanupRef.current?.();
     restoreCleanupRef.current = null;
     hlsRef.current?.destroy();
+    hlsRef.current = null;
     currentMediaUrlRef.current = mediaUrl;
-    const hls = new Hls(buildHlsConfig());
-    hlsRef.current = hls;
-    const reportTracks = () => propsRef.current.onTracks?.({
-      qualities: hls.levels.map((level, id) => ({ id, label: level.height ? `${level.height}P` : `${Math.round(level.bitrate / 1000)} kbps` })),
-      audio: hls.audioTracks.map((track, id) => ({ id, label: track.name || track.lang || `音轨 ${id + 1}` })),
-      subtitles: hls.subtitleTracks.map((track, id) => ({ id, label: track.name || track.lang || `字幕 ${id + 1}` })),
-      quality: hls.autoLevelEnabled ? -1 : hls.currentLevel,
-      audioId: hls.audioTrack,
-      subtitleId: externalSubtitleRef.current?.element.track.mode === 'showing' ? -2 : hls.subtitleDisplay ? hls.subtitleTrack : -1,
-      externalSubtitle: Boolean(externalSubtitleRef.current),
-    });
-    reportTracksRef.current = reportTracks;
-    for (const event of [Hls.Events.MANIFEST_PARSED, Hls.Events.AUDIO_TRACKS_UPDATED, Hls.Events.SUBTITLE_TRACKS_UPDATED, Hls.Events.AUDIO_TRACK_SWITCHED, Hls.Events.SUBTITLE_TRACK_SWITCH, Hls.Events.LEVEL_SWITCHED]) hls.on(event, reportTracks);
 
     let restoreInFlight = false;
     const restoreAndStart = async () => {
@@ -404,7 +392,7 @@ export function PlayerShell({
         restoredRef.current = true;
         restoreCleanupRef.current?.();
         restoreCleanupRef.current = null;
-        ensurePrefetch(mediaUrl, prefetchAnchor);
+        ensurePrefetch(currentMediaUrlRef.current, prefetchAnchor);
         video.play().catch(() => {});
       } catch {
         // IndexedDB 读取失败时不阻塞播放，后续事件仍可再次尝试恢复。
@@ -419,6 +407,43 @@ export function PlayerShell({
     restoreCleanupRef.current = () => {
       restoreEvents.forEach((event) => video.removeEventListener(event, onRestoreEvent));
     };
+
+    // 较早的 iOS/Safari 没有 MSE，但可原生播放 HLS/HEVC。原生分片也走
+    // 同源代理，保证跨域受限来源和 httpOnly 会话在整个播放链中都可用。
+    if (!Hls.isSupported()) {
+      reportTracksRef.current = () => propsRef.current.onTracks?.({
+        qualities: [], audio: [], subtitles: [], quality: -1, audioId: -1,
+        subtitleId: externalSubtitleRef.current?.element.track.mode === 'showing' ? -2 : -1,
+        externalSubtitle: Boolean(externalSubtitleRef.current),
+      });
+      reportTracksRef.current();
+      if (!video.canPlayType('application/vnd.apple.mpegurl')) {
+        restoreCleanupRef.current?.();
+        restoreCleanupRef.current = null;
+        setError('当前浏览器不支持 HLS 播放，请使用支持的浏览器或电视客户端');
+        return;
+      }
+      currentMediaUrlRef.current = mediaUrl.startsWith('/api/proxy')
+        ? mediaUrl : `/api/proxy?url=${encodeURIComponent(mediaUrl)}`;
+      video.src = currentMediaUrlRef.current;
+      video.load();
+      video.play().catch(() => {});
+      return;
+    }
+
+    const hls = new Hls(buildHlsConfig());
+    hlsRef.current = hls;
+    const reportTracks = () => propsRef.current.onTracks?.({
+      qualities: hls.levels.map((level, id) => ({ id, label: level.height ? `${level.height}P` : `${Math.round(level.bitrate / 1000)} kbps` })),
+      audio: hls.audioTracks.map((track, id) => ({ id, label: track.name || track.lang || `音轨 ${id + 1}` })),
+      subtitles: hls.subtitleTracks.map((track, id) => ({ id, label: track.name || track.lang || `字幕 ${id + 1}` })),
+      quality: hls.autoLevelEnabled ? -1 : hls.currentLevel,
+      audioId: hls.audioTrack,
+      subtitleId: externalSubtitleRef.current?.element.track.mode === 'showing' ? -2 : hls.subtitleDisplay ? hls.subtitleTrack : -1,
+      externalSubtitle: Boolean(externalSubtitleRef.current),
+    });
+    reportTracksRef.current = reportTracks;
+    for (const event of [Hls.Events.MANIFEST_PARSED, Hls.Events.AUDIO_TRACKS_UPDATED, Hls.Events.SUBTITLE_TRACKS_UPDATED, Hls.Events.AUDIO_TRACK_SWITCHED, Hls.Events.SUBTITLE_TRACK_SWITCH, Hls.Events.LEVEL_SWITCHED]) hls.on(event, reportTracks);
 
     hls.loadSource(mediaUrl);
     hls.attachMedia(video);

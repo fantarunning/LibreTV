@@ -29,7 +29,7 @@ export default function FourKPage() {
       {(['vod', 'live'] as const).map((kind) => {
         const items = entries.filter((item) => item.kind === kind);
         if (!items.length) return null;
-        return <section key={kind} className="mb-10"><h2 className="font-medium mb-3">{kind === 'vod' ? '4K影片' : '4K直播'}</h2><ul className="divide-y divide-line">
+        return <section key={kind} className="mb-10"><h2 className="font-medium mb-3">{kind === 'vod' ? '4K点播' : '4K直播'}</h2><ul className="divide-y divide-line">
           {items.map((item) => <li key={item.id} className="py-5 flex items-center gap-4">
             {item.cover && <div className="shrink-0 w-12 h-[72px] bg-chip rounded-md overflow-hidden"><SmartImage url={item.cover} alt="" mode={imageMode} customProxy={customProxy} className="w-full h-full object-cover" /></div>}
             <div className="min-w-0 flex-1"><h3 className="font-medium text-sm sm:text-base break-words">{item.title}</h3><p className="text-accent text-sm mt-1.5 tabular-nums">{item.width} × {item.height}{item.codec ? ` · ${item.codec.toUpperCase()}` : ''}</p><p className="text-xs text-faint mt-1.5">{item.provider} · {new Date(item.verifiedAt).toLocaleDateString('zh-CN')} 核实</p></div>

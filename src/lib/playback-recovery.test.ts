@@ -57,6 +57,12 @@ describe('PlaybackRecovery 决策表', () => {
     expect(r.onFatal('someWeirdError', 'whatever').action).toBe('switch-source');
   });
 
+  it.each(['manifestIncompatibleCodecsError', 'bufferIncompatibleCodecsError'])('不支持的视频编码 %s 提示兼容性而不是格式损坏', (details) => {
+    const result = new PlaybackRecovery().onFatal('mediaError', details);
+    expect(result).toMatchObject({ action: 'switch-source', reason: expect.stringContaining('不支持该视频编码') });
+    expect(describeHlsError('mediaError', details)).toBe('视频编码不受支持');
+  });
+
   it('dispose 后一律忽略', () => {
     const r = new PlaybackRecovery();
     r.dispose();
