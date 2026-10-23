@@ -1,0 +1,31 @@
+#EXTM3U
+#PLAYLIST:高清直播 · 1080P / 4K
+# Verified from Tokyo on 2026-10-23; resolution from media headers; no end-to-end live latency claim.
+#EXTINF:-1 tvg-id="HebeiTV.cn@SD" group-title="4K直播",河北卫视 4K
+https://event.pull.hebtv.com/live/live101.m3u8
+#EXTINF:-1 tvg-id="" group-title="4K直播",苏州 4K 影像长廊
+https://live-auth.51kandianshi.com/szgd/csztv4k_4k.m3u8
+#EXTINF:-1 tvg-id="NeiMonggolTV2MongolianCultureChannel.cn@SD" group-title="国内1080p",内蒙古蒙语 1080p
+http://play1-qk.nmtv.cn/live/1769652109096027.m3u8
+#EXTINF:-1 tvg-id="" group-title="国内1080p",扬州新闻 1080p
+https://yztv-wshls.yzbtv.cn/live/8bb.m3u8
+#EXTINF:-1 tvg-id="NeiMonggolTV.cn@SD" group-title="国内1080p",内蒙古卫视 1080p
+http://play1-qk.nmtv.cn/live/1769652018126032.m3u8
+#EXTINF:-1 tvg-id="" group-title="国内1080p",苏州社会经济 1080p
+https://live-auth.51kandianshi.com/szgd/csztv2.m3u8
+#EXTINF:-1 tvg-id="" group-title="国内1080p",苏州新闻综合 1080p
+https://live-auth.51kandianshi.com/szgd/csztv1.m3u8
+#EXTINF:-1 tvg-id="" group-title="国内1080p",德化电视台 1080p
+https://play.cmptp.fjgdwl.com/live/63a563ec75764af588f3215b0afa2588.m3u8
+#EXTINF:-1 tvg-id="" group-title="新闻纪实1080p",CNA 1080p
+https://d2e1asnsl7br7b.cloudfront.net/7782e205e72f43aeb4a48ec97f66ebbe/index.m3u8
+#EXTINF:-1 tvg-id="CGTN.cn@SD" group-title="新闻纪实1080p",CGTN 英语 1080p
+https://english-livebkali.cgtn.com/live/encgtn.m3u8
+#EXTINF:-1 tvg-id="" group-title="新闻纪实1080p",法国24 英语 1080p
+https://live.france24.com/hls/live/2037218-b/F24_EN_HI_HLS/master_5000.m3u8
+#EXTINF:-1 tvg-id="" group-title="新闻纪实1080p",CGTN 纪录 1080p
+https://english-livebkali.cgtn.com/live/doccgtn.m3u8
+#EXTINF:-1 tvg-id="" group-title="新闻纪实1080p",China Travel 中国旅行 1080p
+https://fastlive.cctvplus.com/out/v1/ca6f9297b7314a63959435028af287fc/index.m3u8
+#EXTINF:-1 tvg-id="" group-title="体育1080p",Red Bull TV 体育 1080p
+https://rbmn-live.akamaized.net/hls/live/590964/BoRB-AT/master.m3u8

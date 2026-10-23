@@ -1,0 +1,1442 @@
+{
+  "checkedAt": "2026-10-23T06:43:23.096Z",
+  "location": "Tokyo production host outbound network; anonymous direct upstream requests",
+  "candidateEndpointCount": 31,
+  "providerCount": 24,
+  "fixedQueries": [
+    "流浪地球",
+    "庆余年",
+    "斗罗大陆"
+  ],
+  "rounds": 2,
+  "plannedOriginalChecks": 186,
+  "completedOriginalChecks": 186,
+  "originalPassed": 56,
+  "method": {
+    "concurrency": 2,
+    "nodeOldSpaceMiB": 64,
+    "perRequestTimeoutMs": 8000,
+    "perSourceBudgetMs": 60000,
+    "middleSegmentByteCap": 262144,
+    "firstSegmentByteCap": 65536,
+    "networkTiming": "FirstByteMs is time from the final HTTP request including DNS to first response body bytes; manual HTTP redirect chain overhead excluded. JSON search/detail totals include body receipt. HLS master selection is separate from leaf-playlist timing.",
+    "dimensions": "Parsed H.264/H.265 TS or MP4 video headers; AES-128 prefix decrypted where required, no full films downloaded.",
+    "scope": "Two short sample rounds do not establish entire library distribution, native mastering, sustained playback, local-home latency or TCL device decoding."
+  },
+  "recommendations": [
+    {
+      "name": "吉吉资源",
+      "url": "https://caiji.jjzyapi.com/api.php/provide/vod",
+      "isAdult": false,
+      "originalChecks": 6,
+      "originalPassed": 6,
+      "supplementalChecks": 0,
+      "supplementalPassed": 0,
+      "encodedDimensionsByTitle": {
+        "流浪地球": [
+          1920,
+          752
+        ],
+        "庆余年第二季粤语": [
+          1920,
+          1080
+        ],
+        "斗罗大陆": [
+          1920,
+          1080
+        ]
+      },
+      "apiSearch": {
+        "count": 6,
+        "medianMs": 1038,
+        "maxMs": 1344,
+        "minMs": 917
+      },
+      "apiDetail": {
+        "count": 6,
+        "medianMs": 260,
+        "maxMs": 288,
+        "minMs": 255
+      },
+      "playlistFirstByte": {
+        "count": 6,
+        "medianMs": 512,
+        "maxMs": 603,
+        "minMs": 460
+      },
+      "middleSegmentFirstByte": {
+        "count": 6,
+        "medianMs": 247,
+        "maxMs": 261,
+        "minMs": 106
+      },
+      "middleSegment256KiBTotal": {
+        "count": 6,
+        "medianMs": 652,
+        "maxMs": 689,
+        "minMs": 507
+      },
+      "firstSegmentFirstByte": {
+        "count": 6,
+        "medianMs": 185,
+        "maxMs": 260,
+        "minMs": 108
+      },
+      "mediaHosts": [
+        "svip.jijiplay11.com",
+        "svip.jijiplay16.com",
+        "svip.jijiplay18.com"
+      ],
+      "quality": "Three verified titles 1920 pixels wide; cinema crop included",
+      "discoveryReferences": [
+        "https://jjzy.tv/"
+      ]
+    },
+    {
+      "name": "西瓜资源",
+      "url": "https://caiji.xgzyapi.com/api.php/provide/vod",
+      "isAdult": false,
+      "originalChecks": 6,
+      "originalPassed": 4,
+      "supplementalChecks": 2,
+      "supplementalPassed": 2,
+      "encodedDimensionsByTitle": {
+        "流浪地球": [
+          1920,
+          752
+        ],
+        "斗罗大陆": [
+          1920,
+          1072
+        ],
+        "庆余年 第一季": [
+          1920,
+          1080
+        ]
+      },
+      "apiSearch": {
+        "count": 8,
+        "medianMs": 297,
+        "maxMs": 443,
+        "minMs": 151
+      },
+      "apiDetail": {
+        "count": 6,
+        "medianMs": 130,
+        "maxMs": 148,
+        "minMs": 115
+      },
+      "playlistFirstByte": {
+        "count": 6,
+        "medianMs": 496,
+        "maxMs": 701,
+        "minMs": 458
+      },
+      "middleSegmentFirstByte": {
+        "count": 6,
+        "medianMs": 107,
+        "maxMs": 292,
+        "minMs": 104
+      },
+      "middleSegment256KiBTotal": {
+        "count": 6,
+        "medianMs": 510,
+        "maxMs": 705,
+        "minMs": 495
+      },
+      "firstSegmentFirstByte": {
+        "count": 6,
+        "medianMs": 112,
+        "maxMs": 256,
+        "minMs": 108
+      },
+      "mediaHosts": [
+        "svip.xgplay18.com",
+        "svip.xgplay3.com"
+      ],
+      "quality": "Three verified titles 1920 pixels wide; cinema crop included",
+      "note": "Original two rounds retained 2/3 each: first-two-match limit selected similarly named 71s/105s vertical shorts. Supplemental category filtering selected real 庆余年 第一季, 国产剧, id 35200, 2698s, 1920x1080, both rounds passed.",
+      "discoveryReferences": [
+        "https://github.com/wliqi495-create/jaychou123/blob/537fc7311c1b3bf6778a1004b37bf4f417a42381/yingshi/py8/%E8%81%9A%E5%90%88.py"
+      ]
+    },
+    {
+      "name": "猫眼资源",
+      "url": "https://api.maoyanapi.top/api.php/provide/vod",
+      "isAdult": false,
+      "originalChecks": 6,
+      "originalPassed": 6,
+      "supplementalChecks": 0,
+      "supplementalPassed": 0,
+      "encodedDimensionsByTitle": {
+        "流浪地球": [
+          3840,
+          1504
+        ],
+        "庆余年 第一季": [
+          1280,
+          720
+        ],
+        "斗罗大陆": [
+          1280,
+          536
+        ]
+      },
+      "apiSearch": {
+        "count": 6,
+        "medianMs": 174,
+        "maxMs": 419,
+        "minMs": 97
+      },
+      "apiDetail": {
+        "count": 6,
+        "medianMs": 96,
+        "maxMs": 377,
+        "minMs": 93
+      },
+      "playlistFirstByte": {
+        "count": 6,
+        "medianMs": 230,
+        "maxMs": 445,
+        "minMs": 106
+      },
+      "middleSegmentFirstByte": {
+        "count": 6,
+        "medianMs": 151,
+        "maxMs": 182,
+        "minMs": 109
+      },
+      "middleSegment256KiBTotal": {
+        "count": 6,
+        "medianMs": 451,
+        "maxMs": 590,
+        "minMs": 216
+      },
+      "firstSegmentFirstByte": {
+        "count": 6,
+        "medianMs": 124,
+        "maxMs": 155,
+        "minMs": 114
+      },
+      "mediaHosts": [
+        "play.maoyanplay.top"
+      ],
+      "quality": "Mixed quality; verified HD option available, not a majority-HD or majority-4K claim",
+      "discoveryReferences": [
+        "https://github.com/oooopera/moontv_config/blob/main/input.json"
+      ]
+    },
+    {
+      "name": "红牛资源",
+      "url": "https://www.hongniuzy2.com/api.php/provide/vod",
+      "isAdult": false,
+      "originalChecks": 6,
+      "originalPassed": 6,
+      "supplementalChecks": 0,
+      "supplementalPassed": 0,
+      "encodedDimensionsByTitle": {
+        "流浪地球": [
+          1280,
+          506
+        ],
+        "庆余年 第二季": [
+          1280,
+          720
+        ],
+        "斗罗大陆5重生唐三 动态漫画": [
+          1920,
+          1080
+        ]
+      },
+      "apiSearch": {
+        "count": 6,
+        "medianMs": 208,
+        "maxMs": 334,
+        "minMs": 34
+      },
+      "apiDetail": {
+        "count": 6,
+        "medianMs": 240,
+        "maxMs": 295,
+        "minMs": 196
+      },
+      "playlistFirstByte": {
+        "count": 6,
+        "medianMs": 80,
+        "maxMs": 355,
+        "minMs": 58
+      },
+      "middleSegmentFirstByte": {
+        "count": 6,
+        "medianMs": 124,
+        "maxMs": 505,
+        "minMs": 115
+      },
+      "middleSegment256KiBTotal": {
+        "count": 6,
+        "medianMs": 222,
+        "maxMs": 910,
+        "minMs": 172
+      },
+      "firstSegmentFirstByte": {
+        "count": 6,
+        "medianMs": 124,
+        "maxMs": 464,
+        "minMs": 121
+      },
+      "mediaHosts": [
+        "hnts.ymuuy.com"
+      ],
+      "quality": "Mixed quality; verified HD option available, not a majority-HD or majority-4K claim",
+      "discoveryReferences": [
+        "https://www.hongniuzy.com/help/"
+      ]
+    },
+    {
+      "name": "金鹰资源",
+      "url": "https://jyzyapi.com/provide/vod/from/jinyingm3u8/at/json",
+      "isAdult": false,
+      "originalChecks": 6,
+      "originalPassed": 6,
+      "supplementalChecks": 0,
+      "supplementalPassed": 0,
+      "encodedDimensionsByTitle": {
+        "流浪地球": [
+          1280,
+          506
+        ],
+        "庆余年 第二季": [
+          1280,
+          720
+        ],
+        "斗罗大陆": [
+          1920,
+          1080
+        ]
+      },
+      "apiSearch": {
+        "count": 6,
+        "medianMs": 342,
+        "maxMs": 393,
+        "minMs": 318
+      },
+      "apiDetail": {
+        "count": 6,
+        "medianMs": 224,
+        "maxMs": 230,
+        "minMs": 205
+      },
+      "playlistFirstByte": {
+        "count": 6,
+        "medianMs": 102,
+        "maxMs": 418,
+        "minMs": 56
+      },
+      "middleSegmentFirstByte": {
+        "count": 6,
+        "medianMs": 120,
+        "maxMs": 481,
+        "minMs": 115
+      },
+      "middleSegment256KiBTotal": {
+        "count": 6,
+        "medianMs": 188,
+        "maxMs": 877,
+        "minMs": 171
+      },
+      "firstSegmentFirstByte": {
+        "count": 6,
+        "medianMs": 126,
+        "maxMs": 646,
+        "minMs": 117
+      },
+      "mediaHosts": [
+        "c.baisiweiting.com"
+      ],
+      "quality": "Mixed quality; verified HD option available, not a majority-HD or majority-4K claim",
+      "discoveryReferences": [
+        "https://jinyingzy.com/",
+        "https://github.com/oooopera/moontv_config/blob/main/input.json"
+      ]
+    }
+  ],
+  "supplementalXigua": {
+    "reason": "Correct short-video category exclusion, original failures preserved",
+    "checks": 2,
+    "passed": 2,
+    "title": "庆余年 第一季",
+    "id": "35200"
+  },
+  "allCandidates": [
+    {
+      "name": "吉吉资源",
+      "url": "https://caiji.jjzyapi.com/api.php/provide/vod",
+      "round1": {
+        "passed": 3,
+        "checked": 3,
+        "hd1920Width": 3,
+        "failures": []
+      },
+      "round2": {
+        "passed": 3,
+        "checked": 3,
+        "hd1920Width": 3,
+        "failures": []
+      }
+    },
+    {
+      "name": "西瓜资源",
+      "url": "https://caiji.xgzyapi.com/api.php/provide/vod",
+      "round1": {
+        "passed": 2,
+        "checked": 3,
+        "hd1920Width": 2,
+        "failures": [
+          {
+            "query": "庆余年",
+            "reason": "portrait-clip"
+          }
+        ]
+      },
+      "round2": {
+        "passed": 2,
+        "checked": 3,
+        "hd1920Width": 2,
+        "failures": [
+          {
+            "query": "庆余年",
+            "reason": "portrait-clip"
+          }
+        ]
+      }
+    },
+    {
+      "name": "爱奇资源",
+      "url": "https://iqiyizyapi.com/api.php/provide/vod",
+      "round1": {
+        "passed": 1,
+        "checked": 3,
+        "hd1920Width": 1,
+        "failures": [
+          {
+            "query": "庆余年",
+            "reason": "http-503"
+          },
+          {
+            "query": "斗罗大陆",
+            "reason": "http-503"
+          }
+        ]
+      },
+      "round2": {
+        "passed": 3,
+        "checked": 3,
+        "hd1920Width": 1,
+        "failures": []
+      }
+    },
+    {
+      "name": "快车资源",
+      "url": "https://caiji.kuaichezy.org/api.php/provide/vod",
+      "round1": {
+        "passed": 0,
+        "checked": 3,
+        "hd1920Width": 0,
+        "failures": [
+          {
+            "query": "流浪地球",
+            "reason": "not-json"
+          },
+          {
+            "query": "庆余年",
+            "reason": "not-json"
+          },
+          {
+            "query": "斗罗大陆",
+            "reason": "not-json"
+          }
+        ]
+      },
+      "round2": {
+        "passed": 0,
+        "checked": 3,
+        "hd1920Width": 0,
+        "failures": [
+          {
+            "query": "流浪地球",
+            "reason": "not-json"
+          },
+          {
+            "query": "庆余年",
+            "reason": "not-json"
+          },
+          {
+            "query": "斗罗大陆",
+            "reason": "not-json"
+          }
+        ]
+      }
+    },
+    {
+      "name": "无尽资源",
+      "url": "https://api.wujinapi.me/api.php/provide/vod",
+      "round1": {
+        "passed": 0,
+        "checked": 3,
+        "hd1920Width": 0,
+        "failures": [
+          {
+            "query": "流浪地球",
+            "reason": "http-403"
+          },
+          {
+            "query": "庆余年",
+            "reason": "http-403"
+          },
+          {
+            "query": "斗罗大陆",
+            "reason": "http-403"
+          }
+        ]
+      },
+      "round2": {
+        "passed": 0,
+        "checked": 3,
+        "hd1920Width": 0,
+        "failures": [
+          {
+            "query": "流浪地球",
+            "reason": "http-403"
+          },
+          {
+            "query": "庆余年",
+            "reason": "http-403"
+          },
+          {
+            "query": "斗罗大陆",
+            "reason": "http-403"
+          }
+        ]
+      }
+    },
+    {
+      "name": "天涯资源",
+      "url": "https://tyyszyapi.com/api.php/provide/vod",
+      "round1": {
+        "passed": 0,
+        "checked": 3,
+        "hd1920Width": 0,
+        "failures": [
+          {
+            "query": "流浪地球",
+            "reason": "not-json"
+          },
+          {
+            "query": "庆余年",
+            "reason": "not-json"
+          },
+          {
+            "query": "斗罗大陆",
+            "reason": "not-json"
+          }
+        ]
+      },
+      "round2": {
+        "passed": 0,
+        "checked": 3,
+        "hd1920Width": 0,
+        "failures": [
+          {
+            "query": "流浪地球",
+            "reason": "not-json"
+          },
+          {
+            "query": "庆余年",
+            "reason": "not-json"
+          },
+          {
+            "query": "斗罗大陆",
+            "reason": "not-json"
+          }
+        ]
+      }
+    },
+    {
+      "name": "黑木耳资源",
+      "url": "https://json.heimuer.tv/api.php/provide/vod",
+      "round1": {
+        "passed": 0,
+        "checked": 3,
+        "hd1920Width": 0,
+        "failures": [
+          {
+            "query": "流浪地球",
+            "reason": "TypeError"
+          },
+          {
+            "query": "庆余年",
+            "reason": "TypeError"
+          },
+          {
+            "query": "斗罗大陆",
+            "reason": "TypeError"
+          }
+        ]
+      },
+      "round2": {
+        "passed": 0,
+        "checked": 3,
+        "hd1920Width": 0,
+        "failures": [
+          {
+            "query": "流浪地球",
+            "reason": "TypeError"
+          },
+          {
+            "query": "庆余年",
+            "reason": "TypeError"
+          },
+          {
+            "query": "斗罗大陆",
+            "reason": "TypeError"
+          }
+        ]
+      }
+    },
+    {
+      "name": "卧龙资源",
+      "url": "https://wolongzyw.com/api.php/provide/vod",
+      "round1": {
+        "passed": 0,
+        "checked": 3,
+        "hd1920Width": 0,
+        "failures": [
+          {
+            "query": "流浪地球",
+            "reason": "not-json"
+          },
+          {
+            "query": "庆余年",
+            "reason": "not-json"
+          },
+          {
+            "query": "斗罗大陆",
+            "reason": "not-json"
+          }
+        ]
+      },
+      "round2": {
+        "passed": 0,
+        "checked": 3,
+        "hd1920Width": 0,
+        "failures": [
+          {
+            "query": "流浪地球",
+            "reason": "not-json"
+          },
+          {
+            "query": "庆余年",
+            "reason": "not-json"
+          },
+          {
+            "query": "斗罗大陆",
+            "reason": "not-json"
+          }
+        ]
+      }
+    },
+    {
+      "name": "索尼资源",
+      "url": "https://suoniapi.com/api.php/provide/vod",
+      "round1": {
+        "passed": 0,
+        "checked": 3,
+        "hd1920Width": 0,
+        "failures": [
+          {
+            "query": "流浪地球",
+            "reason": "not-json"
+          },
+          {
+            "query": "庆余年",
+            "reason": "not-json"
+          },
+          {
+            "query": "斗罗大陆",
+            "reason": "not-json"
+          }
+        ]
+      },
+      "round2": {
+        "passed": 0,
+        "checked": 3,
+        "hd1920Width": 0,
+        "failures": [
+          {
+            "query": "流浪地球",
+            "reason": "not-json"
+          },
+          {
+            "query": "庆余年",
+            "reason": "not-json"
+          },
+          {
+            "query": "斗罗大陆",
+            "reason": "not-json"
+          }
+        ]
+      }
+    },
+    {
+      "name": "茅台资源",
+      "url": "https://caiji.maotaizy.cc/api.php/provide/vod",
+      "round1": {
+        "passed": 0,
+        "checked": 3,
+        "hd1920Width": 0,
+        "failures": [
+          {
+            "query": "流浪地球",
+            "reason": "no-matching-results"
+          },
+          {
+            "query": "庆余年",
+            "reason": "no-matching-results"
+          },
+          {
+            "query": "斗罗大陆",
+            "reason": "no-matching-results"
+          }
+        ]
+      },
+      "round2": {
+        "passed": 0,
+        "checked": 3,
+        "hd1920Width": 0,
+        "failures": [
+          {
+            "query": "流浪地球",
+            "reason": "no-matching-results"
+          },
+          {
+            "query": "庆余年",
+            "reason": "no-matching-results"
+          },
+          {
+            "query": "斗罗大陆",
+            "reason": "no-matching-results"
+          }
+        ]
+      }
+    },
+    {
+      "name": "闪电资源",
+      "url": "https://xsd.sdzyapi.com/api.php/provide/vod",
+      "round1": {
+        "passed": 0,
+        "checked": 3,
+        "hd1920Width": 0,
+        "failures": [
+          {
+            "query": "流浪地球",
+            "reason": "not-json"
+          },
+          {
+            "query": "庆余年",
+            "reason": "not-json"
+          },
+          {
+            "query": "斗罗大陆",
+            "reason": "not-json"
+          }
+        ]
+      },
+      "round2": {
+        "passed": 0,
+        "checked": 3,
+        "hd1920Width": 0,
+        "failures": [
+          {
+            "query": "流浪地球",
+            "reason": "not-json"
+          },
+          {
+            "query": "庆余年",
+            "reason": "not-json"
+          },
+          {
+            "query": "斗罗大陆",
+            "reason": "not-json"
+          }
+        ]
+      }
+    },
+    {
+      "name": "猫眼资源",
+      "url": "https://api.maoyanapi.top/api.php/provide/vod",
+      "round1": {
+        "passed": 3,
+        "checked": 3,
+        "hd1920Width": 1,
+        "failures": []
+      },
+      "round2": {
+        "passed": 3,
+        "checked": 3,
+        "hd1920Width": 1,
+        "failures": []
+      }
+    },
+    {
+      "name": "豆瓣资源",
+      "url": "https://caiji.dbzy5.com/api.php/provide/vod",
+      "round1": {
+        "passed": 0,
+        "checked": 3,
+        "hd1920Width": 0,
+        "failures": [
+          {
+            "query": "流浪地球",
+            "reason": "no-matching-results"
+          },
+          {
+            "query": "庆余年",
+            "reason": "no-matching-results"
+          },
+          {
+            "query": "斗罗大陆",
+            "reason": "no-matching-results"
+          }
+        ]
+      },
+      "round2": {
+        "passed": 0,
+        "checked": 3,
+        "hd1920Width": 0,
+        "failures": [
+          {
+            "query": "流浪地球",
+            "reason": "no-matching-results"
+          },
+          {
+            "query": "庆余年",
+            "reason": "no-matching-results"
+          },
+          {
+            "query": "斗罗大陆",
+            "reason": "no-matching-results"
+          }
+        ]
+      }
+    },
+    {
+      "name": "量子资源",
+      "url": "https://cj.lziapi.com/api.php/provide/vod",
+      "round1": {
+        "passed": 0,
+        "checked": 3,
+        "hd1920Width": 0,
+        "failures": [
+          {
+            "query": "流浪地球",
+            "reason": "http-404"
+          },
+          {
+            "query": "庆余年",
+            "reason": "http-404"
+          },
+          {
+            "query": "斗罗大陆",
+            "reason": "http-404"
+          }
+        ]
+      },
+      "round2": {
+        "passed": 0,
+        "checked": 3,
+        "hd1920Width": 0,
+        "failures": [
+          {
+            "query": "流浪地球",
+            "reason": "http-404"
+          },
+          {
+            "query": "庆余年",
+            "reason": "http-404"
+          },
+          {
+            "query": "斗罗大陆",
+            "reason": "http-404"
+          }
+        ]
+      }
+    },
+    {
+      "name": "华为吧资源",
+      "url": "https://cjhwba.com/api.php/provide/vod",
+      "round1": {
+        "passed": 0,
+        "checked": 3,
+        "hd1920Width": 0,
+        "failures": [
+          {
+            "query": "流浪地球",
+            "reason": "not-json"
+          },
+          {
+            "query": "庆余年",
+            "reason": "not-json"
+          },
+          {
+            "query": "斗罗大陆",
+            "reason": "not-json"
+          }
+        ]
+      },
+      "round2": {
+        "passed": 0,
+        "checked": 3,
+        "hd1920Width": 0,
+        "failures": [
+          {
+            "query": "流浪地球",
+            "reason": "not-json"
+          },
+          {
+            "query": "庆余年",
+            "reason": "not-json"
+          },
+          {
+            "query": "斗罗大陆",
+            "reason": "not-json"
+          }
+        ]
+      }
+    },
+    {
+      "name": "樱花资源",
+      "url": "https://m3u8.apiyhzy.com/api.php/provide/vod",
+      "round1": {
+        "passed": 0,
+        "checked": 3,
+        "hd1920Width": 0,
+        "failures": [
+          {
+            "query": "流浪地球",
+            "reason": "http-403"
+          },
+          {
+            "query": "庆余年",
+            "reason": "http-403"
+          },
+          {
+            "query": "斗罗大陆",
+            "reason": "http-403"
+          }
+        ]
+      },
+      "round2": {
+        "passed": 0,
+        "checked": 3,
+        "hd1920Width": 0,
+        "failures": [
+          {
+            "query": "流浪地球",
+            "reason": "http-403"
+          },
+          {
+            "query": "庆余年",
+            "reason": "http-403"
+          },
+          {
+            "query": "斗罗大陆",
+            "reason": "http-403"
+          }
+        ]
+      }
+    },
+    {
+      "name": "金鹰资源",
+      "url": "https://jyzyapi.com/provide/vod/from/jinyingm3u8/at/json",
+      "round1": {
+        "passed": 3,
+        "checked": 3,
+        "hd1920Width": 1,
+        "failures": []
+      },
+      "round2": {
+        "passed": 3,
+        "checked": 3,
+        "hd1920Width": 1,
+        "failures": []
+      }
+    },
+    {
+      "name": "红牛资源",
+      "url": "https://www.hongniuzy2.com/api.php/provide/vod",
+      "round1": {
+        "passed": 3,
+        "checked": 3,
+        "hd1920Width": 1,
+        "failures": []
+      },
+      "round2": {
+        "passed": 3,
+        "checked": 3,
+        "hd1920Width": 1,
+        "failures": []
+      }
+    },
+    {
+      "name": "UU资源",
+      "url": "https://uuzy.me/api.php/provide/vod",
+      "round1": {
+        "passed": 0,
+        "checked": 3,
+        "hd1920Width": 0,
+        "failures": [
+          {
+            "query": "流浪地球",
+            "reason": "http-404"
+          },
+          {
+            "query": "庆余年",
+            "reason": "http-404"
+          },
+          {
+            "query": "斗罗大陆",
+            "reason": "http-404"
+          }
+        ]
+      },
+      "round2": {
+        "passed": 0,
+        "checked": 3,
+        "hd1920Width": 0,
+        "failures": [
+          {
+            "query": "流浪地球",
+            "reason": "http-404"
+          },
+          {
+            "query": "庆余年",
+            "reason": "http-404"
+          },
+          {
+            "query": "斗罗大陆",
+            "reason": "http-404"
+          }
+        ]
+      }
+    },
+    {
+      "name": "黑木耳新版",
+      "url": "https://json.heimuer.xyz/api.php/provide/vod",
+      "round1": {
+        "passed": 0,
+        "checked": 3,
+        "hd1920Width": 0,
+        "failures": [
+          {
+            "query": "流浪地球",
+            "reason": "not-json"
+          },
+          {
+            "query": "庆余年",
+            "reason": "not-json"
+          },
+          {
+            "query": "斗罗大陆",
+            "reason": "not-json"
+          }
+        ]
+      },
+      "round2": {
+        "passed": 0,
+        "checked": 3,
+        "hd1920Width": 0,
+        "failures": [
+          {
+            "query": "流浪地球",
+            "reason": "not-json"
+          },
+          {
+            "query": "庆余年",
+            "reason": "not-json"
+          },
+          {
+            "query": "斗罗大陆",
+            "reason": "not-json"
+          }
+        ]
+      }
+    },
+    {
+      "name": "卧龙新版",
+      "url": "https://collect.wolongzyw.com/api.php/provide/vod",
+      "round1": {
+        "passed": 0,
+        "checked": 3,
+        "hd1920Width": 0,
+        "failures": [
+          {
+            "query": "流浪地球",
+            "reason": "not-json"
+          },
+          {
+            "query": "庆余年",
+            "reason": "not-json"
+          },
+          {
+            "query": "斗罗大陆",
+            "reason": "not-json"
+          }
+        ]
+      },
+      "round2": {
+        "passed": 0,
+        "checked": 3,
+        "hd1920Width": 0,
+        "failures": [
+          {
+            "query": "流浪地球",
+            "reason": "not-json"
+          },
+          {
+            "query": "庆余年",
+            "reason": "not-json"
+          },
+          {
+            "query": "斗罗大陆",
+            "reason": "not-json"
+          }
+        ]
+      }
+    },
+    {
+      "name": "量子新版",
+      "url": "https://cj.lzcaiji.com/api.php/provide/vod",
+      "round1": {
+        "passed": 0,
+        "checked": 3,
+        "hd1920Width": 0,
+        "failures": [
+          {
+            "query": "流浪地球",
+            "reason": "http-404"
+          },
+          {
+            "query": "庆余年",
+            "reason": "http-404"
+          },
+          {
+            "query": "斗罗大陆",
+            "reason": "http-404"
+          }
+        ]
+      },
+      "round2": {
+        "passed": 0,
+        "checked": 3,
+        "hd1920Width": 0,
+        "failures": [
+          {
+            "query": "流浪地球",
+            "reason": "http-404"
+          },
+          {
+            "query": "庆余年",
+            "reason": "http-404"
+          },
+          {
+            "query": "斗罗大陆",
+            "reason": "http-404"
+          }
+        ]
+      }
+    },
+    {
+      "name": "无尽备用",
+      "url": "https://api.wujinapi.com/api.php/provide/vod",
+      "round1": {
+        "passed": 0,
+        "checked": 3,
+        "hd1920Width": 0,
+        "failures": [
+          {
+            "query": "流浪地球",
+            "reason": "http-520"
+          },
+          {
+            "query": "庆余年",
+            "reason": "http-520"
+          },
+          {
+            "query": "斗罗大陆",
+            "reason": "http-520"
+          }
+        ]
+      },
+      "round2": {
+        "passed": 0,
+        "checked": 3,
+        "hd1920Width": 0,
+        "failures": [
+          {
+            "query": "流浪地球",
+            "reason": "http-520"
+          },
+          {
+            "query": "庆余年",
+            "reason": "http-520"
+          },
+          {
+            "query": "斗罗大陆",
+            "reason": "http-520"
+          }
+        ]
+      }
+    },
+    {
+      "name": "快车JSON",
+      "url": "https://caiji.kuaichezy.org/api.php/provide/vod/at/json",
+      "round1": {
+        "passed": 0,
+        "checked": 3,
+        "hd1920Width": 0,
+        "failures": [
+          {
+            "query": "流浪地球",
+            "reason": "not-json"
+          },
+          {
+            "query": "庆余年",
+            "reason": "not-json"
+          },
+          {
+            "query": "斗罗大陆",
+            "reason": "not-json"
+          }
+        ]
+      },
+      "round2": {
+        "passed": 0,
+        "checked": 3,
+        "hd1920Width": 0,
+        "failures": [
+          {
+            "query": "流浪地球",
+            "reason": "not-json"
+          },
+          {
+            "query": "庆余年",
+            "reason": "not-json"
+          },
+          {
+            "query": "斗罗大陆",
+            "reason": "not-json"
+          }
+        ]
+      }
+    },
+    {
+      "name": "索尼JSON",
+      "url": "https://suoniapi.com/api.php/provide/vod/at/json",
+      "round1": {
+        "passed": 0,
+        "checked": 3,
+        "hd1920Width": 0,
+        "failures": [
+          {
+            "query": "流浪地球",
+            "reason": "not-json"
+          },
+          {
+            "query": "庆余年",
+            "reason": "not-json"
+          },
+          {
+            "query": "斗罗大陆",
+            "reason": "not-json"
+          }
+        ]
+      },
+      "round2": {
+        "passed": 0,
+        "checked": 3,
+        "hd1920Width": 0,
+        "failures": [
+          {
+            "query": "流浪地球",
+            "reason": "not-json"
+          },
+          {
+            "query": "庆余年",
+            "reason": "not-json"
+          },
+          {
+            "query": "斗罗大陆",
+            "reason": "not-json"
+          }
+        ]
+      }
+    },
+    {
+      "name": "闪电JSON",
+      "url": "https://xsd.sdzyapi.com/api.php/provide/vod/at/json",
+      "round1": {
+        "passed": 0,
+        "checked": 3,
+        "hd1920Width": 0,
+        "failures": [
+          {
+            "query": "流浪地球",
+            "reason": "not-json"
+          },
+          {
+            "query": "庆余年",
+            "reason": "not-json"
+          },
+          {
+            "query": "斗罗大陆",
+            "reason": "not-json"
+          }
+        ]
+      },
+      "round2": {
+        "passed": 0,
+        "checked": 3,
+        "hd1920Width": 0,
+        "failures": [
+          {
+            "query": "流浪地球",
+            "reason": "not-json"
+          },
+          {
+            "query": "庆余年",
+            "reason": "not-json"
+          },
+          {
+            "query": "斗罗大陆",
+            "reason": "not-json"
+          }
+        ]
+      }
+    },
+    {
+      "name": "虎牙资源",
+      "url": "https://www.huyaapi.com/api.php/provide/vod",
+      "round1": {
+        "passed": 3,
+        "checked": 3,
+        "hd1920Width": 1,
+        "failures": []
+      },
+      "round2": {
+        "passed": 3,
+        "checked": 3,
+        "hd1920Width": 1,
+        "failures": []
+      }
+    },
+    {
+      "name": "豪华资源",
+      "url": "https://hhzyapi.com/api.php/provide/vod",
+      "round1": {
+        "passed": 3,
+        "checked": 3,
+        "hd1920Width": 1,
+        "failures": []
+      },
+      "round2": {
+        "passed": 3,
+        "checked": 3,
+        "hd1920Width": 1,
+        "failures": []
+      }
+    },
+    {
+      "name": "速播资源",
+      "url": "https://subocaiji.com/api.php/provide/vod",
+      "round1": {
+        "passed": 3,
+        "checked": 3,
+        "hd1920Width": 1,
+        "failures": []
+      },
+      "round2": {
+        "passed": 3,
+        "checked": 3,
+        "hd1920Width": 1,
+        "failures": []
+      }
+    },
+    {
+      "name": "爱蛋资源",
+      "url": "https://lovedan.net/api.php/provide/vod",
+      "round1": {
+        "passed": 3,
+        "checked": 3,
+        "hd1920Width": 1,
+        "failures": []
+      },
+      "round2": {
+        "passed": 3,
+        "checked": 3,
+        "hd1920Width": 1,
+        "failures": []
+      }
+    },
+    {
+      "name": "八戒资源",
+      "url": "https://www.bajiezy.xyz/api.php/provide/vod",
+      "round1": {
+        "passed": 0,
+        "checked": 3,
+        "hd1920Width": 0,
+        "failures": [
+          {
+            "query": "流浪地球",
+            "reason": "not-json"
+          },
+          {
+            "query": "庆余年",
+            "reason": "TypeError"
+          },
+          {
+            "query": "斗罗大陆",
+            "reason": "not-json"
+          }
+        ]
+      },
+      "round2": {
+        "passed": 0,
+        "checked": 3,
+        "hd1920Width": 0,
+        "failures": [
+          {
+            "query": "流浪地球",
+            "reason": "not-json"
+          },
+          {
+            "query": "庆余年",
+            "reason": "not-json"
+          },
+          {
+            "query": "斗罗大陆",
+            "reason": "not-json"
+          }
+        ]
+      }
+    }
+  ],
+  "sources": [
+    "https://github.com/oooopera/moontv_config/blob/main/input.json",
+    "https://jjzy.tv/",
+    "https://www.hongniuzy.com/help/",
+    "https://jinyingzy.com/",
+    "https://t.me/s/heimuer_channel?before=44",
+    "https://uuzy.me/",
+    "https://github.com/wliqi495-create/jaychou123/blob/537fc7311c1b3bf6778a1004b37bf4f417a42381/yingshi/py8/%E8%81%9A%E5%90%88.py"
+  ]
+}

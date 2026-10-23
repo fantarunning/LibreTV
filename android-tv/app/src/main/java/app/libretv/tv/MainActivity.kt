@@ -101,6 +101,11 @@ class TvModel(app: Application) : AndroidViewModel(app) {
     var fourK by mutableStateOf<List<Title>>(emptyList())
     var fourKLoading by mutableStateOf(false)
     var fourKError by mutableStateOf<String?>(null)
+    var liveChannels by mutableStateOf<List<LiveChannel>>(emptyList())
+    var liveLoading by mutableStateOf(false)
+    var liveError by mutableStateOf<String?>(null)
+    var liveFailedSources by mutableIntStateOf(0)
+    var liveGroup by mutableStateOf("全部")
     var sleepMinutes by mutableIntStateOf(0)
     var remoteAction: ((JSONObject) -> Unit)? = null
     private var remoteCursor = 0L
@@ -212,6 +217,25 @@ class TvModel(app: Application) : AndroidViewModel(app) {
             fourKLoading=false
         }
     }
+    fun loadLive(force: Boolean = false) {
+        if (liveLoading) return
+        liveLoading = true; liveError = null
+        viewModelScope.launch {
+            try {
+                val catalogue = repo.liveChannels(force)
+                liveFailedSources = catalogue.failedSources
+                if (catalogue.channels.isEmpty() && catalogue.failedSources > 0) {
+                    liveError = "直播订阅暂时无法读取，请重试"
+                } else {
+                    liveChannels = catalogue.channels
+                    if (liveGroup != "全部" && liveChannels.none { it.group == liveGroup }) liveGroup = "全部"
+                }
+            } catch (error: Exception) {
+                if (error is kotlinx.coroutines.CancellationException) throw error
+                liveError = error.message ?: "直播频道加载失败"
+            } finally { liveLoading = false }
+        }
+    }
     fun next() {
         val w = watch ?: return
         if (w.index < w.detail.episodes.lastIndex) play(w.detail, w.index + 1, 0)
@@ -284,6 +308,7 @@ class TvModel(app: Application) : AndroidViewModel(app) {
     }
     fun signOut() {
         pairJob?.cancel(); repo.signOut(); paired = false; detail = null; watch = null; history = emptyList(); favorites = emptyList()
+        liveChannels = emptyList(); liveError = null; liveGroup = "全部"; liveFailedSources = 0
         listOf(movie,tv,classic).forEach { it.items.clear(); it.offset = 0; it.ended = false }
     }
 }
@@ -382,8 +407,8 @@ private fun BrowseScreen(model: TvModel) {
     Row(Modifier.fillMaxSize()) {
         Column(Modifier.width(120.dp).fillMaxHeight().background(Color(0xFF16161B)).verticalScroll(rememberScrollState()).padding(horizontal = 14.dp, vertical = 26.dp), verticalArrangement = Arrangement.spacedBy(14.dp)) {
             Text("LibreTV", color = Color(0xFFE50914), fontWeight = FontWeight.Bold, style = MaterialTheme.typography.titleLarge, modifier = Modifier.padding(bottom = 24.dp))
-            listOf("发现","4K专区","搜索","继续看","我的片单","设置").forEach { tab ->
-                Button(onClick = { model.activeTab = tab; model.sync(); if(tab=="4K专区") model.load4K() }, modifier = Modifier.fillMaxWidth().then(if(tab=="发现") Modifier.focusRequester(initialFocus) else Modifier),
+            listOf("发现","4K专区","直播","搜索","继续看","我的片单","设置").forEach { tab ->
+                Button(onClick = { model.activeTab = tab; model.sync(); if(tab=="4K专区") model.load4K(); if(tab=="直播") model.loadLive() }, modifier = Modifier.fillMaxWidth().then(if(tab=="发现") Modifier.focusRequester(initialFocus) else Modifier),
                     colors = ButtonDefaults.colors(containerColor = if (tab == model.activeTab) Color(0xFF393940) else Color.Transparent)) { Text(tab) }
             }
         }
@@ -412,7 +437,61 @@ private fun BrowseScreen(model: TvModel) {
                 else CollectionScreen("4K专区 · 已核实分辨率",model.fourK,model) { model.open(it) }
             }
             "设置" -> SettingsScreen(model)
+            "直播" -> LiveScreen(model)
         } } }
+    }
+}
+
+@Composable
+private fun LiveScreen(model: TvModel) {
+    val groups = listOf("全部") + model.liveChannels.map { it.group }.distinct()
+    val channels = model.liveChannels.filter { model.liveGroup == "全部" || it.group == model.liveGroup }
+    Column(Modifier.fillMaxSize().padding(32.dp), verticalArrangement = Arrangement.spacedBy(18.dp)) {
+        Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween, verticalAlignment = Alignment.CenterVertically) {
+            Column {
+                Text("直播", style = MaterialTheme.typography.headlineLarge)
+                Text("${model.liveChannels.size} 个频道 · 按确认播放，返回选择频道", color = Color(0xFFBCBCC7))
+            }
+            Button(onClick = { model.loadLive(true) }, enabled = !model.liveLoading) { Text(if(model.liveLoading) "刷新中…" else "刷新频道") }
+        }
+        model.liveError?.let { Text(it, color = Color(0xFFFFB9B9)) }
+        if (model.liveFailedSources > 0 && model.liveError == null) Text("${model.liveFailedSources} 个订阅暂时不可用，可刷新重试", color = Color(0xFFBCBCC7))
+        when {
+            model.liveLoading && model.liveChannels.isEmpty() -> Text("正在获取直播频道…", color = Color(0xFFBCBCC7))
+            model.liveChannels.isEmpty() -> Text(if(model.liveError != null) "选择“刷新频道”重新加载" else "暂时没有直播频道，请稍后刷新", color = Color(0xFFBCBCC7))
+            else -> {
+                LazyRow(horizontalArrangement = Arrangement.spacedBy(12.dp), contentPadding = PaddingValues(vertical = 8.dp)) {
+                    items(groups, key = { it }) { group ->
+                        Button(onClick = { model.liveGroup = group }, colors = ButtonDefaults.colors(containerColor = if(model.liveGroup == group) Color(0xFF393940) else Color(0xFF202026))) { Text(group) }
+                    }
+                }
+                key(model.liveGroup) {
+                    LazyColumn(state = rememberLazyListState(), verticalArrangement = Arrangement.spacedBy(16.dp), contentPadding = PaddingValues(vertical = 8.dp), modifier = Modifier.weight(1f)) {
+                        items(channels.chunked(3), key = { it.first().title.id }) { row ->
+                            Row(horizontalArrangement = Arrangement.spacedBy(16.dp)) {
+                                row.forEach { channel -> LiveChannelButton(channel, model, Modifier.weight(1f)) }
+                                repeat(3 - row.size) { Spacer(Modifier.weight(1f)) }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+@Composable
+private fun LiveChannelButton(channel: LiveChannel, model: TvModel, modifier: Modifier) {
+    val focus = remember { FocusRequester() }
+    val focusKey = "live:${channel.title.id}"
+    LaunchedEffect(Unit) { if (model.tabFocus["直播"] == focusKey) runCatching { focus.requestFocus() } }
+    Button(onClick = { model.open(channel.title) }, modifier = modifier.heightIn(min = 84.dp).focusRequester(focus).onFocusChanged {
+        if(it.isFocused) { model.focusKey = focusKey; model.tabFocus["直播"] = focusKey }
+    }) {
+        Column(verticalArrangement = Arrangement.spacedBy(5.dp)) {
+            Text(channel.title.title, style = MaterialTheme.typography.titleMedium, maxLines = 2)
+            Text(channel.group, style = MaterialTheme.typography.bodySmall, color = Color(0xFFBCBCC7), maxLines = 1)
+        }
     }
 }
 

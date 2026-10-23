@@ -6,10 +6,16 @@ import android.security.keystore.KeyProperties
 import android.util.AtomicFile
 import android.util.Base64
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
+import kotlinx.coroutines.awaitAll
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.sync.Semaphore
+import kotlinx.coroutines.sync.withPermit
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.withContext
 import okhttp3.HttpUrl.Companion.toHttpUrl
+import okhttp3.HttpUrl.Companion.toHttpUrlOrNull
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
 import okhttp3.Request
@@ -44,7 +50,17 @@ data class Title(val id: String, val title: String, val cover: String, val ratin
 }
 data class Detail(val title: Title, val episodes: List<String>, val description: String = "")
 data class Watch(val detail: Detail, val index: Int, val positionMs: Long = 0L)
+data class LiveChannel(val title: Title, val group: String)
+data class LiveCatalogue(val channels: List<LiveChannel>, val sourceCount: Int, val failedSources: Int)
 class ApiException(val status: Int, message: String) : Exception(message)
+
+fun parseLiveChannels(data: JSONObject, sourceName: String): List<LiveChannel> = data.optJSONArray("channels")?.objects().orEmpty().mapNotNull { channel ->
+    val url = channel.optString("url").trim().takeIf { it.toHttpUrlOrNull() != null } ?: return@mapNotNull null
+    val name = channel.optString("name").trim().takeIf { it.isNotEmpty() } ?: return@mapNotNull null
+    val id = MessageDigest.getInstance("SHA-256").digest(url.toByteArray()).take(12).joinToString("") { "%02x".format(it) }
+    LiveChannel(Title(id, name, channel.optString("logo"), source = Source("live_$id", sourceName, url), directUrl = url, isLive = true),
+        channel.optString("group").trim().ifBlank { "其他频道" })
+}.distinctBy { it.title.directUrl }
 
 fun historySource(record: JSONObject, sources: List<Source>): Source {
     val oldKey = record.optString("sourceKey")
@@ -188,6 +204,25 @@ class TvRepository(val context: Context) {
         account?.optJSONObject("user")?.optString("id")?.let { identity ->
             context.getSharedPreferences("source-cache", Context.MODE_PRIVATE).edit().putString(credentials.server + ":" + identity, JSONArray(sources.map(Source::json)).toString()).apply()
         }
+    }
+    suspend fun liveChannels(force: Boolean = false): LiveCatalogue = coroutineScope {
+        val status = request("/api/status")
+        val sources = status.optJSONArray("defaultLiveSources")?.objects().orEmpty()
+            .filter { it.optString("url").toHttpUrlOrNull() != null }.distinctBy { it.optString("url") }.take(20)
+        val permits = Semaphore(2)
+        val results = sources.map { source -> async {
+            permits.withPermit {
+                try {
+                    val url = "${credentials.server}/api/live/playlist".toHttpUrl().newBuilder()
+                        .addQueryParameter("url", source.optString("url")).addQueryParameter("force", if (force) "1" else "0").build()
+                    parseLiveChannels(request(url.toString().removePrefix(credentials.server)), source.optString("name", "直播"))
+                } catch (error: Exception) {
+                    if (error is kotlinx.coroutines.CancellationException || error is ApiException && error.status == 401) throw error
+                    null
+                }
+            }
+        } }.awaitAll()
+        LiveCatalogue(results.filterNotNull().flatten().distinctBy { it.title.directUrl }, sources.size, results.count { it == null })
     }
     suspend fun sync() {
         syncLock.withLock {

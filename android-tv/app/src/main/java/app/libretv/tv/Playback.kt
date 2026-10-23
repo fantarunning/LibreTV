@@ -182,7 +182,8 @@ fun PlaybackScreen(model: TvModel) {
         autoSkip = !watch.detail.title.isLive && (preferences?.optBoolean("autoSkipSegments", true) ?: true)
         adFilter = preferences?.optBoolean("adFilter", true) ?: true
         player.setMediaItem(currentMedia())
-        player.seekTo(watch.positionMs); player.prepare()
+        if (watch.detail.title.isLive) player.seekToDefaultPosition() else player.seekTo(watch.positionMs)
+        player.prepare()
         player.playWhenReady = lifecycleOwner.lifecycle.currentState.isAtLeast(Lifecycle.State.STARTED)
         val marks = model.repo.cloud?.value("skip", skipKey)
         skipSegments = if (marks?.optBoolean("enabled", true) != false) marks?.optJSONArray("segments") ?: JSONArray() else JSONArray()
@@ -204,7 +205,9 @@ fun PlaybackScreen(model: TvModel) {
                 if (!triedProxy) {
                     triedProxy = true
                     val at = player.currentPosition
-                    player.setMediaItem(currentMedia(forceProxy = true)); player.seekTo(at); player.prepare()
+                    player.setMediaItem(currentMedia(forceProxy = true))
+                    if (playbackRef.detail.title.isLive) player.seekToDefaultPosition() else player.seekTo(at)
+                    player.prepare()
                     player.playWhenReady = lifecycleOwner.lifecycle.currentState.isAtLeast(Lifecycle.State.STARTED)
                 } else { failure = "此来源播放失败 (${error.errorCodeName})，可重试或换源"; controls = true }
             }
@@ -303,7 +306,8 @@ fun PlaybackScreen(model: TvModel) {
                     if(failure != null) Button(onClick = {
                         failure = null; triedProxy = false
                         player.setMediaItem(currentMedia())
-                        player.seekTo(position); player.prepare(); player.play()
+                        if (watch.detail.title.isLive) player.seekToDefaultPosition() else player.seekTo(position)
+                        player.prepare(); player.play()
                     }) { Text("重试播放") }
                     Button(onClick = { player.seekTo((position - 10000).coerceAtLeast(0)) }) { Text("−10 秒") }
                     Button(onClick = { player.seekTo((position + 10000).coerceAtMost(duration)) }) { Text("+10 秒") }
@@ -314,7 +318,7 @@ fun PlaybackScreen(model: TvModel) {
                     Button(onClick = { ratio = when(ratio) { AspectRatioFrameLayout.RESIZE_MODE_FIT -> AspectRatioFrameLayout.RESIZE_MODE_FILL; AspectRatioFrameLayout.RESIZE_MODE_FILL -> AspectRatioFrameLayout.RESIZE_MODE_ZOOM; else -> AspectRatioFrameLayout.RESIZE_MODE_FIT } }) { Text(when(ratio) { AspectRatioFrameLayout.RESIZE_MODE_FILL -> "拉伸"; AspectRatioFrameLayout.RESIZE_MODE_ZOOM -> "填满"; else -> "原始比例" }) }
                     if(!watch.detail.title.isLive) Button(onClick = { menu = "片段标记"; player.pause() }) { Text("跳过标记") }
                     Button(onClick = { menu = "睡眠定时" }) { Text("定时") }
-                    Button(onClick = { save(); model.watch = null }) { Text("返回详情") }
+                    Button(onClick = { save(); model.watch = null }) { Text(if(watch.detail.title.isLive) "返回频道" else "返回详情") }
                 }
             }
         }

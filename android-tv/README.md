@@ -5,8 +5,8 @@ Native Android TV client for the existing LibreTV service. Compose for TV provid
 ## Install
 
 - Release artifact: `../public/downloads/libretv-tv.apk` (also copied to `output/libretv-tv-release.apk`).
-- Frozen release SHA-256: `7F978B3C8F53CFF2EEEBA7C8CFD24368176DB9D7A8D6D2BBBB25C4EFFBF78ECE` (10,188,484 bytes).
-- Package `app.libretv.tv`, version `1.0.0` / versionCode `1`, Android 8.0 / API 26 or newer.
+- Release SHA-256: `522DDD24602B38E0D3AD8DD17B1F901ED6E66586EDAD2867DC2B8EABB20C1F03` (10,204,868 bytes).
+- Package `app.libretv.tv`, version `1.0.1` / versionCode `2`, Android 8.0 / API 26 or newer. This release uses the original signing certificate and can update 1.0.0 in place.
 - Default server `https://comic.fenda.cc`; the pairing screen can change the address.
 - Install through the television's local APK installer, or `adb install -r libretv-tv.apk` when ADB is enabled.
 - A debug APK uses a different certificate. Remove that test package before installing the release APK; removing an app clears its local data.
@@ -17,6 +17,8 @@ Open LibreTV, choose Generate pairing code, then scan with the phone or enter th
 
 - Dark, image-led television discovery page, side navigation, horizontal movie/series/high-rating rows, history and saved titles.
 - A dedicated 4K section loads the server's `/sources/4k.json` catalogue, displaying its verified resolution. Live entries start at the live edge, bypass disk cache and do not restore positions, save episode progress or auto-advance. VOD entries keep normal history. Missing/empty catalogues show an explicit reload action; the client never fabricates entries.
+- A separate Live section reads the server's `defaultLiveSources` M3U subscriptions through `/api/live/playlist`, with channel groups, D-pad selection, returning-player focus restoration, refresh and error retry. It uses all deployment-default live subscriptions, deduplicates channel URLs and refreshes subscriptions whenever the section is opened. Future server-side channel changes do not require a new APK. It does not label ordinary HD channels as 4K or import phone-only custom live subscriptions.
+- Live startup, proxy fallback and playback retry use the stream's default live position instead of seeking to the start of its available window. This avoids adding the entire playlist window to the playback delay; it does not turn ordinary HLS into a low-latency broadcasting protocol.
 - Genuine offset pagination, ID deduplication, short/empty/repeated-page termination, loading locks and retry controls. D-pad focus and list positions are restored when returning to a section or detail screen.
 - Aggregated search, source selection, episode details and episode selection through the existing server APIs.
 - Native Media3 playback, remote media keys, seek, speed, original/stretch/zoom modes, selectable in-stream subtitles and audio tracks, next-episode countdown, pause before recording skip markers, source switch at the existing episode/position, explicit playback retry and sleep timer.
@@ -25,7 +27,7 @@ Open LibreTV, choose Generate pairing code, then scan with the phone or enter th
 - Video cache: 256 MiB LRU on app cache storage; poster cache: 48 MiB disk / 24 MiB memory. Forward buffer 15–45 seconds with a 64 MiB target. Next-episode prewarm attempts at most two segments, each capped at 1 MiB.
 - Foreground device-command polling (`play`, `pause`, `resume`, `seek`), with a persistent per-device cursor. The server must authorize the phone and target television to the same account.
 
-The cache is opportunistic and can be evicted by Android. Full offline episode downloads and picture-in-picture are not implemented. General M3U/IPTV subscription browsing is provided by the web application; native live playback is available through the curated 4K catalogue. HDR, DRM, decoder formats and available tracks depend on the source and device. Media3 uses platform renderer selection with decoder fallback, and the control bar shows actual selected video width/height, codec and decoder component name; a catalogue's label alone is not proof that a 4K variant is currently decoded.
+The cache is opportunistic and can be evicted by Android. Full offline episode downloads and picture-in-picture are not implemented. Personal M3U/IPTV subscription management is provided by the web application; the TV Live section uses the server's default subscriptions. HDR, DRM, decoder formats and available tracks depend on the source and device. Media3 uses platform renderer selection with decoder fallback, and the control bar shows actual selected video width/height, codec and decoder component name; a catalogue's label alone is not proof that a 4K variant is currently decoded.
 
 ## API contracts
 
@@ -36,6 +38,7 @@ The authoritative shared document is `../IMPLEMENTATION.md` and `../src/lib/clou
 | `POST /api/tv/pair`, `GET /api/tv/pair?deviceCode=...` | Generate/poll pairing; receive device token only through this channel |
 | `GET /api/account/me` | Session/account identity and expiry |
 | `GET /api/status` | Environment source pool |
+| `GET /api/live/playlist?url=...&force=1` | Parse a default live subscription; explicit refresh bypasses the playlist cache |
 | `GET /api/douban?type=...&tag=...&pageStart=N&pageSize=20` | Paged discovery |
 | `POST /api/search` | `{wd,sources,filterAdult:true}` |
 | `GET /api/detail?id=...&source=<JSON>` | Episodes and metadata |
@@ -43,6 +46,8 @@ The authoritative shared document is `../IMPLEMENTATION.md` and `../src/lib/clou
 | `GET /api/tv/commands?after=N` | `{commands:[{id,action,payload}],cursor}` |
 
 Sync GET/POST captures the paired account ID in `x-libretv-account`, protecting against logout/account-switch request races. History and progress keys match the browser; skip keys use the same Unicode punctuation/symbol normalization. Movie favorites use a separate `vod:` prefix. Playback preferences and phone-selected custom sources share the existing `preferences` documents. Server/environment sources are not copied into the custom-source payload.
+
+Previously selected VOD sources remain authoritative: when an account already has a saved selection, open the phone/web site, enable the newly added VOD sources in settings and let the account sync. TV refreshes those choices during its normal sync; it does not silently re-enable a source the user disabled.
 
 The native media stack removes Authorization from external requests and adds the device Bearer only when scheme, host and port match the configured LibreTV server. Source/CDN requests receive UA/Referer only. Cache keys for source media segments use their original URLs across direct and manifest-proxy paths.
 
@@ -61,8 +66,11 @@ Release signing material is outside the repository, in `%LOCALAPPDATA%\LibreTV\s
 
 ## Verification evidence, 2026-10-23
 
+- Version 1.0.1 compiled in release mode with six passing contract tests, including live channel validation, URL deduplication and stable identity after playlist reordering. The signed APK passed v2 and ZIP alignment checks with 16 KiB page checks. `adb install -r` updated the existing emulator 1.0.0 release to 1.0.1 without uninstalling or clearing app data; it retained the same data inode and has no `DEBUGGABLE` flag.
+- The signed 1.0.1 emulator client loaded a 24-channel, two-group protocol fixture through `/api/status` and `/api/live/playlist`. D-pad group selection and scrolling to channel 19, native media playback, return-to-channel focus restoration, retained channels after a simulated HTTP 502 and successful explicit retry were verified. No history/progress documents were created by live playback. Evidence: `output/evidence/live-fixture-acceptance.json` and `live-*.png`. These synthetic channels validate client behavior, not provider availability or live delay.
+- The same signed 1.0.1 APK then paired against production `https://comic.fenda.cc` with a verified 365-day session. Its Settings page showed 16 selected VOD sources, and Live showed 21 channels in five groups from the two production subscriptions. Actual Media3 decoding succeeded for Hebei TV (3840×2160, confirmation-to-PLAYING 3.34 s), Yangzhou News (1920×1080, 7.45 s) and Hanjiang (1280×720, 6.42 s). CNA also played (10.88 s), but its adaptive master selected 480×270 on the emulator network; the available 1080p source rendition was not the selected playback quality. These are individual emulator startup observations, not broadcast end-to-end latency or TCL measurements. Returning from playback restored Hanjiang's channel focus. Only this acceptance TV device was revoked; all baseline devices remained. Sanitized evidence: `output/evidence/live-production-acceptance.json`, the `live-production-*.json` samples and screenshots.
 - Release compilation/packaging and unit tests passed. API contract tests cover Unicode title normalization, source round-trip fields, browser history ID/cover mapping and historical source URL/key stability after source-pool reordering.
-- The frozen public APK passed APK Signature Scheme v2 verification (RSA 3072) and ZIP alignment with 16 KiB page checks. It was installed and launched on the API 34 emulator after removing the debug package; package inspection showed `versionName=1.0.0`, `versionCode=1`, no `DEBUGGABLE` flag, and its default server was the production HTTPS address (`release-installed.png`).
+- The initial 1.0.0 release passed APK Signature Scheme v2 verification (RSA 3072) and ZIP alignment with 16 KiB page checks. It was installed and launched on the API 34 emulator after removing the debug package; package inspection showed `versionName=1.0.0`, `versionCode=1`, no `DEBUGGABLE` flag, and its default server was the production HTTPS address (`release-installed.png`).
 - The Android TV API 34 x86 emulator ran the native app at 1920×1080; screenshots are under `output/evidence/`. A 130% system font-size capture shows the nineteenth poster focused with a complete focus border; font scale was restored to 1.0.
 - A deterministic local Node server exercised pairing, account identity, source pool, paginated discovery, search/detail, device commands and sync. The D-pad reached the nineteenth poster and the fixture log recorded `pageStart=20`, rather than a local array-only expansion.
 - Media3 decoded Google's official `android-screens-10s.mp4` fixture. `dumpsys media_session` reported `PLAYING`, position 1.021 s, buffered position 10.024 s and no player error. History/progress reached the fixture sync endpoint with `x-libretv-account: fixture-user`.
@@ -73,4 +81,4 @@ Release signing material is outside the repository, in `%LOCALAPPDATA%\LibreTV\s
 
 `tools/mock-server.mjs` is a test-only protocol fixture, not a source provider or production account service. To reproduce, place the official sample in ignored `tools/fixtures/sample.mp4`, start the Node script on port 19888, and use the debug build against `http://10.0.2.2:19888`. The sample URL is `https://storage.googleapis.com/androiddevelopers/samples_assets/exoplayer-test-media-1/mp4/android-screens-10s.mp4`. Mock records/posters are explicitly synthetic; sample media proves decoding, not production-source availability.
 
-The TCL T7K was not connected. Its installation, overscan/remote key mapping, 4K/HDR/hardware-decoder behavior, sustained frame timing and real production playback remain physical-device checks. The user authorized website/APK delivery before those checks. The real account flow above was verified against Tokyo staging; the earlier protocol harness alone would not establish it.
+The TCL T7K was not connected. Its installation, overscan/remote key mapping, 4K/HDR/hardware-decoder behavior, sustained frame timing and real production playback remain physical-device checks. The user authorized website/APK delivery before those checks. Account pairing was verified against both Tokyo staging and production using the emulator; these checks do not establish physical-television performance.

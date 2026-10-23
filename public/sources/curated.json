@@ -1,5 +1,5 @@
 {
-  "name": "LibreTV 家庭候选源（链路实测）",
+  "name": "LibreTV 家庭点播与直播精选",
   "sources": [
     {
       "url": "https://jszyapi.com/api.php/provide/vod",
@@ -57,7 +57,41 @@
       "name": "iKun资源",
       "url": "https://ikunzyapi.com/api.php/provide/vod",
       "isAdult": false
+    },
+    {
+      "name": "吉吉资源",
+      "url": "https://caiji.jjzyapi.com/api.php/provide/vod",
+      "isAdult": false
+    },
+    {
+      "name": "西瓜资源",
+      "url": "https://caiji.xgzyapi.com/api.php/provide/vod",
+      "isAdult": false
+    },
+    {
+      "name": "猫眼资源",
+      "url": "https://api.maoyanapi.top/api.php/provide/vod",
+      "isAdult": false
+    },
+    {
+      "name": "红牛资源",
+      "url": "https://www.hongniuzy2.com/api.php/provide/vod",
+      "isAdult": false
+    },
+    {
+      "name": "金鹰资源",
+      "url": "https://jyzyapi.com/provide/vod/from/jinyingm3u8/at/json",
+      "isAdult": false
     }
   ],
-  "liveSources": []
+  "liveSources": [
+    {
+      "name": "高清直播 · 1080P / 4K",
+      "url": "https://comic.fenda.cc/sources/live-primary.m3u"
+    },
+    {
+      "name": "地区频道补充 · 720P",
+      "url": "https://comic.fenda.cc/sources/live-720p.m3u"
+    }
+  ]
 }

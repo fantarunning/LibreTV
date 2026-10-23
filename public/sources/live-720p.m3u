@@ -1,0 +1,17 @@
+#EXTM3U
+#PLAYLIST:地区频道补充 · 720P
+# Verified from Tokyo on 2026-10-23; resolution from media headers; no end-to-end live latency claim.
+#EXTINF:-1 tvg-id="" group-title="720p补充",邗江频道 720p
+https://yztv-wshls.yzbtv.cn/live/8c3.m3u8
+#EXTINF:-1 tvg-id="" group-title="720p补充",江都频道 720p
+https://yztv-wshls.yzbtv.cn/live/8c1.m3u8
+#EXTINF:-1 tvg-id="" group-title="720p补充",扬州民生 720p
+https://yztv-wshls.yzbtv.cn/live/8bd.m3u8
+#EXTINF:-1 tvg-id="GuangzhouTV.cn@SD" group-title="720p补充",广州综合 720p
+https://tencentplaybusiness.gztv.com/live/zonghes.m3u8
+#EXTINF:-1 tvg-id="" group-title="720p补充",苏州电影娱乐 720p
+https://live-auth.51kandianshi.com/szgd/csztv4.m3u8
+#EXTINF:-1 tvg-id="" group-title="720p补充",苏州生活资讯 720p
+https://live-auth.51kandianshi.com/szgd/csztv5.m3u8
+#EXTINF:-1 tvg-id="" group-title="720p补充",苏州文化生活 720p
+https://live-auth.51kandianshi.com/szgd/csztv3.m3u8

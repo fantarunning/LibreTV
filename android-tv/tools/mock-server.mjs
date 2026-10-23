@@ -6,6 +6,9 @@ const port=19888;
 const media=path.join(import.meta.dirname,'fixtures','sample.mp4');
 const icon=path.resolve(import.meta.dirname,'../../public/icons/icon-512.png');
 const source={key:'fixture',name:'模拟器验证源',url:'http://example.com/api.php/provide/vod'};
+const liveSource={key:'fixture-live',name:'模拟器直播协议验证',url:'https://fixture.example/playlist.m3u'};
+let liveUnavailable=false;
+let liveChannels=Array.from({length:24},(_,i)=>({id:`live-${i}`,name:`协议验证频道 ${String(i+1).padStart(2,'0')}`,url:`http://10.0.2.2:${port}/media.mp4?channel=${i}`,group:i<12?'演示分组一':'演示分组二'}));
 let version=0;
 const records=new Map();
 const requests=[];
@@ -20,7 +23,9 @@ const server=http.createServer(async(req,res)=>{
  const card=i=>({id:`film-${i}`,title:`演示影片 ${String(i+1).padStart(2,'0')}`,cover:`http://10.0.2.2:${port}/poster.png`,rating:'8.6'});
  if(url.pathname==='/api/tv/pair')return json(req.method==='POST'?{deviceCode:'fixture-device',userCode:'12345678',expiresAt:Date.now()+600000,verificationUrl:`http://localhost:${port}/account/tv?code=12345678`}:{status:++pairPolls>1?'authorized':'pending',token:pairPolls>1?'emulator-fixture-token':undefined});
  if(url.pathname==='/api/account/me')return json({user:{id:'fixture-user',name:'模拟验证账号'},device:{id:'fixture-tv',name:'TV emulator',type:'tv',expiresAt:Date.now()+365*86400000},syncEnabled:true});
- if(url.pathname==='/api/status')return json({defaultSources:[source]});
+ if(url.pathname==='/api/status')return json({defaultSources:[source],defaultLiveSources:[liveSource]});
+ if(url.pathname==='/fixture/live-mode'){liveUnavailable=body.unavailable===true;if(Array.isArray(body.channels))liveChannels=body.channels;return json({ok:true});}
+ if(url.pathname==='/api/live/playlist')return liveUnavailable?json({error:'模拟直播订阅暂时不可用'},502):json({name:liveSource.name,channels:liveChannels,groups:[...new Set(liveChannels.map(c=>c.group))]});
  if(url.pathname==='/sources/4k.json'){
   const catalogue=path.resolve(import.meta.dirname,'../../public/sources/4k.json');
   return fs.existsSync(catalogue)?json(JSON.parse(fs.readFileSync(catalogue,'utf8'))):json({items:[]});

@@ -71,9 +71,9 @@ python scripts/infra/tokyo-ssh.py deploy/tokyo/rollback.sh --target $target --ar
 
 ## 播放源
 
-默认源使用 [候选清单与链路报告](../public/sources/README.md) 中东京通过的 11 个源；失败候选不自动启用。报告覆盖搜索、详情、HLS 清单、中段分片，仍需手机/平板/实际电视解码和持续播放验证。没有把列表发布到外部分享服务。
+默认源使用 [候选清单与链路报告](../public/sources/README.md) 中的 16 个点播源、2 个直播订阅；失败候选不自动启用。直播合计 21 个频道，其中 14 个为 1080P/4K、7 个为 720P 补充。报告覆盖搜索、详情、HLS 清单、中段分片，仍需手机/平板/实际电视解码和持续播放验证。
 
-将审定的 JSON 上传到主机后，用 `curated-sources.sh` 写入 `prod.env.next`。源名使用原生 UTF-8，避免 `\uXXXX` 在 systemd EnvironmentFile 中丢失反斜杠。重新启动 staging 后应核对运行中环境或登录状态 API 的源名确实可读，不能只检查 env 文件内容。
+将审定的 JSON 上传到主机后，用 `curated-sources.sh` 写入 `prod.env.next` 的 `DEFAULT_SOURCES` 和可选 `DEFAULT_LIVE_SOURCES`。源名使用原生 UTF-8，避免 `\uXXXX` 在 systemd EnvironmentFile 中丢失反斜杠。重新启动 staging 后应核对运行中环境或登录状态 API 的源名确实可读，不能只检查 env 文件内容。新自托管 M3U 在切换版本前还不能通过旧生产进程获取，预发布需读取新实例自身静态文件并验证媒体；激活后必须再验证正式订阅解析 API。
 
 ## 本次正式结果
 
