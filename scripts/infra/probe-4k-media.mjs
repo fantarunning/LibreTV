@@ -74,9 +74,13 @@ async function probeMedia(url,declared={},depth=0){
 async function detail(source,id){const url=new URL(source);url.searchParams.set('ac','videolist');url.searchParams.set('ids',String(id));const res=await bytes(url);return JSON.parse(res.body.toString('utf8')).list?.[0];}
 if(Array.isArray(discovery.items)){
  const checkedAt=new Date().toISOString();
- const liveResults=await Promise.all(discovery.items.map(async item=>{
-  try{const proof=await probeMedia(item.url);console.log(`${item.id}: ${proof.width||'?'}x${proof.height||'?'} ${proof.codec||'?'} 2160=${proof.verified2160}`);return {...item,...proof,verifiedAt:checkedAt};}
-  catch(err){console.log(`${item.id}: failed ${err.name}`);return {...item,error:/^[a-z0-9-]+$/.test(err.message)?err.message:err.name};}
+ const liveResults=new Array(discovery.items.length);let itemIndex=0;
+ await Promise.all(Array.from({length:Math.min(Number(process.env.PROBE_CONCURRENCY||2),discovery.items.length)},async()=>{
+  while(itemIndex<discovery.items.length){
+   const index=itemIndex++;const item=discovery.items[index];
+   try{const proof=await probeMedia(item.url);console.log(`${item.id}: ${proof.width||'?'}x${proof.height||'?'} ${proof.codec||'?'} 2160=${proof.verified2160}`);liveResults[index]={...item,...proof,verifiedAt:checkedAt};}
+   catch(err){console.log(`${item.id}: failed ${err.name}`);liveResults[index]={...item,error:/^[a-z0-9-]+$/.test(err.message)?err.message:err.name};}
+  }
  }));
  await fs.writeFile(output,JSON.stringify({checkedAt,vantage:process.env.PROBE_VANTAGE||'local',results:liveResults},null,2)+'\n');
  const items=liveResults.filter(x=>x.verified4k).map(({id,title,url,kind,width,height,codec,verifiedAt,provider})=>({id,title,url,kind,width,height,codec,verifiedAt,provider}));
