@@ -19,7 +19,7 @@ import { EmptyState, LoadingState, Spinner } from '@/components/states';
 import { SwitchSourceModal } from '@/components/switch-source';
 import { SkipMarkPanel } from '@/components/skip-mark-panel';
 import { skipMarkKey, validateSegment, type SkipSegment } from '@/lib/skip-marks';
-import type { PlayerSkipApi } from '@/components/player-shell';
+import type { PlaybackTracks, PlayerSkipApi } from '@/components/player-shell';
 import { useToast } from '@/components/toast';
 import { enqueueDownload } from '@/components/download-manager';
 import { Icon } from '@/components/icon';
@@ -35,6 +35,8 @@ import {
   db,
 } from '@/lib/db';
 import { cn } from '@/lib/utils';
+import { syncNow } from '@/lib/cloud-sync';
+import { TvRemote } from '@/components/tv-remote';
 
 /**
  * 播放页（唯一入口，替代旧版 watch.html → player.html 跳转链）。
@@ -53,18 +55,22 @@ function WatchContent() {
   const searchParams = useSearchParams();
   const router = useRouter();
   const store = useAppStore();
-  const { verified } = useAuth();
+  const { verified, checked, openLogin } = useAuth();
   const { toast } = useToast();
 
   const sourceKey = searchParams.get('source') || '';
   const vodId = searchParams.get('id') || '';
   const directUrl = searchParams.get('url') || '';
+  const standalone = searchParams.get('direct') === '1';
   const titleParam = searchParams.get('title') || '';
   const indexParam = parseInt(searchParams.get('index') || '0', 10) || 0;
 
   const [reversed, setReversed] = useState(false);
   const [switchOpen, setSwitchOpen] = useState(false);
   const [skipPanelOpen, setSkipPanelOpen] = useState(false);
+  const [nextCountdown, setNextCountdown] = useState<number | null>(null);
+  const [sleep, setSleep] = useState('0');
+  const [tracks, setTracks] = useState<PlaybackTracks>({ qualities: [], audio: [], subtitles: [], quality: -1, audioId: -1, subtitleId: -1 });
   // 播放器对外暴露的精确时间读取接口（「记录当前」用），随播放器卸载置空
   const playerApiRef = useRef<PlayerSkipApi | null>(null);
   // 播放框：小屏「跳过标记」抽屉要按它的底边算剩余高度，避免压住画面
@@ -102,13 +108,14 @@ function WatchContent() {
   const source = resolveSource(store, sourceKey, {
     url: searchParams.get('sourceUrl') || undefined,
     detail: searchParams.get('detail') || undefined,
+    name: searchParams.get('sourceName') || undefined,
   });
 
   // 详情查询：无 id（纯直连链接分享）时跳过
   const detailQuery = useQuery({
     queryKey: ['detail', sourceKey, vodId, source?.url],
     queryFn: ({ signal }) => api.detail(vodId, source!, signal),
-    enabled: Boolean(source && vodId && verified),
+    enabled: Boolean(source && vodId && verified && !standalone),
     staleTime: 5 * 60_000,
   });
 
@@ -179,11 +186,14 @@ function WatchContent() {
         playbackPosition: 0,
         duration: 0,
         timestamp: Date.now(),
+        ...(standalone ? { directUrl: currentUrl, width: Number(searchParams.get('width')) || undefined, height: Number(searchParams.get('height')) || undefined, codec: searchParams.get('codec') || undefined } : {}),
       }).catch(() => {});
     }, 2000);
     return () => clearTimeout(timer);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [verified, sourceKey, vodId, currentIndex, videoTitle, currentUrl]);
+
+  useEffect(() => { if (checked && !verified) openLogin(); }, [checked, verified, openLogin]);
 
   // 播放中与暂停时的进度落盘逻辑一致，共用同一回调
   const handleProgress = useCallback(
@@ -196,18 +206,40 @@ function WatchContent() {
     [sourceKey, vodId, currentIndex, currentUrl]
   );
 
-  // 自动连播的 800ms 延迟切集要在卸载时取消，避免离开页面后跳转
-  const autoNextTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
-  useEffect(() => () => {
-    if (autoNextTimer.current) clearTimeout(autoNextTimer.current);
-  }, []);
+  const handlePause = useCallback((position: number, duration: number) => {
+    if (!vodId) return;
+    void Promise.all([
+      saveProgress(sourceKey, vodId, currentIndex, position, duration),
+      updateHistoryProgress(sourceKey, vodId, position, duration),
+    ]).then(() => syncNow()).catch(() => {});
+  }, [sourceKey, vodId, currentIndex]);
+
+  useEffect(() => {
+    const minutes = Number(sleep);
+    if (!Number.isFinite(minutes) || minutes <= 0) return;
+    const timer = setTimeout(() => {
+      playerApiRef.current?.pause();
+      setNextCountdown(null);
+      setSleep('0');
+      toast('已按睡眠定时暂停播放', 'info');
+    }, minutes * 60_000);
+    return () => clearTimeout(timer);
+  }, [sleep, toast]);
+
+  useEffect(() => { setNextCountdown(null); }, [currentIndex, sourceKey, vodId]);
+  useEffect(() => {
+    if (nextCountdown === null) return;
+    if (nextCountdown <= 0) { setNextCountdown(null); goEpisode(currentIndex + 1); return; }
+    const timer = setTimeout(() => setNextCountdown((value) => value === null ? null : value - 1), 1000);
+    return () => clearTimeout(timer);
+  }, [nextCountdown, currentIndex, goEpisode]);
 
   const handleEnded = useCallback(() => {
     if (vodId) clearProgress(sourceKey, vodId, currentIndex).catch(() => {});
-    if (store.autoplayNext && currentIndex < episodes.length - 1) {
-      autoNextTimer.current = setTimeout(() => goEpisode(currentIndex + 1), 800);
-    }
-  }, [store.autoplayNext, currentIndex, episodes.length, goEpisode, sourceKey, vodId]);
+    if (sleep === 'episode') { setSleep('0'); toast('本集已结束，已停止连播', 'info'); return; }
+    if (store.autoplayNext && currentIndex < episodes.length - 1) setNextCountdown(5);
+    void syncNow();
+  }, [store.autoplayNext, currentIndex, episodes.length, sourceKey, vodId, sleep, toast]);
 
   // 快捷键（Shift+I/O/S/E）记录片段：校验后写入
   const handleRecordSegment = useCallback(
@@ -314,7 +346,7 @@ function WatchContent() {
       <main className="flex-1 max-w-7xl w-full mx-auto px-4 py-4">
         <div className="grid grid-cols-1 lg:grid-cols-[1fr_300px] gap-4">
           <div>
-            <div ref={playerFrameRef} className="aspect-video bg-black rounded-lg overflow-hidden">
+            <div ref={playerFrameRef} className="relative aspect-video bg-black rounded-lg overflow-hidden">
               {currentUrl ? (
                 <PlayerShell
                   url={currentUrl}
@@ -326,13 +358,14 @@ function WatchContent() {
                   pendingStart={pendingStart}
                   onPendingStart={setPendingStart}
                   onPlayerApi={(api) => { playerApiRef.current = api; }}
+                  onTracks={setTracks}
                   onRecordSegment={handleRecordSegment}
                   episodeKey={`${sourceKey}:${vodId}:${currentIndex}`}
                   nextUrl={currentIndex + 1 < episodes.length ? episodes[currentIndex + 1] : undefined}
                   nextEpisodeKey={currentIndex + 1 < episodes.length ? `${sourceKey}:${vodId}:${currentIndex + 1}` : undefined}
                   getRestorePosition={getRestorePosition}
                   onTimeUpdate={handleProgress}
-                  onPause={handleProgress}
+                  onPause={handlePause}
                   onEnded={handleEnded}
                   hasPrevEpisode={currentIndex > 0}
                   hasNextEpisode={episodes.length > 0 && currentIndex < episodes.length - 1}
@@ -357,6 +390,10 @@ function WatchContent() {
                   )}
                 </div>
               )}
+              {nextCountdown !== null && <div className="absolute bottom-4 right-4 z-20 bg-black/90 rounded-lg p-3 text-white flex items-center gap-4" role="status">
+                <span className="text-sm">{nextCountdown} 秒后播放下一集</span>
+                <button className="px-3 py-1.5 bg-white text-black rounded-md text-sm" onClick={() => setNextCountdown(null)}>取消</button>
+              </div>}
             </div>
 
             {/* 操作栏 */}
@@ -375,6 +412,36 @@ function WatchContent() {
               >
                 下一集
               </button>
+              <TvRemote source={source} vodId={vodId} title={videoTitle} episodeIndex={currentIndex} getPosition={() => playerApiRef.current?.getCurrentTime() ?? 0}
+                direct={standalone ? { directUrl: currentUrl, width: Number(searchParams.get('width')) || undefined, height: Number(searchParams.get('height')) || undefined, codec: searchParams.get('codec') || undefined, isLive: false } : undefined} />
+              <label className="flex items-center gap-1.5 text-xs text-muted">睡眠
+                <select aria-label="睡眠定时" className="bg-chip text-content rounded-md px-2 py-1.5" value={sleep} onChange={(event) => setSleep(event.target.value)}>
+                  <option value="0">关闭</option><option value="15">15 分钟</option><option value="30">30 分钟</option><option value="60">60 分钟</option><option value="episode">播完本集</option>
+                </select>
+              </label>
+              {tracks.qualities.length > 1 && <label className="flex items-center gap-1.5 text-xs text-muted">画质
+                <select aria-label="播放清晰度" className="bg-chip text-content rounded-md px-2 py-1.5" value={tracks.quality} onChange={(event) => playerApiRef.current?.selectQuality(Number(event.target.value))}>
+                  <option value={-1}>自动</option>{tracks.qualities.map((track) => <option key={track.id} value={track.id}>{track.label}</option>)}
+                </select>
+              </label>}
+              {tracks.audio.length > 1 && <label className="flex items-center gap-1.5 text-xs text-muted">音轨
+                <select aria-label="播放音轨" className="bg-chip text-content rounded-md px-2 py-1.5" value={tracks.audioId} onChange={(event) => playerApiRef.current?.selectAudio(Number(event.target.value))}>
+                  {tracks.audio.map((track) => <option key={track.id} value={track.id}>{track.label}</option>)}
+                </select>
+              </label>}
+              <label className="btn-ghost btn-sm cursor-pointer">外挂字幕
+                <input type="file" className="sr-only" aria-label="加载 SRT 或 WebVTT 字幕" accept=".srt,.vtt" onChange={(event) => {
+                  const file = event.target.files?.[0]; event.target.value = '';
+                  if (!file) return;
+                  if (file.size > 2 * 1024 * 1024) { toast('字幕文件不能超过 2MB', 'error'); return; }
+                  void file.text().then((text) => { if (!playerApiRef.current) throw new Error('播放器尚未就绪'); playerApiRef.current.loadSubtitle(text); toast('外挂字幕已加载', 'success'); }).catch((error: Error) => toast(error.message, 'error'));
+                }} />
+              </label>
+              {(tracks.subtitles.length > 0 || tracks.externalSubtitle) && <label className="flex items-center gap-1.5 text-xs text-muted">字幕
+                <select aria-label="播放字幕" className="bg-chip text-content rounded-md px-2 py-1.5" value={tracks.subtitleId} onChange={(event) => playerApiRef.current?.selectSubtitle(Number(event.target.value))}>
+                  <option value={-1}>关闭</option>{tracks.externalSubtitle && <option value={-2}>外挂字幕</option>}{tracks.subtitles.map((track) => <option key={track.id} value={track.id}>{track.label}</option>)}
+                </select>
+              </label>}
               <button
                 className={cn('btn-ghost btn-sm', skipPanelOpen && 'bg-chip text-content')}
                 aria-expanded={skipPanelOpen}

@@ -3,6 +3,7 @@ import { guardRequest } from '@/lib/api-guard';
 import { cmsRequestHeaders, filterAdultResults, filterRelevantResults, normalizeTitle, parseSearchList } from '@/lib/cms-parser';
 import { fetchUpstream, getCache, setCache } from '@/lib/fetch-utils';
 import { checkUpstreamAllowed } from '@/lib/ssrf';
+import { forEachBounded } from '@/lib/bounded-work';
 import type { SearchResponse, SearchStreamEvent, SourceConfig, SourceSearchOutcome } from '@/lib/types';
 
 export const runtime = 'nodejs';
@@ -25,7 +26,7 @@ function searchCacheKey(wd: string, sources: SourceConfig[], filterAdult: boolea
 /**
  * 每个源最多抓取的页数。
  * 第一页响应会带回 pagecount（源站真实总页数），实际抓取页数 = min(pagecount, 该值)。
- * 默认 5；页与页之间并行请求，单页失败只丢弃该页。
+ * 默认 5；后续页最多 2 个并行请求，单页失败只丢弃该页。
  */
 const SEARCH_MAX_PAGES = (() => {
   const n = parseInt(process.env.SEARCH_MAX_PAGES || '5', 10);
@@ -44,6 +45,11 @@ const SEARCH_SOURCE_TIMEOUT_MS = (() => {
   return Math.min(60000, Math.max(3000, n));
 })();
 
+function searchConcurrency(): number {
+  const value = parseInt(process.env.SEARCH_CONCURRENCY || '4', 10);
+  return Number.isFinite(value) ? Math.min(8, Math.max(1, value)) : 4;
+}
+
 /** AbortSignal.timeout / 源级死线中断均以 TimeoutError 语义呈现（直接抛出或挂在 cause 上） */
 function isTimeoutError(err: unknown): boolean {
   const candidates: unknown[] = [err, err instanceof Error ? err.cause : undefined];
@@ -51,12 +57,12 @@ function isTimeoutError(err: unknown): boolean {
 }
 
 /**
- * 服务端聚合搜索：并行请求所有选中源，任一源失败不影响整体。
- * 每个源先取第一页并读取 pagecount，再并行抓取后续页（上限 SEARCH_MAX_PAGES），
+ * 服务端聚合搜索：有界并发请求选中源，任一源失败不影响整体。
+ * 每个源先取第一页并读取 pagecount，再以 2 个工作线程抓取后续页（上限 SEARCH_MAX_PAGES），
  * 整源受 SEARCH_SOURCE_TIMEOUT_MS 总死线约束。
  * 旧版在浏览器里打满 N 个请求（暴露用户 IP、无法缓存、超时失控），现全部上移。
  */
-async function searchSource(source: SourceConfig, wd: string): Promise<SourceSearchOutcome> {
+async function searchSource(source: SourceConfig, wd: string, requestSignal: AbortSignal): Promise<SourceSearchOutcome> {
   const start = Date.now();
   const finish = (outcome: Omit<SourceSearchOutcome, 'ms'>): SourceSearchOutcome => ({
     ...outcome,
@@ -66,14 +72,11 @@ async function searchSource(source: SourceConfig, wd: string): Promise<SourceSea
   if (!/^https?:\/\//.test(source.url || '')) {
     return finish({ sourceKey: source.key, ok: false, list: [], error: '无效的源地址' });
   }
-  // 用户可控地址发起服务端请求，必须先过 SSRF 校验（协议白名单 + 内网/保留地址）
-  const verdict = await checkUpstreamAllowed(source.url);
-  if (!verdict.ok) {
-    return finish({ sourceKey: source.key, ok: false, list: [], error: verdict.reason });
-  }
-
   // 死线到点中断该源所有在途分页请求，避免后台继续空耗
   const controller = new AbortController();
+  const cancel = () => controller.abort(requestSignal.reason || new DOMException('搜索已取消', 'AbortError'));
+  if (requestSignal.aborted) cancel();
+  else requestSignal.addEventListener('abort', cancel, { once: true });
   let deadlineTimer: ReturnType<typeof setTimeout> | undefined;
   const deadline = new Promise<SourceSearchOutcome>((resolve) => {
     deadlineTimer = setTimeout(() => {
@@ -92,6 +95,7 @@ async function searchSource(source: SourceConfig, wd: string): Promise<SourceSea
 
   const base = source.url.replace(/\/+$/, '');
   const fetchPage = async (page: number) => {
+    controller.signal.throwIfAborted();
     const api = `${base}?ac=videolist&wd=${encodeURIComponent(wd)}&pg=${page}`;
     const res = await fetchUpstream(api, {
       timeoutMs: 8000,
@@ -103,20 +107,26 @@ async function searchSource(source: SourceConfig, wd: string): Promise<SourceSea
   };
 
   const run = async (): Promise<SourceSearchOutcome> => {
+    controller.signal.throwIfAborted();
+    // The deadline also covers DNS/SSRF checks. DNS itself cannot be canceled, so check again afterwards.
+    const verdict = await checkUpstreamAllowed(source.url);
+    controller.signal.throwIfAborted();
+    if (!verdict.ok) return { sourceKey: source.key, ok: false, list: [], error: verdict.reason };
     const first = await fetchPage(1);
     const list = parseSearchList(first, source);
     // 源站真实总页数与配置上限取较小者；pagecount 缺失或非法时视为 1 页
     const rawPageCount = parseInt(String((first as { pagecount?: unknown }).pagecount ?? '1'), 10);
     const pageCount = Math.min(Number.isFinite(rawPageCount) ? Math.max(1, rawPageCount) : 1, SEARCH_MAX_PAGES);
     if (pageCount > 1) {
-      const extraPages = await Promise.all(
-        Array.from({ length: pageCount - 1 }, (_, i) => i + 2).map(async (page) => {
+      const extraPages: ReturnType<typeof parseSearchList>[] = new Array(pageCount - 1);
+      await forEachBounded(
+        Array.from({ length: pageCount - 1 }, (_, i) => i + 2), 2, async (page, index) => {
           try {
-            return parseSearchList(await fetchPage(page), source);
+            extraPages[index] = parseSearchList(await fetchPage(page), source);
           } catch {
-            return [];
+            extraPages[index] = [];
           }
-        })
+        }, controller.signal,
       );
       list.push(...extraPages.flat());
     }
@@ -136,7 +146,18 @@ async function searchSource(source: SourceConfig, wd: string): Promise<SourceSea
           timedOut: isTimeoutError(err),
         })
       );
-    return await Promise.race([runPromise, deadline]);
+    // Finish cancellation immediately even if a custom upstream body ignores AbortSignal.
+    let onAbort: (() => void) | undefined;
+    const aborted = new Promise<SourceSearchOutcome>((resolve) => {
+      onAbort = () => resolve(finish({ sourceKey: source.key, ok: false, list: [],
+        error: requestSignal.aborted ? '搜索已取消' : `请求超时（>${Math.round(SEARCH_SOURCE_TIMEOUT_MS / 1000)}s）`,
+        timedOut: !requestSignal.aborted,
+      }));
+      if (controller.signal.aborted) onAbort();
+      else controller.signal.addEventListener('abort', onAbort, { once: true });
+    });
+    try { return await Promise.race([runPromise, deadline, aborted]); }
+    finally { if (onAbort) controller.signal.removeEventListener('abort', onAbort); }
   } catch (err) {
     return finish({
       sourceKey: source.key,
@@ -147,6 +168,7 @@ async function searchSource(source: SourceConfig, wd: string): Promise<SourceSea
     });
   } finally {
     if (deadlineTimer) clearTimeout(deadlineTimer);
+    requestSignal.removeEventListener('abort', cancel);
   }
 }
 
@@ -189,7 +211,7 @@ function aggregateOutcomes(outcomes: SourceSearchOutcome[], wd: string, filterAd
  *   最终推送聚合后的 done 事件并写入短缓存。
  */
 export async function POST(req: Request) {
-  const guarded = guardRequest(req);
+  const guarded = await guardRequest(req);
   if (guarded) return guarded;
 
   let body: SearchBody;
@@ -208,6 +230,7 @@ export async function POST(req: Request) {
   }
   const sources = body.sources.slice(0, 50);
   const filterAdult = body.filterAdult !== false;
+  if (req.signal.aborted) return NextResponse.json({ error: '搜索已取消' }, { status: 499 });
 
   const cacheKey = searchCacheKey(wd, sources, filterAdult);
   const cached = getCache<SearchResponse>(cacheKey);
@@ -223,46 +246,65 @@ export async function POST(req: Request) {
   }
 
   const isStream = new URL(req.url).searchParams.get('stream') === '1';
+  const searchController = new AbortController();
+  const cancelSearch = () => searchController.abort(req.signal.reason || new DOMException('搜索已取消', 'AbortError'));
+  if (req.signal.aborted) cancelSearch();
+  else req.signal.addEventListener('abort', cancelSearch, { once: true });
+  const cleanup = () => req.signal.removeEventListener('abort', cancelSearch);
   if (!isStream) {
-    const outcomes = await Promise.all(sources.map((source) => searchSource(source, wd)));
-    const payload = aggregateOutcomes(outcomes, wd, filterAdult);
-    setCache(cacheKey, payload, SEARCH_CACHE_TTL);
-    return NextResponse.json(payload);
+    try {
+      const outcomes: SourceSearchOutcome[] = new Array(sources.length);
+      await forEachBounded(sources, searchConcurrency(), async (source, index) => {
+        outcomes[index] = await searchSource(source, wd, searchController.signal);
+      }, searchController.signal);
+      if (searchController.signal.aborted) return NextResponse.json({ error: '搜索已取消' }, { status: 499 });
+      const payload = aggregateOutcomes(outcomes, wd, filterAdult);
+      setCache(cacheKey, payload, SEARCH_CACHE_TTL);
+      return NextResponse.json(payload);
+    } finally { cleanup(); }
   }
 
   const encoder = new TextEncoder();
+  let closed = false;
   const stream = new ReadableStream<Uint8Array>({
-    async start(controller) {
-      let closed = false;
+    start(controller) {
       const send = (event: SearchStreamEvent) => {
         if (closed) return;
         try {
           controller.enqueue(encoder.encode(JSON.stringify(event) + '\n'));
         } catch {
           closed = true; // 客户端已断开
+          cancelSearch();
         }
       };
 
       // 逐源结算即推送；outcomes 按下标回填保证聚合顺序稳定
-      const outcomes: SourceSearchOutcome[] = new Array(sources.length);
-      await Promise.all(
-        sources.map(async (source, i) => {
-          const outcome = await searchSource(source, wd);
-          outcomes[i] = outcome;
-          // 中间结果与最终结果共用去重和过滤规则，避免无关/成人条目短暂出现在页面上。
-          const { list } = aggregateOutcomes([outcome], wd, filterAdult);
-          send({ type: 'source', ...outcome, list });
-        })
-      );
-
-      const payload = aggregateOutcomes(outcomes, wd, filterAdult);
-      setCache(cacheKey, payload, SEARCH_CACHE_TTL);
-      send({ type: 'done', list: payload.list, failures: payload.failures });
-      closed = true;
-      try {
-        controller.close();
-      } catch { /* 已断开 */ }
+      // Do not return the worker promise from start(): reader.cancel() must interrupt it immediately.
+      void (async () => {
+        try {
+          const outcomes: SourceSearchOutcome[] = new Array(sources.length);
+          await forEachBounded(sources, searchConcurrency(), async (source, index) => {
+            const outcome = await searchSource(source, wd, searchController.signal);
+            outcomes[index] = outcome;
+            if (searchController.signal.aborted) return;
+            const { list } = aggregateOutcomes([outcome], wd, filterAdult);
+            send({ type: 'source', ...outcome, list });
+          }, searchController.signal);
+          if (searchController.signal.aborted) return;
+          const payload = aggregateOutcomes(outcomes, wd, filterAdult);
+          setCache(cacheKey, payload, SEARCH_CACHE_TTL);
+          send({ type: 'done', list: payload.list, failures: payload.failures });
+        } catch (error) {
+          cancelSearch();
+          if (!closed) controller.error(error);
+          closed = true;
+        } finally {
+          cleanup();
+          if (!closed) { closed = true; try { controller.close(); } catch { /* Client already closed. */ } }
+        }
+      })();
     },
+    cancel() { closed = true; cancelSearch(); cleanup(); },
   });
 
   return new Response(stream, {

@@ -96,12 +96,12 @@ export function Header({ showSearch = false }: { showSearch?: boolean }) {
 
           <div className="flex-1 sm:hidden" />
 
-          <nav className="flex items-center gap-1 ml-auto">
+          <nav className="flex items-center gap-0 sm:gap-1 ml-auto">
             <HeaderLink href="/live" active={pathname === '/live'}>
               直播
             </HeaderLink>
-            <HeaderLink href="/about" active={pathname === '/about'}>
-              关于
+            <HeaderLink href="/account" active={pathname.startsWith('/account')}>
+              账号
             </HeaderLink>
             <ThemeToggle />
             <IconButton label="观看历史" onClick={() => setHistoryOpen(true)}>
@@ -128,7 +128,7 @@ function HeaderLink({ href, active, children }: { href: string; active: boolean;
     <Link
       href={href}
       className={cn(
-        'px-2.5 py-1.5 rounded-md text-sm transition-colors',
+        'px-2.5 py-1.5 rounded-md text-sm transition-colors whitespace-nowrap shrink-0',
         active ? 'text-content bg-hover' : 'text-muted hover:text-content'
       )}
     >

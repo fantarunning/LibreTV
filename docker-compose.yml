@@ -10,10 +10,24 @@ services:
     restart: unless-stopped
     ports:
       - "8080:8080"
-    # 无状态服务：观看历史在浏览器 IndexedDB、设置在 localStorage，无需挂载卷
+    # 应用文件无需卷；账号与跨端记录保存在专用 MySQL 库，本机 IndexedDB 为缓存。
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
     environment:
       # 必填：访问密码（在 .env 中设置，缺失时 compose 启动即报错提醒）
       - PASSWORD=${PASSWORD:?请在 .env 中设置 PASSWORD}
+      # 使用现有 MySQL 实例的专库；先以迁移身份执行 migrations/*.sql。
+      # Docker 连接宿主机时 MYSQL_HOST 应为 host.docker.internal，不能为容器自己的 127.0.0.1。
+      - MYSQL_HOST=${MYSQL_HOST:-host.docker.internal}
+      - MYSQL_PORT=${MYSQL_PORT:-3306}
+      - MYSQL_DATABASE=${MYSQL_DATABASE:-libretv}
+      - MYSQL_USER=${MYSQL_USER:-libretv_app}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD:-}
+      - MYSQL_CONNECTION_LIMIT=${MYSQL_CONNECTION_LIMIT:-2}
+      - DATABASE_URL=${DATABASE_URL:-}
+      - ACCOUNT_NAME=${ACCOUNT_NAME:-家庭账号}
+      - APP_ORIGIN=${APP_ORIGIN:-}
+      - SEARCH_CONCURRENCY=${SEARCH_CONCURRENCY:-4}
       # 可选：会话/代理签名密钥（多实例部署建议显式设置：openssl rand -hex 32）
       # - PROXY_SECRET=your-secret
       # 可选：Cookie Secure 策略覆盖（true=强制开启 / false=强制关闭；不设置时按请求协议自动推导，HTTP 部署无需配置）
@@ -31,7 +45,7 @@ services:
       # 可选：代理上游请求超时（毫秒）与重试次数
       # - REQUEST_TIMEOUT=8000
       # - MAX_RETRIES=1
-      # 可选：每个搜索源最多抓取的页数（1-50，默认 5），调大会显著增加上游请求量
+      # 可选：每个搜索源最多抓取的页数（1-50，默认 5），后续分页最多并行 2 个
       # - SEARCH_MAX_PAGES=5
       # 可选：单个搜索源的总死线（毫秒，3s-60s，默认 10000），到点中断该源并标记超时
       # - SEARCH_SOURCE_TIMEOUT_MS=10000

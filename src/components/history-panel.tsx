@@ -19,6 +19,8 @@ import {
 import { buildWatchUrl, cn, formatRelativeTime, formatTime } from '@/lib/utils';
 import { useToast } from './toast';
 import { resolveSource, useAppStore } from '@/lib/store';
+import { useAuth } from './auth';
+import { syncNow } from '@/lib/cloud-sync';
 
 /**
  * 观看历史面板（IndexedDB 实时查询）。
@@ -30,10 +32,11 @@ import { resolveSource, useAppStore } from '@/lib/store';
 const VISIBLE_LIMIT = 50;
 
 export function HistoryPanel({ open, onClose }: { open: boolean; onClose: () => void }) {
+  const { verified, openLogin } = useAuth();
   // 全量读取（上限即 DB 淘汰上限）：默认只渲染最近若干条，搜索时覆盖更早的记录
   const history = useLiveQuery(
-    () => db.history.orderBy('timestamp').reverse().limit(MAX_HISTORY).toArray(),
-    [open]
+    () => verified ? db.history.orderBy('timestamp').reverse().limit(MAX_HISTORY).toArray() : Promise.resolve<HistoryEntry[]>([]),
+    [open, verified]
   );
   const { toast } = useToast();
   const [confirmClear, setConfirmClear] = useState(false);
@@ -42,7 +45,8 @@ export function HistoryPanel({ open, onClose }: { open: boolean; onClose: () => 
   // 关闭后重置搜索词：下次打开回到完整列表，不残留上次的过滤状态
   useEffect(() => {
     if (!open) setQuery('');
-  }, [open]);
+    else if (verified) void syncNow();
+  }, [open, verified]);
 
   const keyword = query.trim().toLowerCase();
   const visible = useMemo(() => {
@@ -97,7 +101,9 @@ export function HistoryPanel({ open, onClose }: { open: boolean; onClose: () => 
         ) : undefined
       }
     >
-      {!history ? (
+      {!verified ? (
+        <div className="text-center py-10"><p className="text-sm text-muted mb-4">登录后查看三端共享的观看历史</p><button className="btn-primary" onClick={openLogin}>登录</button></div>
+      ) : !history ? (
         <LoadingState />
       ) : total === 0 ? (
         <EmptyState variant="plain" title="暂无观看记录" />
@@ -143,13 +149,16 @@ function HistoryItem({ item }: { item: HistoryEntry }) {
   const envSources = useAppStore((s) => s.envSources);
   const { toast } = useToast();
   const [imgFailed, setImgFailed] = useState(false);
-  const source = resolveSource({ customAPIs, envSources }, item.sourceKey);
+  const source = resolveSource({ customAPIs, envSources }, item.sourceKey, { url: item.sourceUrl });
 
   const hasPercent =
     item.playbackPosition > 10 && item.duration > 0 && item.playbackPosition < item.duration * 0.95;
   const percent = hasPercent ? Math.round((item.playbackPosition / item.duration) * 100) : 0;
 
-  const href = buildWatchUrl({
+  const href = item.directUrl ? `/watch?${new URLSearchParams({
+    source: item.sourceKey, id: item.vodId, title: item.title, url: item.directUrl, sourceUrl: item.sourceUrl || item.directUrl,
+    direct: '1', width: String(item.width || ''), height: String(item.height || ''), codec: item.codec || '',
+  })}` : buildWatchUrl({
     sourceKey: item.sourceKey,
     vodId: item.vodId,
     index: item.episodeIndex,
@@ -166,15 +175,7 @@ function HistoryItem({ item }: { item: HistoryEntry }) {
           label: '撤销',
           onClick: () => {
             void upsertHistory({
-              sourceKey: item.sourceKey,
-              sourceUrl: item.sourceUrl,
-              vodId: item.vodId,
-              title: item.title,
-              pic: item.pic,
-              episodeIndex: item.episodeIndex,
-              totalEpisodes: item.totalEpisodes,
-              playbackPosition: item.playbackPosition,
-              duration: item.duration,
+              ...item,
               timestamp: item.timestamp,
             }).then(() => toast('已恢复', 'success'));
           },

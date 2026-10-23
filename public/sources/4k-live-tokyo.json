@@ -1,0 +1,35 @@
+{
+  "checkedAt": "2026-10-23T03:59:45.199Z",
+  "vantage": "tokyo-existing-network",
+  "results": [
+    {
+      "id": "hebei-live101-4k",
+      "title": "河北卫视 4K",
+      "url": "https://event.pull.hebtv.com/live/live101.m3u8",
+      "kind": "live",
+      "provider": "河北广播电视台",
+      "width": 3840,
+      "height": 2160,
+      "codec": "h264",
+      "method": "media-header",
+      "estimatedSegmentBitrate": 7432836,
+      "sampleBytes": 1048576,
+      "segmentCount": 3,
+      "verified2160": true,
+      "croppedUhd": false,
+      "stages": [
+        "manifest",
+        "segment"
+      ],
+      "verifiedAt": "2026-10-23T03:59:45.199Z"
+    },
+    {
+      "id": "suzhou-4k",
+      "title": "苏州 4K",
+      "url": "https://tylive.kan0512.com/norecord/csztv4k_4k.m3u8",
+      "kind": "live",
+      "provider": "苏州广播电视总台",
+      "error": "TypeError"
+    }
+  ]
+}

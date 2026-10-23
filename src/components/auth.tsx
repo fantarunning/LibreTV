@@ -6,6 +6,8 @@ import { api, onUnauthorized, STATUS_QUERY_KEY } from '@/lib/client-api';
 import { applyEnvPresets } from '@/lib/subscription-sync';
 import type { AuthStatusResponse } from '@/lib/types';
 import { useToast } from './toast';
+import type { AccountSession } from '@/lib/cloud-types';
+import { startCloudSync, stopCloudSync, syncNow } from '@/lib/cloud-sync';
 
 /**
  * 认证上下文：
@@ -22,6 +24,7 @@ interface AuthContextValue {
   setupRequired: SetupRequired;
   /** /api/status 返回的应用版本（构建时从 package.json 注入） */
   version: string | null;
+  account: AccountSession | null;
   openLogin: () => void;
   logout: () => Promise<void>;
 }
@@ -31,6 +34,7 @@ const AuthContext = createContext<AuthContextValue>({
   verified: false,
   setupRequired: false,
   version: null,
+  account: null,
   openLogin: () => {},
   logout: async () => {},
 });
@@ -44,6 +48,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [verified, setVerified] = useState(false);
   const [setupRequired, setSetupRequired] = useState(false);
   const [version, setVersion] = useState<string | null>(null);
+  const [account, setAccount] = useState<AccountSession | null>(null);
   const [modalOpen, setModalOpen] = useState(false);
   const { toast } = useToast();
   const queryClient = useQueryClient();
@@ -53,11 +58,18 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     let cancelled = false;
     queryClient
       .fetchQuery({ queryKey: STATUS_QUERY_KEY, queryFn: () => api.status() })
-      .then((s) => {
+      .then(async (s) => {
         if (cancelled) return;
-        setVerified(s.verified);
         setSetupRequired(!s.passwordRequired);
         setVersion(s.version);
+        if (s.verified) {
+          const session = await api.account();
+          if (cancelled) return;
+          await startCloudSync(session);
+          if (cancelled) return;
+          setAccount(session);
+        }
+        setVerified(s.verified);
         setChecked(true);
       })
       .catch(() => {
@@ -65,6 +77,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       });
     return () => {
       cancelled = true;
+      stopCloudSync();
     };
   }, [queryClient]);
 
@@ -74,6 +87,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         const setup = (event as CustomEvent).detail === 'setup';
         setSetupRequired(setup);
         setVerified(false);
+        setAccount(null);
+        stopCloudSync();
         setModalOpen(true);
       }),
     []
@@ -83,20 +98,27 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const logout = useCallback(async () => {
     try {
+      await syncNow();
       await api.logout();
     } finally {
+      stopCloudSync();
+      setAccount(null);
       setVerified(false);
+      queryClient.clear();
       toast('已退出登录', 'info');
     }
-  }, [toast]);
+  }, [toast, queryClient]);
 
   const handleLoginSuccess = useCallback(async () => {
+    const session = await api.account();
+    await startCloudSync(session);
+    setAccount(session);
     setVerified(true);
     setSetupRequired(false);
     setModalOpen(false);
     // 登录前以 401 失败的查询（如豆瓣推荐）需要重新拉取
     queryClient.invalidateQueries();
-    toast('验证成功', 'success');
+    toast('已登录，观看记录将自动同步', 'success');
     // 预置订阅（DEFAULT_SUBSCRIPTIONS）的首屏同步发生在登录之前，会 401 静默失败，
     // 这里用缓存中的 /api/status 补跑一次（缓存缺失时回落为一次请求）
     try {
@@ -115,7 +137,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }, [toast, queryClient]);
 
   return (
-    <AuthContext.Provider value={{ checked, verified, setupRequired, version, openLogin, logout }}>
+    <AuthContext.Provider value={{ checked, verified, setupRequired, version, account, openLogin, logout }}>
       {children}
       {modalOpen && (
         <LoginModal
@@ -134,7 +156,7 @@ function LoginModal({
   onClose,
 }: {
   setupRequired: boolean;
-  onSuccess: () => void;
+  onSuccess: () => Promise<void>;
   onClose: () => void;
 }) {
   const [password, setPassword] = useState('');
@@ -160,7 +182,7 @@ function LoginModal({
     setError('');
     try {
       await api.login(password);
-      onSuccess();
+      await onSuccess();
     } catch (err) {
       const msg = err instanceof Error ? err.message : '验证失败';
       setError(msg === '需要登录' ? '密码错误' : msg);
@@ -194,8 +216,8 @@ function LoginModal({
           </>
         ) : (
           <>
-            <h2 className="text-lg font-semibold text-content mb-1">访问验证</h2>
-            <p className="text-sm text-muted mb-4">请输入密码继续访问</p>
+            <h2 className="text-lg font-semibold text-content mb-1">登录 LibreTV</h2>
+            <p className="text-sm text-muted mb-4">登录后同步观看记录，此设备保持登录 30 天。</p>
             <form
               onSubmit={(e) => {
                 e.preventDefault();

@@ -2,6 +2,10 @@
 
 LibreTV Next.js 迁移版：免费在线视频聚合搜索与观看平台。基于 Next.js 15（App Router）+ TypeScript + Tailwind CSS，播放内核为 ArtPlayer + hls.js，支持亮暗双主题。
 
+本家庭版分支新增 MySQL 跨端同步、网页登录 30 天与 Android TV 扫码登录 365 天；部署前需配置专库并执行迁移，详见[账号与同步说明](docs/account-sync.md)及[东京部署说明](docs/deployment-tokyo.md)。下方保留的上游部署示例需同时补齐本分支的数据库配置。
+
+家庭版入口：[网站](https://comic.fenda.cc) · [4K 专区](https://comic.fenda.cc/4k) · [Android TV APK](https://comic.fenda.cc/downloads/libretv-tv.apk)。TV 使用手机授权页面输入八位配对码，原生功能与构建方法见 [Android TV 说明](android-tv/README.md)。本分支保留上游 AGPL 授权，部署对应源代码在本仓库。
+
 > 🏠 **官网**：[LibreTV 官网](https://libretv.is-an.org/)
 >
 > 🌐 **演示站**：[tv.bagiinlink.eu.org](https://tv.bagiinlink.eu.org)（访问密码：`libretv`）
@@ -19,11 +23,12 @@ LibreTV Next.js 迁移版：免费在线视频聚合搜索与观看平台。基�
 - **跨源同名聚合**：同名影片合并为一张卡片，展开即可比较和选择各来源
 - **HLS 播放**：ArtPlayer + hls.js，广告分片过滤、跳过片段（片头/中段/片尾标记与自动跳过）、自动连播、倍速、快捷键、移动端长按 3 倍速
 - **直播 / IPTV**：M3U 订阅解析，`/live` 页面按分组浏览、搜索频道并站内播放（HLS + HTTP-FLV），支持 XMLTV 节目单（EPG）与频道收藏；直播流经专用长连接代理（`/api/live/stream`）转发
-- **进度同步**：播放进度与观看历史存于本机 IndexedDB，精确到秒的续播
+- **进度同步**：播放进度与观看历史保留本地缓存，并通过 MySQL 在手机、平板和原生电视应用间同步；离线更改联网后重试
 - **换源测速**：跨源搜索同名资源并测速排序，一键切换保留集数位置
 - **源测试与订阅**：一键探活点播源与直播源（支持批量测活）；搜索时自动记录各源健康度，连续失败的源按阶梯时长自动停用（30 分钟 → 24 小时 → 长期），可一键恢复；订阅远程源列表（一份 LibreTV-SourceList JSON 可同时下发点播源与直播源，也可直接填 TVBOX 配置地址，自动导入其中可直接使用的接口），可导出分享
 - **首页推荐**：豆瓣（电影/剧集分类浏览）、Bangumi 新番放送表或影视榜单（豆瓣周榜 + 百度热播，经 60s API），设置中切换；均服务端直连 + 缓存，Bangumi/榜单免 key 免配置（`60S_API_BASE` 可指向自部署 60s 实例）
 - **PWA**：可安装到桌面 / 主屏幕，亮暗双主题无首屏闪烁
+- **家庭版扩展**：真实分页推荐、账号设备管理、手机遥控配对电视、外部字幕与睡眠定时，以及按实际编码尺寸核实的 4K 目录
 
 ## 部署
 

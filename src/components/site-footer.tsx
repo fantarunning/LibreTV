@@ -93,7 +93,7 @@ export function SiteFooter() {
     <footer className="border-t border-line py-4">
       <p className="text-center text-xs text-faint">
         <a
-          href="https://github.com/LibreSpark/LibreTV"
+          href="https://github.com/fantarunning/LibreTV"
           target="_blank"
           rel="noopener noreferrer"
           className="group relative inline-block cursor-help hover:text-accent"
@@ -103,6 +103,8 @@ export function SiteFooter() {
         </a>
         {' · '}
         AGPL-3.0 License
+        {' · '}
+        <a href="https://github.com/LibreSpark/LibreTV" target="_blank" rel="noopener noreferrer" className="hover:text-accent">上游项目</a>
       </p>
     </footer>
   );

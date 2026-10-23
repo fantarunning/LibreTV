@@ -16,6 +16,7 @@ import { useToast } from '@/components/toast';
 import { EmptyState } from '@/components/states';
 import { Icon } from '@/components/icon';
 import { SiteFooter } from '@/components/site-footer';
+import Link from 'next/link';
 
 /**
  * 首页：搜索（URL ?s= 驱动，可后退/分享）+ 豆瓣推荐。
@@ -185,6 +186,7 @@ function HomeContent() {
           {!urlQuery && (
             <header className="text-center mb-6">
               <h1 className="text-4xl sm:text-5xl font-bold brand-gradient">LibreTV</h1>
+              <Link href="/4k" className="inline-flex mt-4 text-sm text-accent underline underline-offset-4">探索4K专区</Link>
             </header>
           )}
           {urlQuery && <h1 className="sr-only">LibreTV 视频搜索</h1>}

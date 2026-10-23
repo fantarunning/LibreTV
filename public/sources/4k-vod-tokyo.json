@@ -1,0 +1,691 @@
+{
+  "checkedAt": "2026-10-23T04:13:27.892Z",
+  "vantage": "tokyo-existing-network",
+  "note": "4K titles are discovery only. verified2160 requires at least 3840x2160 from media headers or a master manifest plus a reachable segment.",
+  "results": [
+    {
+      "name": "快车资源",
+      "url": "https://caiji.kuaichezy.org/api.php/provide/vod",
+      "searches": [
+        {
+          "query": "category:62",
+          "total": 256,
+          "returned": 20
+        },
+        {
+          "query": "category:62",
+          "total": 256,
+          "returned": 20
+        },
+        {
+          "query": "4K",
+          "error": "Unexpected token '暂', \"暂不支持搜索\" is not valid JSON"
+        },
+        {
+          "query": "2160",
+          "error": "Unexpected token '暂', \"暂不支持搜索\" is not valid JSON"
+        },
+        {
+          "query": "杜比",
+          "error": "Unexpected token '暂', \"暂不支持搜索\" is not valid JSON"
+        }
+      ],
+      "categories": [
+        {
+          "type_id": 62,
+          "type_name": "4K电影"
+        }
+      ],
+      "samples": [
+        {
+          "id": 120100,
+          "title": "攻壳机动队4K",
+          "category": "4K电影",
+          "remarks": "更新4K",
+          "width": 3840,
+          "height": 2074,
+          "codec": "h264",
+          "method": "media-header",
+          "declaredBandwidth": 128,
+          "estimatedSegmentBitrate": 4121712,
+          "sampleBytes": 1030428,
+          "segmentCount": 2495,
+          "verified2160": false,
+          "verified4k": true,
+          "croppedUhd": true,
+          "stages": [
+            "manifest",
+            "segment"
+          ]
+        },
+        {
+          "id": 119841,
+          "title": "恋战冲绳粤语4K",
+          "category": "4K电影",
+          "remarks": "更新4K",
+          "width": 3840,
+          "height": 1632,
+          "codec": "h264",
+          "method": "media-header",
+          "declaredBandwidth": 128,
+          "estimatedSegmentBitrate": 4798512,
+          "sampleBytes": 1048576,
+          "segmentCount": 3002,
+          "verified2160": false,
+          "verified4k": true,
+          "croppedUhd": true,
+          "stages": [
+            "manifest",
+            "segment"
+          ]
+        },
+        {
+          "id": 119840,
+          "title": "作家的谎言：笔忠诱罪粤语4K",
+          "category": "4K电影",
+          "remarks": "更新4K",
+          "width": 3840,
+          "height": 2160,
+          "codec": "h264",
+          "method": "media-header",
+          "declaredBandwidth": 128,
+          "estimatedSegmentBitrate": 3584032,
+          "sampleBytes": 896008,
+          "segmentCount": 2716,
+          "verified2160": true,
+          "verified4k": true,
+          "croppedUhd": false,
+          "stages": [
+            "manifest",
+            "segment"
+          ]
+        },
+        {
+          "id": 119839,
+          "title": "十月初五的月光4K",
+          "category": "4K电影",
+          "remarks": "更新4K",
+          "width": 3840,
+          "height": 2160,
+          "codec": "h264",
+          "method": "media-header",
+          "declaredBandwidth": 128,
+          "estimatedSegmentBitrate": 3614112,
+          "sampleBytes": 903528,
+          "segmentCount": 3132,
+          "verified2160": true,
+          "verified4k": true,
+          "croppedUhd": false,
+          "stages": [
+            "manifest",
+            "segment"
+          ]
+        },
+        {
+          "id": 119838,
+          "title": "天生爱情狂粤语4K",
+          "category": "4K电影",
+          "remarks": "更新4K",
+          "width": 3840,
+          "height": 2160,
+          "codec": "h264",
+          "method": "media-header",
+          "declaredBandwidth": 128,
+          "estimatedSegmentBitrate": 3119296,
+          "sampleBytes": 779824,
+          "segmentCount": 3180,
+          "verified2160": true,
+          "verified4k": true,
+          "croppedUhd": false,
+          "stages": [
+            "manifest",
+            "segment"
+          ]
+        },
+        {
+          "id": 119837,
+          "title": "寻常女子的失常狂想4K",
+          "category": "4K电影",
+          "remarks": "更新4K",
+          "width": 3840,
+          "height": 2160,
+          "codec": "h264",
+          "method": "media-header",
+          "declaredBandwidth": 128,
+          "estimatedSegmentBitrate": 3365200,
+          "sampleBytes": 841300,
+          "segmentCount": 3335,
+          "verified2160": true,
+          "verified4k": true,
+          "croppedUhd": false,
+          "stages": [
+            "manifest",
+            "segment"
+          ]
+        },
+        {
+          "id": 119836,
+          "title": "天亮之前4K",
+          "category": "4K电影",
+          "remarks": "更新4K",
+          "width": 3840,
+          "height": 1608,
+          "codec": "h264",
+          "method": "media-header",
+          "declaredBandwidth": 128,
+          "estimatedSegmentBitrate": 2907984,
+          "sampleBytes": 726996,
+          "segmentCount": 3079,
+          "verified2160": false,
+          "verified4k": true,
+          "croppedUhd": true,
+          "stages": [
+            "manifest",
+            "segment"
+          ]
+        },
+        {
+          "id": 119833,
+          "title": "倚天屠龙记之魔教教主4K",
+          "category": "4K电影",
+          "remarks": "更新4K",
+          "width": 3840,
+          "height": 2160,
+          "codec": "h264",
+          "method": "media-header",
+          "declaredBandwidth": 128,
+          "estimatedSegmentBitrate": 3649456,
+          "sampleBytes": 912364,
+          "segmentCount": 3115,
+          "verified2160": true,
+          "verified4k": true,
+          "croppedUhd": false,
+          "stages": [
+            "manifest",
+            "segment"
+          ]
+        },
+        {
+          "id": 119832,
+          "title": "南海十三郎粤语4K",
+          "category": "4K电影",
+          "remarks": "更新4K",
+          "width": 3840,
+          "height": 2160,
+          "codec": "h264",
+          "method": "media-header",
+          "declaredBandwidth": 128,
+          "estimatedSegmentBitrate": 5765584,
+          "sampleBytes": 1048576,
+          "segmentCount": 3320,
+          "verified2160": true,
+          "verified4k": true,
+          "croppedUhd": false,
+          "stages": [
+            "manifest",
+            "segment"
+          ]
+        },
+        {
+          "id": 119831,
+          "title": "忠烈杨家将国语4K",
+          "category": "4K电影",
+          "remarks": "更新4K",
+          "width": 3840,
+          "height": 2160,
+          "codec": "h264",
+          "method": "media-header",
+          "declaredBandwidth": 128,
+          "estimatedSegmentBitrate": 4930864,
+          "sampleBytes": 1048576,
+          "segmentCount": 3081,
+          "verified2160": true,
+          "verified4k": true,
+          "croppedUhd": false,
+          "stages": [
+            "manifest",
+            "segment"
+          ]
+        },
+        {
+          "id": 119830,
+          "title": "忠烈杨家将粤语4K",
+          "category": "4K电影",
+          "remarks": "更新4K",
+          "width": 3840,
+          "height": 2160,
+          "codec": "h264",
+          "method": "media-header",
+          "declaredBandwidth": 128,
+          "estimatedSegmentBitrate": 4096896,
+          "sampleBytes": 1024224,
+          "segmentCount": 3076,
+          "verified2160": true,
+          "verified4k": true,
+          "croppedUhd": false,
+          "stages": [
+            "manifest",
+            "segment"
+          ]
+        },
+        {
+          "id": 119829,
+          "title": "奇迹国语4K",
+          "category": "4K电影",
+          "remarks": "更新4K",
+          "width": 3840,
+          "height": 1604,
+          "codec": "h264",
+          "method": "media-header",
+          "declaredBandwidth": 128,
+          "estimatedSegmentBitrate": 4886496,
+          "sampleBytes": 1048576,
+          "segmentCount": 3842,
+          "verified2160": false,
+          "verified4k": true,
+          "croppedUhd": true,
+          "stages": [
+            "manifest",
+            "segment"
+          ]
+        },
+        {
+          "id": 119828,
+          "title": "奇迹粤语4K",
+          "category": "4K电影",
+          "remarks": "更新4K",
+          "width": 3840,
+          "height": 1604,
+          "codec": "h264",
+          "method": "media-header",
+          "declaredBandwidth": 128,
+          "estimatedSegmentBitrate": 4878976,
+          "sampleBytes": 1048576,
+          "segmentCount": 3841,
+          "verified2160": false,
+          "verified4k": true,
+          "croppedUhd": true,
+          "stages": [
+            "manifest",
+            "segment"
+          ]
+        },
+        {
+          "id": 119826,
+          "title": "新天龙八部之天山童姥国语4K",
+          "category": "4K电影",
+          "remarks": "更新4K",
+          "width": 3840,
+          "height": 2160,
+          "codec": "h264",
+          "method": "media-header",
+          "declaredBandwidth": 128,
+          "estimatedSegmentBitrate": 4612016,
+          "sampleBytes": 1048576,
+          "segmentCount": 2896,
+          "verified2160": true,
+          "verified4k": true,
+          "croppedUhd": false,
+          "stages": [
+            "manifest",
+            "segment"
+          ]
+        },
+        {
+          "id": 119824,
+          "title": "新天龙八部之天山童姥粤语4K",
+          "category": "4K电影",
+          "remarks": "更新4K",
+          "width": 3840,
+          "height": 2160,
+          "codec": "h264",
+          "method": "media-header",
+          "declaredBandwidth": 128,
+          "estimatedSegmentBitrate": 4837616,
+          "sampleBytes": 1048576,
+          "segmentCount": 2897,
+          "verified2160": true,
+          "verified4k": true,
+          "croppedUhd": false,
+          "stages": [
+            "manifest",
+            "segment"
+          ]
+        },
+        {
+          "id": 119823,
+          "title": "杀死福顺4K",
+          "category": "4K电影",
+          "remarks": "更新4K",
+          "width": 3840,
+          "height": 2160,
+          "codec": "h264",
+          "method": "media-header",
+          "declaredBandwidth": 128,
+          "estimatedSegmentBitrate": 3840464,
+          "sampleBytes": 960116,
+          "segmentCount": 4185,
+          "verified2160": true,
+          "verified4k": true,
+          "croppedUhd": false,
+          "stages": [
+            "manifest",
+            "segment"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "最大资源",
+      "url": "https://api.zuidapi.com/api.php/provide/vod",
+      "searches": [
+        {
+          "query": "category:62",
+          "total": 212,
+          "returned": 20
+        },
+        {
+          "query": "category:62",
+          "total": 212,
+          "returned": 20
+        },
+        {
+          "query": "4K",
+          "total": 108,
+          "returned": 20
+        },
+        {
+          "query": "2160",
+          "total": 0,
+          "returned": 0
+        },
+        {
+          "query": "杜比",
+          "total": 0,
+          "returned": 0
+        }
+      ],
+      "categories": [
+        {
+          "type_id": 62,
+          "type_name": "4K电影"
+        }
+      ],
+      "samples": [
+        {
+          "id": 117536,
+          "title": "攻壳机动队4K",
+          "category": "4K电影",
+          "remarks": "更新4K",
+          "width": 3840,
+          "height": 2074,
+          "codec": "h264",
+          "method": "media-header",
+          "declaredBandwidth": 128,
+          "estimatedSegmentBitrate": 4121712,
+          "sampleBytes": 1030428,
+          "segmentCount": 2495,
+          "verified2160": false,
+          "verified4k": true,
+          "croppedUhd": true,
+          "stages": [
+            "manifest",
+            "segment"
+          ]
+        },
+        {
+          "id": 117276,
+          "title": "作家的谎言：笔忠诱罪粤语4K",
+          "category": "4K电影",
+          "remarks": "更新4K",
+          "width": 3840,
+          "height": 2160,
+          "codec": "h264",
+          "method": "media-header",
+          "declaredBandwidth": 128,
+          "estimatedSegmentBitrate": 3584032,
+          "sampleBytes": 896008,
+          "segmentCount": 2716,
+          "verified2160": true,
+          "verified4k": true,
+          "croppedUhd": false,
+          "stages": [
+            "manifest",
+            "segment"
+          ]
+        },
+        {
+          "id": 117274,
+          "title": "天生爱情狂粤语4K",
+          "category": "4K电影",
+          "remarks": "更新4K",
+          "width": 3840,
+          "height": 2160,
+          "codec": "h264",
+          "method": "media-header",
+          "declaredBandwidth": 128,
+          "estimatedSegmentBitrate": 3119296,
+          "sampleBytes": 779824,
+          "segmentCount": 3180,
+          "verified2160": true,
+          "verified4k": true,
+          "croppedUhd": false,
+          "stages": [
+            "manifest",
+            "segment"
+          ]
+        },
+        {
+          "id": 117273,
+          "title": "寻常女子的失常狂想4K",
+          "category": "4K电影",
+          "remarks": "更新4K",
+          "width": 3840,
+          "height": 2160,
+          "codec": "h264",
+          "method": "media-header",
+          "declaredBandwidth": 128,
+          "estimatedSegmentBitrate": 3365200,
+          "sampleBytes": 841300,
+          "segmentCount": 3335,
+          "verified2160": true,
+          "verified4k": true,
+          "croppedUhd": false,
+          "stages": [
+            "manifest",
+            "segment"
+          ]
+        },
+        {
+          "id": 117272,
+          "title": "天亮之前4K",
+          "category": "4K电影",
+          "remarks": "更新4K",
+          "width": 3840,
+          "height": 1608,
+          "codec": "h264",
+          "method": "media-header",
+          "declaredBandwidth": 128,
+          "estimatedSegmentBitrate": 2907984,
+          "sampleBytes": 726996,
+          "segmentCount": 3079,
+          "verified2160": false,
+          "verified4k": true,
+          "croppedUhd": true,
+          "stages": [
+            "manifest",
+            "segment"
+          ]
+        },
+        {
+          "id": 117270,
+          "title": "小男人周记之吾家有喜粤语4K",
+          "category": "4K电影",
+          "remarks": "更新4K",
+          "width": 3840,
+          "height": 2160,
+          "codec": "h264",
+          "method": "media-header",
+          "declaredBandwidth": 128,
+          "estimatedSegmentBitrate": 4427024,
+          "sampleBytes": 1048576,
+          "segmentCount": 2843,
+          "verified2160": true,
+          "verified4k": true,
+          "croppedUhd": false,
+          "stages": [
+            "manifest",
+            "segment"
+          ]
+        },
+        {
+          "id": 117269,
+          "title": "倚天屠龙记之魔教教主4K",
+          "category": "4K电影",
+          "remarks": "更新4K",
+          "width": 3840,
+          "height": 2160,
+          "codec": "h264",
+          "method": "media-header",
+          "declaredBandwidth": 128,
+          "estimatedSegmentBitrate": 3649456,
+          "sampleBytes": 912364,
+          "segmentCount": 3115,
+          "verified2160": true,
+          "verified4k": true,
+          "croppedUhd": false,
+          "stages": [
+            "manifest",
+            "segment"
+          ]
+        },
+        {
+          "id": 117267,
+          "title": "忠烈杨家将国语4K",
+          "category": "4K电影",
+          "remarks": "更新4K",
+          "width": 3840,
+          "height": 2160,
+          "codec": "h264",
+          "method": "media-header",
+          "declaredBandwidth": 128,
+          "estimatedSegmentBitrate": 4930864,
+          "sampleBytes": 1048576,
+          "segmentCount": 3081,
+          "verified2160": true,
+          "verified4k": true,
+          "croppedUhd": false,
+          "stages": [
+            "manifest",
+            "segment"
+          ]
+        },
+        {
+          "id": 117266,
+          "title": "忠烈杨家将粤语4K",
+          "category": "4K电影",
+          "remarks": "更新4K",
+          "width": 3840,
+          "height": 2160,
+          "codec": "h264",
+          "method": "media-header",
+          "declaredBandwidth": 128,
+          "estimatedSegmentBitrate": 4096896,
+          "sampleBytes": 1024224,
+          "segmentCount": 3076,
+          "verified2160": true,
+          "verified4k": true,
+          "croppedUhd": false,
+          "stages": [
+            "manifest",
+            "segment"
+          ]
+        },
+        {
+          "id": 117264,
+          "title": "奇迹粤语4K",
+          "category": "4K电影",
+          "remarks": "更新4K",
+          "width": 3840,
+          "height": 1604,
+          "codec": "h264",
+          "method": "media-header",
+          "declaredBandwidth": 128,
+          "estimatedSegmentBitrate": 4878976,
+          "sampleBytes": 1048576,
+          "segmentCount": 3841,
+          "verified2160": false,
+          "verified4k": true,
+          "croppedUhd": true,
+          "stages": [
+            "manifest",
+            "segment"
+          ]
+        },
+        {
+          "id": 117262,
+          "title": "新天龙八部之天山童姥国语4K",
+          "category": "4K电影",
+          "remarks": "更新4K",
+          "width": 3840,
+          "height": 2160,
+          "codec": "h264",
+          "method": "media-header",
+          "declaredBandwidth": 128,
+          "estimatedSegmentBitrate": 4612016,
+          "sampleBytes": 1048576,
+          "segmentCount": 2896,
+          "verified2160": true,
+          "verified4k": true,
+          "croppedUhd": false,
+          "stages": [
+            "manifest",
+            "segment"
+          ]
+        },
+        {
+          "id": 117260,
+          "title": "新天龙八部之天山童姥粤语4K",
+          "category": "4K电影",
+          "remarks": "更新4K",
+          "width": 3840,
+          "height": 2160,
+          "codec": "h264",
+          "method": "media-header",
+          "declaredBandwidth": 128,
+          "estimatedSegmentBitrate": 4837616,
+          "sampleBytes": 1048576,
+          "segmentCount": 2897,
+          "verified2160": true,
+          "verified4k": true,
+          "croppedUhd": false,
+          "stages": [
+            "manifest",
+            "segment"
+          ]
+        },
+        {
+          "id": 117259,
+          "title": "杀死福顺4K",
+          "category": "4K电影",
+          "remarks": "更新4K",
+          "width": 3840,
+          "height": 2160,
+          "codec": "h264",
+          "method": "media-header",
+          "declaredBandwidth": 128,
+          "estimatedSegmentBitrate": 3840464,
+          "sampleBytes": 960116,
+          "segmentCount": 4185,
+          "verified2160": true,
+          "verified4k": true,
+          "croppedUhd": false,
+          "stages": [
+            "manifest",
+            "segment"
+          ]
+        }
+      ]
+    }
+  ]
+}

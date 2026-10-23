@@ -1,0 +1,62 @@
+{
+  "checkedAt": "2026-10-23T04:01:27.650Z",
+  "vantage": "tokyo-existing-network",
+  "note": "4K titles are discovery only. verified2160 requires at least 3840x2160 from media headers or a master manifest plus a reachable segment.",
+  "results": [
+    {
+      "name": "最大资源",
+      "url": "https://api.zuidapi.com/api.php/provide/vod",
+      "searches": [
+        {
+          "query": "category:62",
+          "total": 212,
+          "returned": 20
+        },
+        {
+          "query": "4K",
+          "total": 108,
+          "returned": 20
+        },
+        {
+          "query": "2160",
+          "total": 0,
+          "returned": 0
+        },
+        {
+          "query": "杜比",
+          "total": 0,
+          "returned": 0
+        }
+      ],
+      "categories": [
+        {
+          "type_id": 62,
+          "type_name": "4K电影"
+        }
+      ],
+      "samples": [
+        {
+          "id": 117536,
+          "title": "攻壳机动队4K",
+          "category": "4K电影",
+          "remarks": "更新4K",
+          "width": 3840,
+          "height": 2074,
+          "codec": "h264",
+          "method": "media-header",
+          "declaredBandwidth": 128,
+          "estimatedSegmentBitrate": 4121712,
+          "sampleBytes": 1030428,
+          "segmentCount": 2495,
+          "verified2160": false,
+          "verified4k": true,
+          "croppedUhd": true,
+          "stages": [
+            "manifest",
+            "segment"
+          ]
+        }
+      ]
+    }
+  ]
+}

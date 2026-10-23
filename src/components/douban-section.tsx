@@ -1,12 +1,14 @@
 'use client';
 
-import { useState } from 'react';
-import { useQuery } from '@tanstack/react-query';
+import { useCallback, useMemo, useState } from 'react';
+import { useInfiniteQuery, useQuery } from '@tanstack/react-query';
 import { api } from '@/lib/client-api';
 import { useAppStore } from '@/lib/store';
 import { cn } from '@/lib/utils';
 import type { DoubanItem } from '@/lib/types';
 import { DoubanCard } from './video-card';
+import { InfinitePosters } from './infinite-posters';
+import { nextRecommendationOffset, uniqueRecommendations } from '@/lib/recommendation-pages';
 
 const MOVIE_TAGS = ['热门', '最新', '经典', '豆瓣高分', '冷门佳片', '华语', '欧美', '韩国', '日本', '动画'];
 const TV_TAGS = ['热门', '美剧', '英剧', '韩剧', '日剧', '国产剧', '港剧', '日本动画', '综艺', '纪录片'];
@@ -18,27 +20,32 @@ export function RecommendSection({ onPick }: { onPick: (title: string) => void }
   const recommendSource = useAppStore((s) => s.recommendSource);
 
   if (!doubanEnabled) return null;
-  if (recommendSource === 'bangumi') return <BangumiView onPick={onPick} />;
-  if (recommendSource === 'hot-list') return <HotListView onPick={onPick} />;
+  if (recommendSource === 'bangumi') return <><BangumiView onPick={onPick} /><div className="mt-10"><h2 className="text-lg font-semibold mb-4">继续发现</h2><DoubanView onPick={onPick} /></div></>;
+  if (recommendSource === 'hot-list') return <><HotListView onPick={onPick} /><div className="mt-10"><h2 className="text-lg font-semibold mb-4">继续发现</h2><DoubanView onPick={onPick} /></div></>;
   return <DoubanView onPick={onPick} />;
 }
 
 /**
  * 豆瓣推荐：影视切换 + 标签筛选。
- * 一次性渲染全部条目：数据本就一次拉全（50 条），卡片图片又是 lazy 加载，
- * 视口外的图不会请求，因此不需要「加载更多」这类本地切片分页来打断浏览。
+ * 使用真实上游分页，按作品 ID 去重，按行虚拟化并预取下一页。
  */
 function DoubanView({ onPick }: { onPick: (title: string) => void }) {
   const [type, setType] = useState<'movie' | 'tv'>('movie');
   const [tag, setTag] = useState('热门');
 
-  const query = useQuery({
-    queryKey: ['douban', type, tag],
-    queryFn: ({ signal }) => api.douban(type, tag, 0, 50, signal),
+  const query = useInfiniteQuery({
+    queryKey: ['douban-infinite', type, tag],
+    initialPageParam: 0,
+    queryFn: ({ signal, pageParam }) => api.douban(type, tag, pageParam, 24, signal),
+    getNextPageParam: (_last, pages, offset) => nextRecommendationOffset(pages, offset, 24),
   });
 
   const tags = type === 'movie' ? MOVIE_TAGS : TV_TAGS;
-  const items = query.data?.items ?? [];
+  const items = useMemo(() => uniqueRecommendations(query.data?.pages ?? []), [query.data]);
+  const { hasNextPage, isFetchingNextPage, fetchNextPage } = query;
+  const loadMore = useCallback(() => {
+    if (hasNextPage && !isFetchingNextPage) void fetchNextPage();
+  }, [hasNextPage, isFetchingNextPage, fetchNextPage]);
 
   const switchType = (t: 'movie' | 'tv') => {
     if (t === type) return;
@@ -76,18 +83,14 @@ function DoubanView({ onPick }: { onPick: (title: string) => void }) {
         ))}
       </div>
 
-      {query.isError ? (
-        <p className="text-center text-sm text-faint py-8">推荐内容加载失败，可稍后重试或在设置中关闭</p>
+      {query.isError && items.length === 0 ? (
+        <div className="text-center text-sm text-faint py-8">推荐内容加载失败。<button className="btn-ghost ml-2" onClick={() => void query.refetch()}>重新加载</button></div>
       ) : query.isLoading ? (
         <GridSkeleton />
       ) : items.length === 0 ? (
         <p className="text-center text-sm text-faint py-8">该分类暂无推荐内容</p>
       ) : (
-        <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-2.5">
-          {items.map((item) => (
-            <DoubanCard key={item.id} item={item} onClick={() => onPick(item.title)} />
-          ))}
-        </div>
+        <InfinitePosters items={items} onPick={onPick} loadMore={loadMore} hasMore={Boolean(query.hasNextPage)} fetching={query.isFetchingNextPage} error={query.isFetchNextPageError} />
       )}
     </section>
   );

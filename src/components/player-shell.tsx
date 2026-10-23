@@ -13,6 +13,7 @@ import {
 import { loadCacheSettings } from '@/lib/video-cache';
 import { formatTime } from '@/lib/utils';
 import { prefersTouchPointer } from '@/lib/touch-pointer';
+import { normalizeSubtitle } from '@/lib/external-subtitles';
 import {
   findActiveSegment,
   findCrossedEnding,
@@ -52,6 +53,20 @@ export interface PlayerSkipApi {
   pause(): void;
   /** 当前是否处于暂停状态 */
   isPaused(): boolean;
+  selectQuality(index: number): void;
+  selectAudio(index: number): void;
+  selectSubtitle(index: number): void;
+  loadSubtitle(text: string): void;
+}
+
+export interface PlaybackTracks {
+  qualities: { id: number; label: string }[];
+  audio: { id: number; label: string }[];
+  subtitles: { id: number; label: string }[];
+  quality: number;
+  audioId: number;
+  subtitleId: number;
+  externalSubtitle?: boolean;
 }
 
 interface PlayerShellProps {
@@ -66,6 +81,7 @@ interface PlayerShellProps {
    * 是否连播下一集仍由 autoplayNext 决定。
    */
   autoSkipSegments: boolean;
+  onTracks?: (tracks: PlaybackTracks) => void;
   /** 中段两步态的起点：由页面层持有，面板与快捷键共用同一份状态 */
   pendingStart: number | null;
   /** 更新中段起点；null 表示取消或已消费 */
@@ -106,6 +122,7 @@ export function PlayerShell({
   autoplayNext,
   skipMark,
   autoSkipSegments,
+  onTracks,
   pendingStart,
   onPendingStart,
   onPlayerApi,
@@ -128,6 +145,8 @@ export function PlayerShell({
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const artRef = useRef<any>(null);
   const hlsRef = useRef<Hls | null>(null);
+  const externalSubtitleRef = useRef<{ element: HTMLTrackElement; url: string } | null>(null);
+  const reportTracksRef = useRef<() => void>(() => {});
   const [error, setError] = useState('');
   const [hint, setHint] = useState('');
   // 起播前的品牌占位图（沿用旧版 nomedia 素材），实际开始播放后隐藏
@@ -136,14 +155,14 @@ export function PlayerShell({
 
   // 始终持有最新 props/回调，避免重建播放器
   const propsRef = useRef({
-    url, title, adFilter, autoplayNext, skipMark, autoSkipSegments,
+    url, title, adFilter, autoplayNext, skipMark, autoSkipSegments, onTracks,
     pendingStart, onPendingStart, onPlayerApi, onRecordSegment,
     episodeKey, nextUrl, nextEpisodeKey,
     getRestorePosition, onTimeUpdate, onEnded, onPause, onQuality, onRequestSwitchSource,
     onPrevEpisode, onNextEpisode, hasPrevEpisode, hasNextEpisode,
   });
   propsRef.current = {
-    url, title, adFilter, autoplayNext, skipMark, autoSkipSegments,
+    url, title, adFilter, autoplayNext, skipMark, autoSkipSegments, onTracks,
     pendingStart, onPendingStart, onPlayerApi, onRecordSegment,
     episodeKey, nextUrl, nextEpisodeKey,
     getRestorePosition, onTimeUpdate, onEnded, onPause, onQuality, onRequestSwitchSource,
@@ -351,6 +370,17 @@ export function PlayerShell({
     currentMediaUrlRef.current = mediaUrl;
     const hls = new Hls(buildHlsConfig());
     hlsRef.current = hls;
+    const reportTracks = () => propsRef.current.onTracks?.({
+      qualities: hls.levels.map((level, id) => ({ id, label: level.height ? `${level.height}P` : `${Math.round(level.bitrate / 1000)} kbps` })),
+      audio: hls.audioTracks.map((track, id) => ({ id, label: track.name || track.lang || `音轨 ${id + 1}` })),
+      subtitles: hls.subtitleTracks.map((track, id) => ({ id, label: track.name || track.lang || `字幕 ${id + 1}` })),
+      quality: hls.autoLevelEnabled ? -1 : hls.currentLevel,
+      audioId: hls.audioTrack,
+      subtitleId: externalSubtitleRef.current?.element.track.mode === 'showing' ? -2 : hls.subtitleDisplay ? hls.subtitleTrack : -1,
+      externalSubtitle: Boolean(externalSubtitleRef.current),
+    });
+    reportTracksRef.current = reportTracks;
+    for (const event of [Hls.Events.MANIFEST_PARSED, Hls.Events.AUDIO_TRACKS_UPDATED, Hls.Events.SUBTITLE_TRACKS_UPDATED, Hls.Events.AUDIO_TRACK_SWITCHED, Hls.Events.SUBTITLE_TRACK_SWITCH, Hls.Events.LEVEL_SWITCHED]) hls.on(event, reportTracks);
 
     let restoreInFlight = false;
     const restoreAndStart = async () => {
@@ -598,6 +628,38 @@ export function PlayerShell({
         }
       },
       isPaused: () => artRef.current?.video?.paused ?? true,
+      selectQuality: (index) => {
+        const hls = hlsRef.current;
+        if (hls && (index === -1 || index >= 0 && index < hls.levels.length)) hls.currentLevel = index;
+      },
+      selectAudio: (index) => {
+        const hls = hlsRef.current;
+        if (hls && index >= 0 && index < hls.audioTracks.length) hls.audioTrack = index;
+      },
+      selectSubtitle: (index) => {
+        const hls = hlsRef.current;
+        if (externalSubtitleRef.current) externalSubtitleRef.current.element.track.mode = index === -2 ? 'showing' : 'disabled';
+        if (index === -2 && hls) { hls.subtitleDisplay = false; hls.subtitleTrack = -1; }
+        if (hls && (index === -1 || index >= 0 && index < hls.subtitleTracks.length)) {
+          hls.subtitleDisplay = index !== -1;
+          hls.subtitleTrack = index;
+        }
+        reportTracksRef.current();
+      },
+      loadSubtitle: (text) => {
+        const video = artRef.current?.video as HTMLVideoElement | undefined;
+        if (!video) throw new Error('播放器尚未就绪');
+        const content = normalizeSubtitle(text);
+        const previous = externalSubtitleRef.current;
+        if (previous) { previous.element.remove(); URL.revokeObjectURL(previous.url); }
+        if (hlsRef.current) { hlsRef.current.subtitleDisplay = false; hlsRef.current.subtitleTrack = -1; }
+        const url = URL.createObjectURL(new Blob([content], { type: 'text/vtt' }));
+        const element = document.createElement('track');
+        element.kind = 'subtitles'; element.label = '外挂字幕'; element.srclang = 'zh'; element.src = url; element.default = true;
+        video.append(element); element.track.mode = 'showing';
+        externalSubtitleRef.current = { element, url };
+        reportTracksRef.current();
+      },
     });
 
     /**
@@ -745,7 +807,7 @@ export function PlayerShell({
     const shortcuts = (e: KeyboardEvent) => {
       const target = e.target as HTMLElement;
       // 输入框或按钮获得焦点时不劫持按键：否则空格会吞掉按钮的默认激活
-      if (target.tagName === 'INPUT' || target.tagName === 'TEXTAREA' || target.closest('button')) return;
+      if (target.isContentEditable || target.closest('input, textarea, select, button, [role="combobox"], [contenteditable="true"]')) return;
       const current = artRef.current;
       if (!current) return;
       if (e.altKey && e.key === 'ArrowLeft') { e.preventDefault(); return; } // 由父层处理集数切换
@@ -911,6 +973,11 @@ export function PlayerShell({
       Artplayer.CONTROL_HIDE_TIME = ART_DEFAULT_CONTROL_HIDE_MS;
       hlsRef.current?.destroy();
       hlsRef.current = null;
+      if (externalSubtitleRef.current) {
+        externalSubtitleRef.current.element.remove();
+        URL.revokeObjectURL(externalSubtitleRef.current.url);
+        externalSubtitleRef.current = null;
+      }
       recoveryRef.current?.dispose();
       getVideoPrefetcher().stop();
       // 播放页可能仍持有读取接口：销毁前显式置空，避免「记录当前」读到已销毁实例
@@ -953,6 +1020,17 @@ export function PlayerShell({
     renderSkipMarks();
   }, [skipMark]);
 
+  // A manually loaded subtitle belongs to one episode; HLS proxy/retry reloads retain it.
+  useEffect(() => {
+    const external = externalSubtitleRef.current;
+    if (!external) return;
+    external.element.track.mode = 'disabled';
+    external.element.remove();
+    URL.revokeObjectURL(external.url);
+    externalSubtitleRef.current = null;
+    reportTracksRef.current();
+  }, [episodeKey]);
+
   // —— 换集：仅切换 HLS 源，不重建播放器（保留网页全屏等状态） ——
   const firstUrlRef = useRef(true);
   useEffect(() => {
@@ -975,7 +1053,7 @@ export function PlayerShell({
 
   return (
     <div className="relative w-full h-full">
-      <div ref={containerRef} className="w-full h-full" style={{ WebkitTouchCallout: 'none' }} />
+      <div ref={containerRef} className="isolate w-full h-full" style={{ WebkitTouchCallout: 'none' }} />
       {showPoster && !error && (
         <div
           className="absolute inset-0 bg-black pointer-events-none"

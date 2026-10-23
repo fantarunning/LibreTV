@@ -1,6 +1,7 @@
 'use client';
 
 import type { SearchResponse, SearchStreamEvent, SourceSearchOutcome, VideoDetail, DoubanResponse, BangumiCalendarResponse, AuthStatusResponse, SourceConfig, SearchResultItem, LivePlaylistResponse, LiveEpgResponse, SourceListPayload, QualityProbeItem, QualityProbeResult } from './types';
+import type { AccountSession, CloudMutation, CloudPullResponse, CloudPushResponse } from './cloud-types';
 
 /**
  * 客户端 API 封装。401 时触发全局事件打开登录框，
@@ -38,6 +39,15 @@ export interface LiveProbeResult {
 /** /api/status 的 React Query key：Providers 与 AuthProvider 共用，避免同一页面重复请求 */
 export const STATUS_QUERY_KEY = ['app-status'] as const;
 
+export interface AccountDevice {
+  id: string;
+  name: string;
+  type: 'web' | 'tv';
+  expiresAt: number;
+  lastSeenAt?: number;
+  current?: boolean;
+}
+
 export function onUnauthorized(handler: (event: CustomEvent) => void): () => void {
   const wrapped = (e: Event) => handler(e as CustomEvent);
   window.addEventListener(UNAUTHORIZED_EVENT, wrapped);
@@ -45,14 +55,16 @@ export function onUnauthorized(handler: (event: CustomEvent) => void): () => voi
 }
 
 /** 401/503 统一处理：分发全局事件打开登录框并抛 ApiError（普通与流式请求共用） */
-function throwForAuthStatus(res: Response): void {
+async function throwForAuthStatus(res: Response): Promise<void> {
   if (res.status === 401) {
     window.dispatchEvent(new CustomEvent(UNAUTHORIZED_EVENT));
     throw new ApiError('需要登录', 401);
   }
   if (res.status === 503) {
-    window.dispatchEvent(new CustomEvent(UNAUTHORIZED_EVENT, { detail: 'setup' }));
-    throw new ApiError('服务器未配置密码', 503);
+    const payload = await res.clone().json().catch(() => null) as { error?: string } | null;
+    const message = payload?.error || '服务暂不可用，请稍后重试';
+    if (/PASSWORD|未(?:设置|配置).*密码/.test(message)) window.dispatchEvent(new CustomEvent(UNAUTHORIZED_EVENT, { detail: 'setup' }));
+    throw new ApiError(message, 503);
   }
 }
 
@@ -93,7 +105,7 @@ async function request<T>(url: string, init?: RequestInit): Promise<T> {
     if (err instanceof DOMException && err.name === 'AbortError') throw err;
     throw new ApiError('网络请求失败，请检查网络连接', 0);
   }
-  throwForAuthStatus(res);
+  await throwForAuthStatus(res);
   if (!res.ok) {
     let msg = `请求失败 (${res.status})`;
     try {
@@ -107,6 +119,19 @@ async function request<T>(url: string, init?: RequestInit): Promise<T> {
 
 export const api = {
   status: () => request<AuthStatusResponse>('/api/status'),
+  account: () => request<AccountSession>('/api/account/me'),
+  cloudPull: (cursor: number, accountId: string) => request<CloudPullResponse>(`/api/sync?cursor=${cursor}`, { headers: { 'X-LibreTV-Account': accountId } }),
+  cloudPush: (mutations: CloudMutation[], accountId: string) => request<CloudPushResponse>('/api/sync', {
+    method: 'POST', headers: { 'Content-Type': 'application/json', 'X-LibreTV-Account': accountId }, body: JSON.stringify({ mutations }),
+  }),
+  approveTv: (userCode: string) => request<{ success: boolean }>('/api/tv/pair/approve', {
+    method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ userCode }),
+  }),
+  devices: () => request<{ devices: AccountDevice[] }>('/api/account/devices'),
+  revokeDevice: (id: string) => request<{ success: boolean }>(`/api/account/devices?id=${encodeURIComponent(id)}`, { method: 'DELETE' }),
+  tvCommand: (deviceId: string, action: 'play' | 'pause' | 'resume' | 'seek', payload?: unknown) => request<{ success: boolean }>('/api/tv/commands', {
+    method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ deviceId, action, payload }),
+  }),
 
   login: (password: string) =>
     request<{ success: boolean }>('/api/auth', {
@@ -171,7 +196,7 @@ export const api = {
       if (err instanceof DOMException && err.name === 'AbortError') throw err;
       throw new ApiError('探测请求没能送达服务器（网络或反向代理中断）', 0);
     }
-    throwForAuthStatus(res);
+    await throwForAuthStatus(res);
     if (!res.ok || !res.body) throw new ApiError(`请求失败 (${res.status})`, res.status);
 
     let firstByte = false;
@@ -307,7 +332,7 @@ export const api = {
       body: JSON.stringify({ urls }),
       signal,
     });
-    throwForAuthStatus(res);
+    await throwForAuthStatus(res);
     if (!res.ok || !res.body) throw new ApiError(`请求失败 (${res.status})`, res.status);
 
     await consumeNdjson<LiveProbeResult>(res, onResult);
@@ -334,7 +359,7 @@ async function searchStream(
     body: JSON.stringify({ wd, sources, filterAdult }),
     signal,
   });
-    throwForAuthStatus(res);
+    await throwForAuthStatus(res);
     if (!res.ok || !res.body) throw new ApiError(`请求失败 (${res.status})`, res.status);
 
     // done 事件缺失（流被截断）时退化为空结果，不让整次搜索报错

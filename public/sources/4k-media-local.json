@@ -1,0 +1,1166 @@
+{
+  "checkedAt": "2026-10-23T03:59:08.839Z",
+  "vantage": "windows-current-network",
+  "note": "4K titles are discovery only. verified2160 requires at least 3840x2160 from media headers or a master manifest plus a reachable segment.",
+  "results": [
+    {
+      "name": "如意资源",
+      "url": "https://cj.rycjapi.com/api.php/provide/vod",
+      "searches": [],
+      "categories": [],
+      "samples": []
+    },
+    {
+      "name": "新浪资源",
+      "url": "https://api.xinlangapi.com/xinlangapi.php/provide/vod",
+      "searches": [
+        {
+          "query": "4K",
+          "total": 3,
+          "returned": 3
+        },
+        {
+          "query": "2160",
+          "total": 1,
+          "returned": 1
+        },
+        {
+          "query": "杜比",
+          "total": 0,
+          "returned": 0
+        }
+      ],
+      "categories": [],
+      "samples": [
+        {
+          "id": 203658,
+          "title": "我的24k氪金神眼",
+          "category": "现代都市",
+          "remarks": "全集完结",
+          "width": 1080,
+          "height": 1920,
+          "codec": "h264",
+          "method": "media-header",
+          "estimatedSegmentBitrate": 1600484,
+          "sampleBytes": 908608,
+          "segmentCount": 2082,
+          "verified2160": false,
+          "croppedUhd": false,
+          "stages": [
+            "manifest",
+            "segment"
+          ]
+        },
+        {
+          "id": 173231,
+          "title": "2024 KBS演技大赏",
+          "category": "日韩综艺",
+          "remarks": "第1部",
+          "width": 1920,
+          "height": 1080,
+          "codec": "h264",
+          "method": "media-header",
+          "estimatedSegmentBitrate": 3097466,
+          "sampleBytes": 1048576,
+          "segmentCount": 1497,
+          "verified2160": false,
+          "croppedUhd": false,
+          "stages": [
+            "manifest",
+            "segment"
+          ]
+        },
+        {
+          "id": 102484,
+          "title": "VN.024-K8傲娇萌萌Vivian",
+          "category": "伦理片",
+          "remarks": "正片",
+          "width": 1920,
+          "height": 1080,
+          "codec": "h264",
+          "method": "media-header",
+          "estimatedSegmentBitrate": 936960,
+          "sampleBytes": 1048576,
+          "segmentCount": 47,
+          "verified2160": false,
+          "croppedUhd": false,
+          "stages": [
+            "manifest",
+            "segment"
+          ]
+        },
+        {
+          "id": 166143,
+          "title": "6月24日25-26赛季全国青年篮球联赛 上海U21 60VS74 福建U21",
+          "category": "篮球",
+          "remarks": "正片",
+          "width": 1920,
+          "height": 1080,
+          "codec": "h264",
+          "method": "media-header",
+          "estimatedSegmentBitrate": 816931,
+          "sampleBytes": 1048576,
+          "segmentCount": 733,
+          "verified2160": false,
+          "croppedUhd": false,
+          "stages": [
+            "manifest",
+            "segment"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "百度资源",
+      "url": "https://api.apibdzy.com/api.php/provide/vod",
+      "searches": [
+        {
+          "query": "category:62",
+          "total": 0,
+          "returned": 0
+        },
+        {
+          "query": "4K",
+          "total": 0,
+          "returned": 0
+        },
+        {
+          "query": "2160",
+          "total": 0,
+          "returned": 0
+        },
+        {
+          "query": "杜比",
+          "total": 0,
+          "returned": 0
+        }
+      ],
+      "categories": [
+        {
+          "type_id": 62,
+          "type_name": "4K电影"
+        }
+      ],
+      "samples": []
+    },
+    {
+      "name": "魔都资源",
+      "url": "https://www.mdzyapi.com/api.php/provide/vod",
+      "searches": [
+        {
+          "query": "4K",
+          "total": 0,
+          "returned": 0
+        },
+        {
+          "query": "2160",
+          "total": 0,
+          "returned": 0
+        },
+        {
+          "query": "杜比",
+          "total": 0,
+          "returned": 0
+        }
+      ],
+      "categories": [],
+      "samples": []
+    },
+    {
+      "name": "电影天堂资源",
+      "url": "http://caiji.dyttzyapi.com/api.php/provide/vod",
+      "searches": [
+        {
+          "query": "4K",
+          "total": 0,
+          "returned": 0
+        },
+        {
+          "query": "2160",
+          "total": 0,
+          "returned": 0
+        },
+        {
+          "query": "杜比",
+          "total": 0,
+          "returned": 0
+        }
+      ],
+      "categories": [],
+      "samples": []
+    },
+    {
+      "name": "极速资源",
+      "url": "https://jszyapi.com/api.php/provide/vod",
+      "searches": [
+        {
+          "query": "4K",
+          "total": 3,
+          "returned": 3
+        },
+        {
+          "query": "2160",
+          "total": 1,
+          "returned": 1
+        },
+        {
+          "query": "杜比",
+          "total": 0,
+          "returned": 0
+        }
+      ],
+      "categories": [],
+      "samples": [
+        {
+          "id": 121066,
+          "title": "我的24k氪金神眼",
+          "category": "现代都市",
+          "remarks": "全集完结",
+          "width": 1080,
+          "height": 1920,
+          "codec": "h264",
+          "method": "media-header",
+          "estimatedSegmentBitrate": 1524713,
+          "sampleBytes": 365296,
+          "segmentCount": 2160,
+          "verified2160": false,
+          "croppedUhd": false,
+          "stages": [
+            "manifest",
+            "segment"
+          ]
+        },
+        {
+          "id": 69183,
+          "title": "2024 KBS演技大赏",
+          "category": "日韩综艺",
+          "remarks": "第1部",
+          "width": 1920,
+          "height": 1080,
+          "codec": "h264",
+          "method": "media-header",
+          "estimatedSegmentBitrate": 3396251,
+          "sampleBytes": 1048576,
+          "segmentCount": 1513,
+          "verified2160": false,
+          "croppedUhd": false,
+          "stages": [
+            "manifest",
+            "segment"
+          ]
+        },
+        {
+          "id": 8748,
+          "title": "VN.024-K8傲娇萌萌Vivian",
+          "category": "伦理片",
+          "remarks": "正片",
+          "width": 1920,
+          "height": 1080,
+          "codec": "h264",
+          "method": "media-header",
+          "estimatedSegmentBitrate": 1513578,
+          "sampleBytes": 685840,
+          "segmentCount": 75,
+          "verified2160": false,
+          "croppedUhd": false,
+          "stages": [
+            "manifest",
+            "segment"
+          ]
+        },
+        {
+          "id": 110172,
+          "title": "6月24日25-26赛季全国青年篮球联赛 上海U21 60VS74 福建U21",
+          "category": "篮球",
+          "remarks": "正片",
+          "width": 1920,
+          "height": 1080,
+          "codec": "h264",
+          "method": "media-header",
+          "estimatedSegmentBitrate": 816931,
+          "sampleBytes": 1048576,
+          "segmentCount": 734,
+          "verified2160": false,
+          "croppedUhd": false,
+          "stages": [
+            "manifest",
+            "segment"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "天涯资源",
+      "url": "https://tyyszy.com/api.php/provide/vod",
+      "searches": [
+        {
+          "query": "4K",
+          "error": "Unexpected token '暂', \"暂不支持搜索\" is not valid JSON"
+        },
+        {
+          "query": "2160",
+          "error": "Unexpected token '暂', \"暂不支持搜索\" is not valid JSON"
+        },
+        {
+          "query": "杜比",
+          "error": "Unexpected token '暂', \"暂不支持搜索\" is not valid JSON"
+        }
+      ],
+      "categories": [],
+      "samples": []
+    },
+    {
+      "name": "小猫咪资源",
+      "url": "https://zy.xmm.hk/api.php/provide/vod",
+      "searches": [],
+      "categories": [],
+      "samples": []
+    },
+    {
+      "name": "非凡影视",
+      "url": "http://ffzy5.tv/api.php/provide/vod",
+      "searches": [
+        {
+          "query": "4K",
+          "total": 0,
+          "returned": 0
+        },
+        {
+          "query": "2160",
+          "total": 0,
+          "returned": 0
+        },
+        {
+          "query": "杜比",
+          "total": 0,
+          "returned": 0
+        }
+      ],
+      "categories": [],
+      "samples": []
+    },
+    {
+      "name": "黑木耳",
+      "url": "https://json.heimuer.xyz/api.php/provide/vod",
+      "searches": [],
+      "categories": [],
+      "samples": []
+    },
+    {
+      "name": "光速资源",
+      "url": "https://api.guangsuapi.com/api.php/provide/vod",
+      "searches": [
+        {
+          "query": "4K",
+          "total": 3,
+          "returned": 3
+        },
+        {
+          "query": "2160",
+          "total": 1,
+          "returned": 1
+        },
+        {
+          "query": "杜比",
+          "total": 0,
+          "returned": 0
+        }
+      ],
+      "categories": [],
+      "samples": [
+        {
+          "id": 186983,
+          "title": "我的24k氪金神眼",
+          "category": "现代都市",
+          "remarks": "全集完结",
+          "width": 1080,
+          "height": 1920,
+          "codec": "h264",
+          "method": "media-header",
+          "declaredBandwidth": 4096000,
+          "estimatedSegmentBitrate": 1600484,
+          "sampleBytes": 908608,
+          "segmentCount": 2082,
+          "verified2160": false,
+          "croppedUhd": false,
+          "stages": [
+            "manifest",
+            "segment"
+          ]
+        },
+        {
+          "id": 178172,
+          "title": "2024 KBS演技大赏",
+          "category": "日韩综艺",
+          "remarks": "第1部",
+          "width": 1920,
+          "height": 1080,
+          "codec": "h264",
+          "method": "media-header",
+          "declaredBandwidth": 4096000,
+          "estimatedSegmentBitrate": 3097466,
+          "sampleBytes": 1048576,
+          "segmentCount": 1497,
+          "verified2160": false,
+          "croppedUhd": false,
+          "stages": [
+            "manifest",
+            "segment"
+          ]
+        },
+        {
+          "id": 93553,
+          "title": "VN.024-K8傲娇萌萌Vivian",
+          "category": "伦理片",
+          "remarks": "正片",
+          "width": 1920,
+          "height": 1080,
+          "codec": "h264",
+          "method": "media-header",
+          "declaredBandwidth": 4096000,
+          "estimatedSegmentBitrate": 936960,
+          "sampleBytes": 1048576,
+          "segmentCount": 47,
+          "verified2160": false,
+          "croppedUhd": false,
+          "stages": [
+            "manifest",
+            "segment"
+          ]
+        },
+        {
+          "id": 168527,
+          "title": "6月24日25-26赛季全国青年篮球联赛 上海U21 60VS74 福建U21",
+          "category": "篮球",
+          "remarks": "正片",
+          "width": 1920,
+          "height": 1080,
+          "codec": "h264",
+          "method": "media-header",
+          "declaredBandwidth": 4096000,
+          "estimatedSegmentBitrate": 816931,
+          "sampleBytes": 1048576,
+          "segmentCount": 733,
+          "verified2160": false,
+          "croppedUhd": false,
+          "stages": [
+            "manifest",
+            "segment"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "iqiyi资源",
+      "url": "https://www.iqiyizyapi.com/api.php/provide/vod",
+      "searches": [
+        {
+          "query": "4K",
+          "error": "http-503"
+        },
+        {
+          "query": "2160",
+          "total": 0,
+          "returned": 0
+        },
+        {
+          "query": "杜比",
+          "error": "http-503"
+        }
+      ],
+      "categories": [],
+      "samples": []
+    },
+    {
+      "name": "卧龙资源",
+      "url": "https://wolongzyw.com/api.php/provide/vod",
+      "searches": [],
+      "categories": [],
+      "samples": []
+    },
+    {
+      "name": "华为吧资源",
+      "url": "https://cjhwba.com/api.php/provide/vod",
+      "searches": [],
+      "categories": [],
+      "samples": []
+    },
+    {
+      "name": "豆瓣资源",
+      "url": "https://dbzy.tv/api.php/provide/vod",
+      "searches": [
+        {
+          "query": "4K",
+          "returned": 0
+        },
+        {
+          "query": "2160",
+          "returned": 0
+        },
+        {
+          "query": "杜比",
+          "returned": 0
+        }
+      ],
+      "categories": [],
+      "samples": []
+    },
+    {
+      "name": "魔爪资源",
+      "url": "https://mozhuazy.com/api.php/provide/vod",
+      "searches": [],
+      "categories": [],
+      "samples": []
+    },
+    {
+      "name": "360资源",
+      "url": "https://360zy.com/api.php/provide/vod",
+      "searches": [
+        {
+          "query": "4K",
+          "total": 1,
+          "returned": 1
+        },
+        {
+          "query": "2160",
+          "total": 0,
+          "returned": 0
+        },
+        {
+          "query": "杜比",
+          "total": 1,
+          "returned": 1
+        }
+      ],
+      "categories": [],
+      "samples": [
+        {
+          "id": 96676,
+          "title": "我的24k氪金神眼",
+          "category": "爽文短剧",
+          "remarks": "全80集（合全集）",
+          "width": 1080,
+          "height": 1920,
+          "codec": "h264",
+          "method": "media-header",
+          "declaredBandwidth": 690000,
+          "estimatedSegmentBitrate": 706960,
+          "sampleBytes": 141392,
+          "segmentCount": 4140,
+          "verified2160": false,
+          "croppedUhd": false,
+          "stages": [
+            "manifest",
+            "segment"
+          ]
+        },
+        {
+          "id": 72293,
+          "title": "雷霆沙赞！（杜比）",
+          "category": "动作片",
+          "remarks": "正片",
+          "width": 1280,
+          "height": 720,
+          "codec": "h264",
+          "method": "media-header",
+          "declaredBandwidth": 499000,
+          "estimatedSegmentBitrate": 533794,
+          "sampleBytes": 139120,
+          "segmentCount": 3968,
+          "verified2160": false,
+          "croppedUhd": false,
+          "stages": [
+            "manifest",
+            "segment"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "暴风资源",
+      "url": "https://bfzyapi.com/api.php/provide/vod",
+      "searches": [
+        {
+          "query": "4K",
+          "total": 2,
+          "returned": 2
+        },
+        {
+          "query": "2160",
+          "total": 2,
+          "returned": 2
+        },
+        {
+          "query": "杜比",
+          "total": 6,
+          "returned": 6
+        }
+      ],
+      "categories": [],
+      "samples": [
+        {
+          "id": "51616",
+          "title": "世界杯决赛 阿根廷vs法国 抖音体育苏东 孙继海 4K",
+          "category": "足球",
+          "remarks": "",
+          "width": 720,
+          "height": 406,
+          "codec": "h264",
+          "method": "media-header",
+          "estimatedSegmentBitrate": 1511888,
+          "sampleBytes": 975168,
+          "segmentCount": 6360,
+          "verified2160": false,
+          "croppedUhd": false,
+          "stages": [
+            "manifest",
+            "segment"
+          ]
+        },
+        {
+          "id": "33871",
+          "title": "天书奇谭",
+          "category": "国产动漫",
+          "remarks": "已完结",
+          "width": 1718,
+          "height": 720,
+          "codec": "h264",
+          "method": "media-header",
+          "estimatedSegmentBitrate": 710369,
+          "sampleBytes": 369984,
+          "segmentCount": 1526,
+          "verified2160": false,
+          "croppedUhd": false,
+          "stages": [
+            "manifest",
+            "segment"
+          ]
+        },
+        {
+          "id": "380",
+          "title": "2060元音之境",
+          "category": "大陆综艺",
+          "remarks": "已完结",
+          "width": 1280,
+          "height": 720,
+          "codec": "h264",
+          "method": "media-header",
+          "estimatedSegmentBitrate": 2293976,
+          "sampleBytes": 1048576,
+          "segmentCount": 1179,
+          "verified2160": false,
+          "croppedUhd": false,
+          "stages": [
+            "manifest",
+            "segment"
+          ]
+        },
+        {
+          "id": "135498",
+          "title": "银河探查2100年 Border Planet",
+          "category": "动画片",
+          "remarks": "更新至高清",
+          "width": 1436,
+          "height": 1080,
+          "codec": "h264",
+          "method": "media-header",
+          "estimatedSegmentBitrate": 2189647,
+          "sampleBytes": 186120,
+          "segmentCount": 4377,
+          "verified2160": false,
+          "croppedUhd": false,
+          "stages": [
+            "manifest",
+            "segment"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "无尽资源",
+      "url": "https://api.wujinapi.me/api.php/provide/vod",
+      "searches": [
+        {
+          "query": "4K",
+          "error": "http-403"
+        },
+        {
+          "query": "2160",
+          "error": "http-403"
+        },
+        {
+          "query": "杜比",
+          "error": "http-403"
+        }
+      ],
+      "categories": [],
+      "samples": []
+    },
+    {
+      "name": "旺旺短剧",
+      "url": "https://wwzy.tv/api.php/provide/vod",
+      "searches": [],
+      "categories": [],
+      "samples": []
+    },
+    {
+      "name": "iKun资源",
+      "url": "https://ikunzyapi.com/api.php/provide/vod",
+      "searches": [],
+      "categories": [],
+      "samples": []
+    },
+    {
+      "name": "樱花资源",
+      "url": "https://m3u8.apiyhzy.com/api.php/provide/vod",
+      "searches": [
+        {
+          "query": "4K",
+          "total": 1,
+          "returned": 1
+        },
+        {
+          "query": "2160",
+          "total": 0,
+          "returned": 0
+        },
+        {
+          "query": "杜比",
+          "error": "http-403"
+        }
+      ],
+      "categories": [],
+      "samples": [
+        {
+          "id": 95819,
+          "title": "我的24k氪金神眼",
+          "category": "国产剧",
+          "remarks": "全集",
+          "width": 720,
+          "height": 1280,
+          "codec": "h264",
+          "method": "media-header",
+          "estimatedSegmentBitrate": 1067088,
+          "sampleBytes": 266772,
+          "segmentCount": 4117,
+          "verified2160": false,
+          "croppedUhd": false,
+          "stages": [
+            "manifest",
+            "segment"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "茅台资源",
+      "url": "https://caiji.maotai999.vip/api.php/provide/vod/from/mtm3u8",
+      "searches": [
+        {
+          "query": "4K",
+          "returned": 0
+        },
+        {
+          "query": "2160",
+          "returned": 0
+        },
+        {
+          "query": "杜比",
+          "returned": 0
+        }
+      ],
+      "categories": [],
+      "samples": []
+    },
+    {
+      "name": "量子资源站",
+      "url": "https://cj.lziapi.com/api.php/provide/vod",
+      "searches": [
+        {
+          "query": "4K",
+          "total": 5,
+          "returned": 5
+        },
+        {
+          "query": "2160",
+          "total": 3,
+          "returned": 3
+        },
+        {
+          "query": "杜比",
+          "total": 8,
+          "returned": 8
+        }
+      ],
+      "categories": [],
+      "samples": [
+        {
+          "id": "34345",
+          "title": "天书奇谭4K重置版",
+          "category": "国产动漫",
+          "remarks": "HD",
+          "width": 1080,
+          "height": 452,
+          "codec": "h264",
+          "method": "media-header",
+          "declaredBandwidth": 800000,
+          "estimatedSegmentBitrate": 618856,
+          "sampleBytes": 244964,
+          "segmentCount": 1529,
+          "verified2160": false,
+          "croppedUhd": false,
+          "stages": [
+            "manifest",
+            "segment"
+          ]
+        },
+        {
+          "id": "61512",
+          "title": "天书奇谭 [电影解说]",
+          "category": "电影解说",
+          "remarks": "已完结",
+          "width": 640,
+          "height": 360,
+          "codec": "h264",
+          "method": "media-header",
+          "declaredBandwidth": 800000,
+          "estimatedSegmentBitrate": 544184,
+          "sampleBytes": 201348,
+          "segmentCount": 233,
+          "verified2160": false,
+          "croppedUhd": false,
+          "stages": [
+            "manifest",
+            "segment"
+          ]
+        },
+        {
+          "id": "40604",
+          "title": "天书奇谭[电影解说]",
+          "category": "电影解说",
+          "remarks": "已完结",
+          "width": 1920,
+          "height": 1080,
+          "codec": "h264",
+          "method": "media-header",
+          "declaredBandwidth": 800000,
+          "estimatedSegmentBitrate": 2475283,
+          "sampleBytes": 1048576,
+          "segmentCount": 200,
+          "verified2160": false,
+          "croppedUhd": false,
+          "stages": [
+            "manifest",
+            "segment"
+          ]
+        },
+        {
+          "id": "97446",
+          "title": "NBA 热火vs活塞210241113",
+          "category": "篮球",
+          "remarks": "已完结",
+          "width": 1280,
+          "height": 720,
+          "codec": "h264",
+          "method": "media-header",
+          "declaredBandwidth": 800000,
+          "estimatedSegmentBitrate": 2202232,
+          "sampleBytes": 1048576,
+          "segmentCount": 2506,
+          "verified2160": false,
+          "croppedUhd": false,
+          "stages": [
+            "manifest",
+            "segment"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "最大资源",
+      "url": "https://api.zuidapi.com/api.php/provide/vod",
+      "searches": [
+        {
+          "query": "category:62",
+          "total": 212,
+          "returned": 20
+        },
+        {
+          "query": "4K",
+          "total": 108,
+          "returned": 20
+        },
+        {
+          "query": "2160",
+          "total": 0,
+          "returned": 0
+        },
+        {
+          "query": "杜比",
+          "total": 0,
+          "returned": 0
+        }
+      ],
+      "categories": [
+        {
+          "type_id": 62,
+          "type_name": "4K电影"
+        }
+      ],
+      "samples": [
+        {
+          "id": 112657,
+          "title": "黑金村传说",
+          "category": "4K电影",
+          "remarks": "更新4K",
+          "width": 2542,
+          "height": 1080,
+          "codec": "h264",
+          "method": "media-header",
+          "declaredBandwidth": 128,
+          "estimatedSegmentBitrate": 1209216,
+          "sampleBytes": 302304,
+          "segmentCount": 1998,
+          "verified2160": false,
+          "croppedUhd": false,
+          "stages": [
+            "manifest",
+            "segment"
+          ]
+        },
+        {
+          "id": 117536,
+          "title": "攻壳机动队4K",
+          "category": "4K电影",
+          "remarks": "更新4K",
+          "width": 3840,
+          "height": 2074,
+          "codec": "h264",
+          "method": "media-header",
+          "declaredBandwidth": 128,
+          "estimatedSegmentBitrate": 4121712,
+          "sampleBytes": 1030428,
+          "segmentCount": 2495,
+          "verified2160": false,
+          "croppedUhd": true,
+          "stages": [
+            "manifest",
+            "segment"
+          ]
+        },
+        {
+          "id": 117535,
+          "title": "东邪西毒国语4K",
+          "category": "4K电影",
+          "remarks": "更新4K",
+          "width": 1920,
+          "height": 1080,
+          "codec": "h264",
+          "method": "media-header",
+          "declaredBandwidth": 128,
+          "estimatedSegmentBitrate": 4014928,
+          "sampleBytes": 1003732,
+          "segmentCount": 2812,
+          "verified2160": false,
+          "croppedUhd": false,
+          "stages": [
+            "manifest",
+            "segment"
+          ]
+        },
+        {
+          "id": 123109,
+          "title": "我的24k氪金神眼",
+          "category": "现代都市",
+          "remarks": "更新全集",
+          "width": 1080,
+          "height": 1920,
+          "codec": "h264",
+          "method": "media-header",
+          "declaredBandwidth": 128,
+          "estimatedSegmentBitrate": 1292688,
+          "sampleBytes": 323172,
+          "segmentCount": 4116,
+          "verified2160": false,
+          "croppedUhd": false,
+          "stages": [
+            "manifest",
+            "segment"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "快车资源",
+      "url": "https://caiji.kuaichezy.org/api.php/provide/vod",
+      "searches": [
+        {
+          "query": "category:62",
+          "total": 256,
+          "returned": 20
+        },
+        {
+          "query": "4K",
+          "error": "Unexpected token '暂', \"暂不支持搜索\" is not valid JSON"
+        },
+        {
+          "query": "2160",
+          "error": "Unexpected token '暂', \"暂不支持搜索\" is not valid JSON"
+        },
+        {
+          "query": "杜比",
+          "error": "Unexpected token '暂', \"暂不支持搜索\" is not valid JSON"
+        }
+      ],
+      "categories": [
+        {
+          "type_id": 62,
+          "type_name": "4K电影"
+        }
+      ],
+      "samples": [
+        {
+          "id": 115069,
+          "title": "黑金村传说",
+          "category": "4K电影",
+          "remarks": "更新4K",
+          "width": 2542,
+          "height": 1080,
+          "codec": "h264",
+          "method": "media-header",
+          "declaredBandwidth": 128,
+          "estimatedSegmentBitrate": 1209216,
+          "sampleBytes": 302304,
+          "segmentCount": 1998,
+          "verified2160": false,
+          "croppedUhd": false,
+          "stages": [
+            "manifest",
+            "segment"
+          ]
+        },
+        {
+          "id": 121551,
+          "title": "怪物史瑞克2国语4K",
+          "category": "4K电影",
+          "remarks": "更新4K",
+          "width": 2006,
+          "height": 1080,
+          "codec": "h264",
+          "method": "media-header",
+          "declaredBandwidth": 128,
+          "estimatedSegmentBitrate": 2138688,
+          "sampleBytes": 534672,
+          "segmentCount": 2787,
+          "verified2160": false,
+          "croppedUhd": false,
+          "stages": [
+            "manifest",
+            "segment"
+          ]
+        },
+        {
+          "id": 121550,
+          "title": "怪物史瑞克2粤语4K",
+          "category": "4K电影",
+          "remarks": "更新4K",
+          "width": 2006,
+          "height": 1080,
+          "codec": "h264",
+          "method": "media-header",
+          "declaredBandwidth": 128,
+          "estimatedSegmentBitrate": 2168768,
+          "sampleBytes": 542192,
+          "segmentCount": 2788,
+          "verified2160": false,
+          "croppedUhd": false,
+          "stages": [
+            "manifest",
+            "segment"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "红牛资源",
+      "url": "https://www.hongniuzy2.com/api.php/provide/vod/from/hnm3u8",
+      "searches": [
+        {
+          "query": "4K",
+          "total": 2,
+          "returned": 2
+        },
+        {
+          "query": "2160",
+          "total": 1,
+          "returned": 1
+        },
+        {
+          "query": "杜比",
+          "total": 0,
+          "returned": 0
+        }
+      ],
+      "categories": [],
+      "samples": [
+        {
+          "id": 163761,
+          "title": "我的24k氪金神眼",
+          "category": "现代都市",
+          "remarks": "全集完结",
+          "width": 1080,
+          "height": 1920,
+          "codec": "h264",
+          "method": "media-header",
+          "estimatedSegmentBitrate": 1600484,
+          "sampleBytes": 908608,
+          "segmentCount": 2082,
+          "verified2160": false,
+          "croppedUhd": false,
+          "stages": [
+            "manifest",
+            "segment"
+          ]
+        },
+        {
+          "id": 154210,
+          "title": "2024 KBS演技大赏",
+          "category": "日韩综艺",
+          "remarks": "第1部",
+          "width": 1920,
+          "height": 1080,
+          "codec": "h264",
+          "method": "media-header",
+          "estimatedSegmentBitrate": 3097466,
+          "sampleBytes": 1048576,
+          "segmentCount": 1497,
+          "verified2160": false,
+          "croppedUhd": false,
+          "stages": [
+            "manifest",
+            "segment"
+          ]
+        },
+        {
+          "id": 149821,
+          "title": "6月24日25-26赛季全国青年篮球联赛 上海U21 60VS74 福建U21",
+          "category": "篮球",
+          "remarks": "正片",
+          "width": 1920,
+          "height": 1080,
+          "codec": "h264",
+          "method": "media-header",
+          "estimatedSegmentBitrate": 816931,
+          "sampleBytes": 1048576,
+          "segmentCount": 733,
+          "verified2160": false,
+          "croppedUhd": false,
+          "stages": [
+            "manifest",
+            "segment"
+          ]
+        }
+      ]
+    }
+  ]
+}

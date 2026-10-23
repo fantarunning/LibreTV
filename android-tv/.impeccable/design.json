@@ -1,0 +1,556 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-23T04:18:38.275365Z",
+  "title": "Design System: LibreTV Android TV",
+  "extensions": {
+    "colorMeta": {
+      "primary": {
+        "role": "primary",
+        "displayName": "LibreTV Red",
+        "tonalRamp": [
+          "oklch(15% 0.2349 27.99)",
+          "oklch(26.4% 0.2349 27.99)",
+          "oklch(37.9% 0.2349 27.99)",
+          "oklch(49.3% 0.2349 27.99)",
+          "oklch(60.7% 0.2349 27.99)",
+          "oklch(72.1% 0.2349 27.99)",
+          "oklch(83.6% 0.2349 27.99)",
+          "oklch(95% 0.2349 27.99)"
+        ]
+      },
+      "on-primary": {
+        "role": "neutral",
+        "displayName": "On Primary",
+        "tonalRamp": [
+          "oklch(15% 0.0000 89.88)",
+          "oklch(26.4% 0.0000 89.88)",
+          "oklch(37.9% 0.0000 89.88)",
+          "oklch(49.3% 0.0000 89.88)",
+          "oklch(60.7% 0.0000 89.88)",
+          "oklch(72.1% 0.0000 89.88)",
+          "oklch(83.6% 0.0000 89.88)",
+          "oklch(95% 0.0000 89.88)"
+        ]
+      },
+      "background": {
+        "role": "neutral",
+        "displayName": "Cinema Background",
+        "tonalRamp": [
+          "oklch(15% 0.0082 285.52)",
+          "oklch(26.4% 0.0082 285.52)",
+          "oklch(37.9% 0.0082 285.52)",
+          "oklch(49.3% 0.0082 285.52)",
+          "oklch(60.7% 0.0082 285.52)",
+          "oklch(72.1% 0.0082 285.52)",
+          "oklch(83.6% 0.0082 285.52)",
+          "oklch(95% 0.0082 285.52)"
+        ]
+      },
+      "navigation": {
+        "role": "neutral",
+        "displayName": "Navigation Ink",
+        "tonalRamp": [
+          "oklch(15% 0.0099 285.48)",
+          "oklch(26.4% 0.0099 285.48)",
+          "oklch(37.9% 0.0099 285.48)",
+          "oklch(49.3% 0.0099 285.48)",
+          "oklch(60.7% 0.0099 285.48)",
+          "oklch(72.1% 0.0099 285.48)",
+          "oklch(83.6% 0.0099 285.48)",
+          "oklch(95% 0.0099 285.48)"
+        ]
+      },
+      "surface": {
+        "role": "neutral",
+        "displayName": "Theme Surface",
+        "tonalRamp": [
+          "oklch(15% 0.0113 285.54)",
+          "oklch(26.4% 0.0113 285.54)",
+          "oklch(37.9% 0.0113 285.54)",
+          "oklch(49.3% 0.0113 285.54)",
+          "oklch(60.7% 0.0113 285.54)",
+          "oklch(72.1% 0.0113 285.54)",
+          "oklch(83.6% 0.0113 285.54)",
+          "oklch(95% 0.0113 285.54)"
+        ]
+      },
+      "panel": {
+        "role": "neutral",
+        "displayName": "Playback Panel",
+        "tonalRamp": [
+          "oklch(15% 0.0132 285.39)",
+          "oklch(26.4% 0.0132 285.39)",
+          "oklch(37.9% 0.0132 285.39)",
+          "oklch(49.3% 0.0132 285.39)",
+          "oklch(60.7% 0.0132 285.39)",
+          "oklch(72.1% 0.0132 285.39)",
+          "oklch(83.6% 0.0132 285.39)",
+          "oklch(95% 0.0132 285.39)"
+        ]
+      },
+      "navigation-selected": {
+        "role": "neutral",
+        "displayName": "Selected Destination",
+        "tonalRamp": [
+          "oklch(15% 0.0121 285.75)",
+          "oklch(26.4% 0.0121 285.75)",
+          "oklch(37.9% 0.0121 285.75)",
+          "oklch(49.3% 0.0121 285.75)",
+          "oklch(60.7% 0.0121 285.75)",
+          "oklch(72.1% 0.0121 285.75)",
+          "oklch(83.6% 0.0121 285.75)",
+          "oklch(95% 0.0121 285.75)"
+        ]
+      },
+      "surface-variant": {
+        "role": "neutral",
+        "displayName": "Material Surface Variant",
+        "tonalRamp": [
+          "oklch(15% 0.0174 303.72)",
+          "oklch(26.4% 0.0174 303.72)",
+          "oklch(37.9% 0.0174 303.72)",
+          "oklch(49.3% 0.0174 303.72)",
+          "oklch(60.7% 0.0174 303.72)",
+          "oklch(72.1% 0.0174 303.72)",
+          "oklch(83.6% 0.0174 303.72)",
+          "oklch(95% 0.0174 303.72)"
+        ]
+      },
+      "text-primary": {
+        "role": "neutral",
+        "displayName": "Primary Text",
+        "tonalRamp": [
+          "oklch(15% 0.0000 89.88)",
+          "oklch(26.4% 0.0000 89.88)",
+          "oklch(37.9% 0.0000 89.88)",
+          "oklch(49.3% 0.0000 89.88)",
+          "oklch(60.7% 0.0000 89.88)",
+          "oklch(72.1% 0.0000 89.88)",
+          "oklch(83.6% 0.0000 89.88)",
+          "oklch(95% 0.0000 89.88)"
+        ]
+      },
+      "text-secondary": {
+        "role": "neutral",
+        "displayName": "Secondary Text",
+        "tonalRamp": [
+          "oklch(15% 0.0154 286.05)",
+          "oklch(26.4% 0.0154 286.05)",
+          "oklch(37.9% 0.0154 286.05)",
+          "oklch(49.3% 0.0154 286.05)",
+          "oklch(60.7% 0.0154 286.05)",
+          "oklch(72.1% 0.0154 286.05)",
+          "oklch(83.6% 0.0154 286.05)",
+          "oklch(95% 0.0154 286.05)"
+        ]
+      },
+      "text-hero": {
+        "role": "neutral",
+        "displayName": "Hero Caption",
+        "tonalRamp": [
+          "oklch(15% 0.0110 286.17)",
+          "oklch(26.4% 0.0110 286.17)",
+          "oklch(37.9% 0.0110 286.17)",
+          "oklch(49.3% 0.0110 286.17)",
+          "oklch(60.7% 0.0110 286.17)",
+          "oklch(72.1% 0.0110 286.17)",
+          "oklch(83.6% 0.0110 286.17)",
+          "oklch(95% 0.0110 286.17)"
+        ]
+      },
+      "text-source": {
+        "role": "neutral",
+        "displayName": "Source Caption",
+        "tonalRamp": [
+          "oklch(15% 0.0184 285.95)",
+          "oklch(26.4% 0.0184 285.95)",
+          "oklch(37.9% 0.0184 285.95)",
+          "oklch(49.3% 0.0184 285.95)",
+          "oklch(60.7% 0.0184 285.95)",
+          "oklch(72.1% 0.0184 285.95)",
+          "oklch(83.6% 0.0184 285.95)",
+          "oklch(95% 0.0184 285.95)"
+        ]
+      },
+      "text-placeholder": {
+        "role": "neutral",
+        "displayName": "Input Placeholder",
+        "tonalRamp": [
+          "oklch(15% 0.0172 285.97)",
+          "oklch(26.4% 0.0172 285.97)",
+          "oklch(37.9% 0.0172 285.97)",
+          "oklch(49.3% 0.0172 285.97)",
+          "oklch(60.7% 0.0172 285.97)",
+          "oklch(72.1% 0.0172 285.97)",
+          "oklch(83.6% 0.0172 285.97)",
+          "oklch(95% 0.0172 285.97)"
+        ]
+      },
+      "input-outline": {
+        "role": "neutral",
+        "displayName": "Idle Input Outline",
+        "tonalRamp": [
+          "oklch(15% 0.0177 285.68)",
+          "oklch(26.4% 0.0177 285.68)",
+          "oklch(37.9% 0.0177 285.68)",
+          "oklch(49.3% 0.0177 285.68)",
+          "oklch(60.7% 0.0177 285.68)",
+          "oklch(72.1% 0.0177 285.68)",
+          "oklch(83.6% 0.0177 285.68)",
+          "oklch(95% 0.0177 285.68)"
+        ]
+      },
+      "focus-fill": {
+        "role": "neutral",
+        "displayName": "Focused Button Fill",
+        "tonalRamp": [
+          "oklch(15% 0.0076 332.13)",
+          "oklch(26.4% 0.0076 332.13)",
+          "oklch(37.9% 0.0076 332.13)",
+          "oklch(49.3% 0.0076 332.13)",
+          "oklch(60.7% 0.0076 332.13)",
+          "oklch(72.1% 0.0076 332.13)",
+          "oklch(83.6% 0.0076 332.13)",
+          "oklch(95% 0.0076 332.13)"
+        ]
+      },
+      "focus-content": {
+        "role": "neutral",
+        "displayName": "Focused Button Content",
+        "tonalRamp": [
+          "oklch(15% 0.0055 301.21)",
+          "oklch(26.4% 0.0055 301.21)",
+          "oklch(37.9% 0.0055 301.21)",
+          "oklch(49.3% 0.0055 301.21)",
+          "oklch(60.7% 0.0055 301.21)",
+          "oklch(72.1% 0.0055 301.21)",
+          "oklch(83.6% 0.0055 301.21)",
+          "oklch(95% 0.0055 301.21)"
+        ]
+      },
+      "focus-border": {
+        "role": "neutral",
+        "displayName": "Focused Poster Border",
+        "tonalRamp": [
+          "oklch(15% 0.0153 304.01)",
+          "oklch(26.4% 0.0153 304.01)",
+          "oklch(37.9% 0.0153 304.01)",
+          "oklch(49.3% 0.0153 304.01)",
+          "oklch(60.7% 0.0153 304.01)",
+          "oklch(72.1% 0.0153 304.01)",
+          "oklch(83.6% 0.0153 304.01)",
+          "oklch(95% 0.0153 304.01)"
+        ]
+      },
+      "pairing-wait": {
+        "role": "neutral",
+        "displayName": "Pairing Wait",
+        "tonalRamp": [
+          "oklch(15% 0.0414 12.35)",
+          "oklch(26.4% 0.0414 12.35)",
+          "oklch(37.9% 0.0414 12.35)",
+          "oklch(49.3% 0.0414 12.35)",
+          "oklch(60.7% 0.0414 12.35)",
+          "oklch(72.1% 0.0414 12.35)",
+          "oklch(83.6% 0.0414 12.35)",
+          "oklch(95% 0.0414 12.35)"
+        ]
+      },
+      "feedback": {
+        "role": "neutral",
+        "displayName": "Transient Feedback",
+        "tonalRamp": [
+          "oklch(15% 0.0110 285.64)",
+          "oklch(26.4% 0.0110 285.64)",
+          "oklch(37.9% 0.0110 285.64)",
+          "oklch(49.3% 0.0110 285.64)",
+          "oklch(60.7% 0.0110 285.64)",
+          "oklch(72.1% 0.0110 285.64)",
+          "oklch(83.6% 0.0110 285.64)",
+          "oklch(95% 0.0110 285.64)"
+        ]
+      },
+      "error-container": {
+        "role": "neutral",
+        "displayName": "Error Container",
+        "tonalRamp": [
+          "oklch(15% 0.0661 10.39)",
+          "oklch(26.4% 0.0661 10.39)",
+          "oklch(37.9% 0.0661 10.39)",
+          "oklch(49.3% 0.0661 10.39)",
+          "oklch(60.7% 0.0661 10.39)",
+          "oklch(72.1% 0.0661 10.39)",
+          "oklch(83.6% 0.0661 10.39)",
+          "oklch(95% 0.0661 10.39)"
+        ]
+      },
+      "error-text": {
+        "role": "neutral",
+        "displayName": "Playback Error",
+        "tonalRamp": [
+          "oklch(15% 0.0852 14.50)",
+          "oklch(26.4% 0.0852 14.50)",
+          "oklch(37.9% 0.0852 14.50)",
+          "oklch(49.3% 0.0852 14.50)",
+          "oklch(60.7% 0.0852 14.50)",
+          "oklch(72.1% 0.0852 14.50)",
+          "oklch(83.6% 0.0852 14.50)",
+          "oklch(95% 0.0852 14.50)"
+        ]
+      },
+      "player": {
+        "role": "neutral",
+        "displayName": "Player Black",
+        "tonalRamp": [
+          "oklch(15% 0.0000 0.00)",
+          "oklch(26.4% 0.0000 0.00)",
+          "oklch(37.9% 0.0000 0.00)",
+          "oklch(49.3% 0.0000 0.00)",
+          "oklch(60.7% 0.0000 0.00)",
+          "oklch(72.1% 0.0000 0.00)",
+          "oklch(83.6% 0.0000 0.00)",
+          "oklch(95% 0.0000 0.00)"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "wordmark": {
+        "displayName": "配对字标",
+        "purpose": "TV Material displayMedium with explicit Bold."
+      },
+      "display": {
+        "displayName": "详情标题",
+        "purpose": "TV Material displaySmall; system sans-serif and language fallback."
+      },
+      "display-hero": {
+        "displayName": "大图标题",
+        "purpose": "displaySmall with explicit Bold; at most two lines."
+      },
+      "headline": {
+        "displayName": "页面标题",
+        "purpose": "TV Material headlineLarge."
+      },
+      "title": {
+        "displayName": "影片行标题",
+        "purpose": "TV Material titleLarge."
+      },
+      "body": {
+        "displayName": "说明正文",
+        "purpose": "TV Material bodyLarge."
+      },
+      "body-medium": {
+        "displayName": "海报片名",
+        "purpose": "TV Material bodyMedium, one line."
+      },
+      "body-small": {
+        "displayName": "来源与格式",
+        "purpose": "TV Material bodySmall, including actual decoder information."
+      },
+      "input": {
+        "displayName": "原生输入",
+        "purpose": "BasicTextField overrides only fontSize to 18sp."
+      },
+      "pairing-code": {
+        "displayName": "八位配对码",
+        "purpose": "headlineLarge 32sp / 40sp, overridden to monospace / 600 / 4sp letter spacing; eight characters grouped 4+4, maxLines 1."
+      },
+      "label": {
+        "displayName": "动作标签",
+        "purpose": "TV Material labelLarge inherited by Button: 14sp / 20sp / 500 / 0.1sp."
+      }
+    },
+    "shadows": [],
+    "motion": [
+      {
+        "name": "focus-scale",
+        "value": "1.1",
+        "purpose": "TV Material 1.0.1 Button/Card default focused scale; no custom duration is defined."
+      }
+    ],
+    "focus": [
+      {
+        "name": "input-idle-border",
+        "value": "1dp {colors.input-outline}",
+        "purpose": "Unfocused native BasicTextField."
+      },
+      {
+        "name": "input-focused-border",
+        "value": "2dp {colors.text-primary}",
+        "purpose": "Focused native BasicTextField."
+      },
+      {
+        "name": "poster-focused-border",
+        "value": "3dp {colors.focus-border}",
+        "purpose": "TV Material Card focus border, not a pure-white override."
+      }
+    ],
+    "nativeImplementation": {
+      "platform": "Android TV / Jetpack Compose for TV",
+      "surfaceRole": "Operate",
+      "library": "androidx.tv:tv-material:1.0.1",
+      "sources": [
+        "app/src/main/java/app/libretv/tv/MainActivity.kt",
+        "app/src/main/java/app/libretv/tv/Playback.kt",
+        "README.md"
+      ],
+      "previewMapping": "HTML snippets are documentation previews. One dp/sp is represented by one CSS px for relative comparison only; native source remains authoritative.",
+      "tonalRamps": "Synthesized OKLCH reference ramps for the documentation panel; the native app does not implement these ramps.",
+      "layout": {
+        "navigationWidth": "120dp",
+        "heroHeight": "240dp",
+        "heroArtworkWidth": "65%",
+        "heroTextMaxWidth": "500dp",
+        "posterSize": "130dp × 180dp",
+        "pairingSideColumn": "300dp",
+        "qrCodeFrame": "176dp",
+        "playbackMenuWidth": "360dp",
+        "pairingCode": "Eight characters, grouped 4+4; one line; server accepts with or without spaces"
+      },
+      "evidence": {
+        "reviewDisposition": "ship",
+        "webDetectorRun": false,
+        "device": "Android TV API 34 emulator, 1920×1080",
+        "screenshots": [
+          "output/evidence/pair-final.png",
+          "output/evidence/playback-controls-final.png",
+          "output/evidence/discovery-fixed.png",
+          "output/evidence/font130.png",
+          "output/evidence/4k-real-live.png"
+        ],
+        "fontScale": "font130.png captured at 1.3; restored to 1.0",
+        "samplePlayback": "playback-controls-final.png: 1280×720 / avc1.64001F / c2.goldfish.h264.decoder",
+        "realLivePlayback": "4k-real-live.png: 河北卫视 4K official live sample; 3840×2160 / avc1.640033 / c2.goldfish.h264.decoder. Screenshot is from final debug with old episode label; current source uses live label.",
+        "limits": [
+          "TCL T7K installation and remote behavior not verified",
+          "HDR, physical hardware decoder and sustained 60fps not verified",
+          "One real live sample does not validate every catalogue entry"
+        ],
+        "pairingScreenshotNote": "pair-final.png was recaptured from the real rc2 staging eight-character challenge, grouped 4+4 in the current native UI.",
+        "realStagingAcceptance": {
+          "environment": "Native emulator → Tokyo staging → MySQL, through the existing local tunnel",
+          "pairing": "Native UI created and displayed an eight-character challenge; authenticated phone/browser approval granted a TV session with verified 365-day TTL",
+          "progress": "Phone/browser seeded 3.000s progress; native playback resumed the sample and a phone/browser sync pull read back native progress/history at 10.025s",
+          "cleanup": "Only the new temporary acceptance TV device was revoked and the two acceptance documents were tombstoned; existing devices and records were retained",
+          "evidence": [
+            "output/evidence/staging-native-acceptance.json",
+            "output/evidence/staging-home.png",
+            "output/evidence/staging-current.png"
+          ],
+          "scope": "Real staging account and sync flow; TCL physical-device acceptance remains separate"
+        }
+      }
+    }
+  },
+  "components": [
+    {
+      "name": "TV Action Button",
+      "kind": "button",
+      "refersTo": "button",
+      "description": "Native TV Material neutral action; focus becomes a light capsule.",
+      "html": "<button class=\"ds-tv-button\">生成配对码</button>",
+      "css": ".ds-tv-button{min-width:58px;min-height:40px;padding:10px 16px;border:0;border-radius:999px;background:rgba(73,69,79,.8);color:rgba(230,225,229,.8);font:500 14px/20px sans-serif;letter-spacing:.1px}.ds-tv-button:hover,.ds-tv-button:focus-visible{background:#E6E1E5;color:#313033;transform:scale(1.1);outline:0}.ds-tv-button:active{background:#E6E1E5;color:#313033;transform:scale(1)}"
+    },
+    {
+      "name": "TV Navigation",
+      "kind": "nav",
+      "refersTo": "navigation-item-selected",
+      "description": "Dark persistent rail; selected destination remains distinct from remote focus.",
+      "html": "<nav class=\"ds-tv-nav\"><strong>LibreTV</strong><button aria-current=\"page\">发现</button><button>4K专区</button><button>搜索</button><button>继续看</button><button>我的片单</button><button>设置</button></nav>",
+      "css": ".ds-tv-nav{width:120px;padding:26px 14px;background:#16161B;color:#fff;font:500 14px/20px sans-serif;letter-spacing:.1px;display:flex;flex-direction:column;gap:14px}.ds-tv-nav strong{color:#E50914;font-size:22px;margin-bottom:24px}.ds-tv-nav button{padding:10px 16px;min-height:40px;border:0;border-radius:999px;text-align:left;background:transparent;color:rgba(230,225,229,.8);font:inherit}.ds-tv-nav button[aria-current]{background:#393940}.ds-tv-nav button:hover,.ds-tv-nav button:focus-visible{background:#E6E1E5;color:#313033;transform:scale(1.1);outline:0}.ds-tv-nav button:active{transform:scale(1)}"
+    },
+    {
+      "name": "TV Input",
+      "kind": "input",
+      "refersTo": "input",
+      "description": "Single-line field with pure-white 2dp focus stroke.",
+      "html": "<input class=\"ds-tv-input\" aria-label=\"服务器地址\" placeholder=\"服务器地址，例如 https://tv.example.com\">",
+      "css": ".ds-tv-input{width:100%;min-height:48px;padding:14px;border:1px solid #565661;border-radius:6px;background:transparent;color:#fff;font:18px sans-serif}.ds-tv-input::placeholder{color:#A6A6B2}.ds-tv-input:hover{border-color:#A6A6B2}.ds-tv-input:focus-visible{border:2px solid #fff;outline:0}"
+    },
+    {
+      "name": "Poster Card",
+      "kind": "card",
+      "refersTo": "poster",
+      "description": "130×180 native poster, crop-filled image and title below; focus restores by content key.",
+      "html": "<div class=\"ds-tv-poster\"><button aria-label=\"打开影片\"><svg viewBox=\"0 0 130 180\" role=\"img\" aria-label=\"海报示意\"><rect width=\"130\" height=\"180\" fill=\"#49454F\"/><path d=\"M52 67v46l36-23z\" fill=\"#BCBCC7\"/></svg></button><span>影片标题</span><small>片源名称</small></div>",
+      "css": ".ds-tv-poster{width:130px;display:flex;flex-direction:column;gap:8px;color:#fff;font:14px/20px sans-serif}.ds-tv-poster button{display:block;width:130px;height:180px;padding:0;border:0;border-radius:8px;overflow:hidden;background:#49454F}.ds-tv-poster svg{width:100%;height:100%;display:block}.ds-tv-poster button:hover,.ds-tv-poster button:focus-visible{transform:scale(1.1);outline:3px solid #938F99;outline-offset:0}.ds-tv-poster button:active{transform:scale(1)}.ds-tv-poster span,.ds-tv-poster small{white-space:nowrap;overflow:hidden}.ds-tv-poster small{color:#AFAFBC;font:12px/16px sans-serif}"
+    },
+    {
+      "name": "Hero",
+      "kind": "custom",
+      "description": "Image-led introduction with left-aligned title and gradient fade. No external poster is invented in this preview.",
+      "html": "<section class=\"ds-tv-hero\"><div><h2>今晚，继续精彩</h2><p>属于你的大屏影院</p><button>查找并播放</button></div></section>",
+      "css": ".ds-tv-hero{height:240px;background:linear-gradient(90deg,#101014,rgba(16,16,20,.94),transparent),linear-gradient(0deg,#101014,transparent),#202026;color:#fff;display:flex;align-items:flex-end;font-family:sans-serif}.ds-tv-hero>div{padding:32px;max-width:500px;display:flex;flex-direction:column;gap:14px}.ds-tv-hero h2{font-size:36px;line-height:44px;font-weight:700;margin:0}.ds-tv-hero p{font-size:16px;line-height:24px;letter-spacing:.5px;color:#CFCFD7;margin:0}.ds-tv-hero button{align-self:flex-start;padding:10px 16px;border:0;border-radius:999px;background:rgba(73,69,79,.8);color:rgba(230,225,229,.8);font:500 14px/20px sans-serif;letter-spacing:.1px}.ds-tv-hero button:hover,.ds-tv-hero button:focus-visible{background:#E6E1E5;color:#313033;transform:scale(1.1);outline:0}.ds-tv-hero button:active{transform:scale(1)}"
+    },
+    {
+      "name": "Player Controls",
+      "kind": "custom",
+      "refersTo": "player-controls",
+      "description": "Temporary control layer; decoder metadata reports actual selected format.",
+      "html": "<section class=\"ds-tv-controls\"><p>00:07 / 00:10 · 缓冲 100%</p><small>1280 × 720 · avc1.64001F · c2.goldfish.h264.decoder</small><div><button>暂停</button><button>−10 秒</button><button>+10 秒</button><button>选集</button><button>音轨 / 字幕</button></div></section>",
+      "css": ".ds-tv-controls{padding:24px;background:rgba(0,0,0,.88);color:#fff;font:16px/24px sans-serif;display:flex;flex-direction:column;gap:14px}.ds-tv-controls p{margin:0}.ds-tv-controls small{color:#BCBCC7;font:12px/16px sans-serif}.ds-tv-controls>div{display:flex;gap:14px;padding:8px;overflow:auto}.ds-tv-controls button{flex-shrink:0;padding:10px 16px;border:0;border-radius:999px;background:rgba(73,69,79,.8);color:rgba(230,225,229,.8);font:500 14px/20px sans-serif;letter-spacing:.1px}.ds-tv-controls button:hover,.ds-tv-controls button:focus-visible{background:#E6E1E5;color:#313033;transform:scale(1.1);outline:0}.ds-tv-controls button:active{transform:scale(1)}"
+    },
+    {
+      "name": "Playback Menu",
+      "kind": "custom",
+      "refersTo": "player-panel",
+      "description": "Right-side native menu for tracks, episodes, skip markers and timer.",
+      "html": "<aside class=\"ds-tv-panel\"><h2>睡眠定时</h2><button>关闭</button><button>关闭定时</button><button>30 分钟后暂停</button><button>60 分钟后暂停</button></aside>",
+      "css": ".ds-tv-panel{width:360px;padding:26px;background:#202027;color:#fff;font-family:sans-serif;display:flex;flex-direction:column;align-items:flex-start;gap:16px}.ds-tv-panel h2{font-size:24px;line-height:32px;font-weight:400;margin:0}.ds-tv-panel button{padding:10px 16px;border:0;border-radius:999px;background:rgba(73,69,79,.8);color:rgba(230,225,229,.8);font:500 14px/20px sans-serif;letter-spacing:.1px}.ds-tv-panel button:hover,.ds-tv-panel button:focus-visible{background:#E6E1E5;color:#313033;transform:scale(1.1);outline:0}.ds-tv-panel button:active{transform:scale(1)}"
+    },
+    {
+      "name": "Catalogue Retry",
+      "kind": "custom",
+      "description": "Honest unavailable state with a focusable reload action; no fabricated poster content.",
+      "html": "<section class=\"ds-tv-retry\"><h2>4K专区</h2><p>暂时没有已核实的4K资源，请稍后重试</p><button>重新加载</button></section>",
+      "css": ".ds-tv-retry{padding:32px;background:#101014;color:#fff;font:16px/24px sans-serif;display:flex;flex-direction:column;align-items:flex-start;gap:18px}.ds-tv-retry h2{font-size:32px;line-height:40px;font-weight:400;margin:0}.ds-tv-retry p{margin:0;color:#BCBCC7}.ds-tv-retry button{padding:10px 16px;border:0;border-radius:999px;background:rgba(73,69,79,.8);color:rgba(230,225,229,.8);font:500 14px/20px sans-serif;letter-spacing:.1px}.ds-tv-retry button:hover,.ds-tv-retry button:focus-visible{background:#E6E1E5;color:#313033;transform:scale(1.1);outline:0}.ds-tv-retry button:active{transform:scale(1)}"
+    },
+    {
+      "name": "Pairing Code",
+      "kind": "custom",
+      "refersTo": "pairing-code",
+      "description": "Eight-character code in two groups of four; sample characters below are a documentation example.",
+      "html": "<section class=\"ds-tv-pairing-code\"><code>ABCD EFGH</code><p>手机扫码，或打开配对页输入 8 位码</p></section>",
+      "css": ".ds-tv-pairing-code{width:300px;display:flex;flex-direction:column;align-items:center;gap:14px;background:#101014;color:#fff}.ds-tv-pairing-code code{font:600 32px/40px monospace;letter-spacing:4px;white-space:nowrap}.ds-tv-pairing-code p{margin:0;font:14px/20px sans-serif;letter-spacing:.2px}"
+    }
+  ],
+  "narrative": {
+    "northStar": "大屏影院，遥控即达",
+    "overview": "这是已实施的原生 Android TV 界面记录。电视采用用户指定的 Netflix 式大图、侧栏与横向海报组织方式，同时保留 LibreTV 名称、用途和中文产品文字。深色环境让影片图像承担视觉主体；红色提供品牌识别，浅色焦点说明遥控器下一步将操作的对象。\n\n此文档只约束 `android-tv` 原生表面，其角色为 Operate。结构与交互使用 Compose for TV 的 Material 组件和 Android 系统返回。它不覆盖根目录的 Web/PWA 视觉系统。下列 frontmatter 是当前实现的 token 记录；Android 长度保留 dp、文字保留 sp。继承项以锁定的 `androidx.tv:tv-material:1.0.1` 为准。",
+    "keyCharacteristics": [
+      "深底、红色 LibreTV 品牌与高对比浅色焦点。",
+      "大图引导、固定左侧导航、横向影片行与原生全屏播放。",
+      "系统无衬线字体与分层文字，支持系统字号缩放。",
+      "D-pad 可达、焦点与列表位置恢复、明确加载和重试反馈。"
+    ],
+    "rules": [
+      {
+        "name": "The Focus Ownership Rule",
+        "body": "当前目的地和当前焦点是两种状态：目的地保留深灰底，实际焦点使用组件的浅色焦点状态，不能只靠红色区分。",
+        "section": "colors"
+      },
+      {
+        "name": "The System Scale Rule",
+        "body": "新原生文字继续使用 sp 和 Material 角色，不能用截图像素反推固定文字尺寸。130% 字号截图验证了第十九张海报焦点边框；它不是全部页面在所有字号下无裁切的承诺。",
+        "section": "typography"
+      },
+      {
+        "name": "The Space for Focus Rule",
+        "body": "Button 与 Card 在焦点时按依赖默认放大至 1.1 倍。列表与控制行必须保留足够内边距，让放大和描边完整显示；不能为了塞入更多内容取消这部分留白。",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "Do 保留 LibreTV 身份、深色背景、红色品牌和浅色遥控器焦点。",
+      "Do 使用 Compose for TV Material、系统返回、sp 字体和现有焦点恢复模式。",
+      "Do 为 1.1 倍焦点缩放及描边留出空间，并用原生截图检查。",
+      "Do 保留加载、空态、错误与重试，让没有资源的情况也可操作。",
+      "Do 使用播放器实际格式信息表达正在解码的分辨率、codec 和 decoder。"
+    ],
+    "donts": [
+      "Don't 把当前栏目选中状态当作遥控器焦点。",
+      "Don't 把原生 dp/sp 换成截图像素，或从 Web 检测结果推断 TV 已验收。",
+      "Don't 为未提供的片源、字幕或音轨虚构内容。",
+      "Don't 用 4K 目录标签或模拟器 720p 播放证明 TCL、4K/HDR、硬件解码或 60fps 通过。"
+    ]
+  }
+}

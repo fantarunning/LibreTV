@@ -68,7 +68,7 @@ async function runWithConcurrency(
  * - `?stream=1` 以 NDJSON 逐条推送——展开来源面板时先到的先亮，不必等最慢的源。
  */
 export async function POST(req: Request) {
-  const guarded = guardRequest(req);
+  const guarded = await guardRequest(req);
   if (guarded) return guarded;
 
   let body: QualityBody;

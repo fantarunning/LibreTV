@@ -1,0 +1,602 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-23T04:15:17.269Z",
+  "title": "Design System: LibreTV Web",
+  "extensions": {
+    "colorMeta": {
+      "primary": {
+        "role": "primary",
+        "displayName": "片库青色",
+        "canonical": "#00b8e6",
+        "tonalRamp": [
+          "oklch(15.0% 0.1367 224.10)",
+          "oklch(26.4% 0.1367 224.10)",
+          "oklch(37.9% 0.1367 224.10)",
+          "oklch(49.3% 0.1367 224.10)",
+          "oklch(60.7% 0.1367 224.10)",
+          "oklch(72.1% 0.1367 224.10)",
+          "oklch(83.6% 0.1367 224.10)",
+          "oklch(95.0% 0.1367 224.10)"
+        ]
+      },
+      "primary-hover": {
+        "role": "primary",
+        "displayName": "明亮青色",
+        "canonical": "#33d6ff",
+        "tonalRamp": [
+          "oklch(15.0% 0.1379 219.80)",
+          "oklch(26.4% 0.1379 219.80)",
+          "oklch(37.9% 0.1379 219.80)",
+          "oklch(49.3% 0.1379 219.80)",
+          "oklch(60.7% 0.1379 219.80)",
+          "oklch(72.1% 0.1379 219.80)",
+          "oklch(83.6% 0.1379 219.80)",
+          "oklch(95.0% 0.1379 219.80)"
+        ]
+      },
+      "on-primary": {
+        "role": "neutral",
+        "displayName": "深色按钮字",
+        "canonical": "#08131f",
+        "tonalRamp": [
+          "oklch(15.0% 0.0297 251.41)",
+          "oklch(26.4% 0.0297 251.41)",
+          "oklch(37.9% 0.0297 251.41)",
+          "oklch(49.3% 0.0297 251.41)",
+          "oklch(60.7% 0.0297 251.41)",
+          "oklch(72.1% 0.0297 251.41)",
+          "oklch(83.6% 0.0297 251.41)",
+          "oklch(95.0% 0.0297 251.41)"
+        ]
+      },
+      "page": {
+        "role": "neutral",
+        "displayName": "深蓝黑画布",
+        "canonical": "#0b101a",
+        "tonalRamp": [
+          "oklch(15.0% 0.0224 263.72)",
+          "oklch(26.4% 0.0224 263.72)",
+          "oklch(37.9% 0.0224 263.72)",
+          "oklch(49.3% 0.0224 263.72)",
+          "oklch(60.7% 0.0224 263.72)",
+          "oklch(72.1% 0.0224 263.72)",
+          "oklch(83.6% 0.0224 263.72)",
+          "oklch(95.0% 0.0224 263.72)"
+        ]
+      },
+      "surface": {
+        "role": "neutral",
+        "displayName": "蓝黑面板",
+        "canonical": "#141c29",
+        "tonalRamp": [
+          "oklch(15.0% 0.0281 259.92)",
+          "oklch(26.4% 0.0281 259.92)",
+          "oklch(37.9% 0.0281 259.92)",
+          "oklch(49.3% 0.0281 259.92)",
+          "oklch(60.7% 0.0281 259.92)",
+          "oklch(72.1% 0.0281 259.92)",
+          "oklch(83.6% 0.0281 259.92)",
+          "oklch(95.0% 0.0281 259.92)"
+        ]
+      },
+      "card": {
+        "role": "neutral",
+        "displayName": "低亮海报底",
+        "canonical": "#0d141f",
+        "tonalRamp": [
+          "oklch(15.0% 0.0250 259.24)",
+          "oklch(26.4% 0.0250 259.24)",
+          "oklch(37.9% 0.0250 259.24)",
+          "oklch(49.3% 0.0250 259.24)",
+          "oklch(60.7% 0.0250 259.24)",
+          "oklch(72.1% 0.0250 259.24)",
+          "oklch(83.6% 0.0250 259.24)",
+          "oklch(95.0% 0.0250 259.24)"
+        ]
+      },
+      "chip": {
+        "role": "neutral",
+        "displayName": "控件蓝黑",
+        "canonical": "#16202e",
+        "tonalRamp": [
+          "oklch(15.0% 0.0306 256.87)",
+          "oklch(26.4% 0.0306 256.87)",
+          "oklch(37.9% 0.0306 256.87)",
+          "oklch(49.3% 0.0306 256.87)",
+          "oklch(60.7% 0.0306 256.87)",
+          "oklch(72.1% 0.0306 256.87)",
+          "oklch(83.6% 0.0306 256.87)",
+          "oklch(95.0% 0.0306 256.87)"
+        ]
+      },
+      "hover": {
+        "role": "neutral",
+        "displayName": "悬停蓝黑",
+        "canonical": "#1d2a3d",
+        "tonalRamp": [
+          "oklch(15.0% 0.0395 257.77)",
+          "oklch(26.4% 0.0395 257.77)",
+          "oklch(37.9% 0.0395 257.77)",
+          "oklch(49.3% 0.0395 257.77)",
+          "oklch(60.7% 0.0395 257.77)",
+          "oklch(72.1% 0.0395 257.77)",
+          "oklch(83.6% 0.0395 257.77)",
+          "oklch(95.0% 0.0395 257.77)"
+        ]
+      },
+      "line": {
+        "role": "neutral",
+        "displayName": "细线蓝黑",
+        "canonical": "#223045",
+        "tonalRamp": [
+          "oklch(15.0% 0.0426 258.29)",
+          "oklch(26.4% 0.0426 258.29)",
+          "oklch(37.9% 0.0426 258.29)",
+          "oklch(49.3% 0.0426 258.29)",
+          "oklch(60.7% 0.0426 258.29)",
+          "oklch(72.1% 0.0426 258.29)",
+          "oklch(83.6% 0.0426 258.29)",
+          "oklch(95.0% 0.0426 258.29)"
+        ]
+      },
+      "content": {
+        "role": "neutral",
+        "displayName": "冷白正文",
+        "canonical": "#e6f2ff",
+        "tonalRamp": [
+          "oklch(15.0% 0.0217 250.21)",
+          "oklch(26.4% 0.0217 250.21)",
+          "oklch(37.9% 0.0217 250.21)",
+          "oklch(49.3% 0.0217 250.21)",
+          "oklch(60.7% 0.0217 250.21)",
+          "oklch(72.1% 0.0217 250.21)",
+          "oklch(83.6% 0.0217 250.21)",
+          "oklch(95.0% 0.0217 250.21)"
+        ]
+      },
+      "muted": {
+        "role": "neutral",
+        "displayName": "蓝灰辅助字",
+        "canonical": "#8599b2",
+        "tonalRamp": [
+          "oklch(15.0% 0.0436 254.13)",
+          "oklch(26.4% 0.0436 254.13)",
+          "oklch(37.9% 0.0436 254.13)",
+          "oklch(49.3% 0.0436 254.13)",
+          "oklch(60.7% 0.0436 254.13)",
+          "oklch(72.1% 0.0436 254.13)",
+          "oklch(83.6% 0.0436 254.13)",
+          "oklch(95.0% 0.0436 254.13)"
+        ]
+      },
+      "faint": {
+        "role": "neutral",
+        "displayName": "蓝灰元数据",
+        "canonical": "#7a8ca6",
+        "tonalRamp": [
+          "oklch(15.0% 0.0444 257.52)",
+          "oklch(26.4% 0.0444 257.52)",
+          "oklch(37.9% 0.0444 257.52)",
+          "oklch(49.3% 0.0444 257.52)",
+          "oklch(60.7% 0.0444 257.52)",
+          "oklch(72.1% 0.0444 257.52)",
+          "oklch(83.6% 0.0444 257.52)",
+          "oklch(95.0% 0.0444 257.52)"
+        ]
+      },
+      "danger": {
+        "role": "neutral",
+        "displayName": "danger",
+        "canonical": "#ef4444",
+        "tonalRamp": [
+          "oklch(15.0% 0.2078 25.33)",
+          "oklch(26.4% 0.2078 25.33)",
+          "oklch(37.9% 0.2078 25.33)",
+          "oklch(49.3% 0.2078 25.33)",
+          "oklch(60.7% 0.2078 25.33)",
+          "oklch(72.1% 0.2078 25.33)",
+          "oklch(83.6% 0.2078 25.33)",
+          "oklch(95.0% 0.2078 25.33)"
+        ]
+      },
+      "success": {
+        "role": "neutral",
+        "displayName": "success",
+        "canonical": "#22c55e",
+        "tonalRamp": [
+          "oklch(15.0% 0.1920 149.58)",
+          "oklch(26.4% 0.1920 149.58)",
+          "oklch(37.9% 0.1920 149.58)",
+          "oklch(49.3% 0.1920 149.58)",
+          "oklch(60.7% 0.1920 149.58)",
+          "oklch(72.1% 0.1920 149.58)",
+          "oklch(83.6% 0.1920 149.58)",
+          "oklch(95.0% 0.1920 149.58)"
+        ]
+      },
+      "warning": {
+        "role": "neutral",
+        "displayName": "warning",
+        "canonical": "#f59e0b",
+        "tonalRamp": [
+          "oklch(15.0% 0.1647 70.08)",
+          "oklch(26.4% 0.1647 70.08)",
+          "oklch(37.9% 0.1647 70.08)",
+          "oklch(49.3% 0.1647 70.08)",
+          "oklch(60.7% 0.1647 70.08)",
+          "oklch(72.1% 0.1647 70.08)",
+          "oklch(83.6% 0.1647 70.08)",
+          "oklch(95.0% 0.1647 70.08)"
+        ]
+      },
+      "rating": {
+        "role": "neutral",
+        "displayName": "rating",
+        "canonical": "#fbbf24",
+        "tonalRamp": [
+          "oklch(15.0% 0.1644 84.43)",
+          "oklch(26.4% 0.1644 84.43)",
+          "oklch(37.9% 0.1644 84.43)",
+          "oklch(49.3% 0.1644 84.43)",
+          "oklch(60.7% 0.1644 84.43)",
+          "oklch(72.1% 0.1644 84.43)",
+          "oklch(83.6% 0.1644 84.43)",
+          "oklch(95.0% 0.1644 84.43)"
+        ]
+      },
+      "light-primary": {
+        "role": "primary",
+        "displayName": "浅色模式蓝色",
+        "canonical": "#2563eb",
+        "tonalRamp": [
+          "oklch(15.0% 0.2152 262.88)",
+          "oklch(26.4% 0.2152 262.88)",
+          "oklch(37.9% 0.2152 262.88)",
+          "oklch(49.3% 0.2152 262.88)",
+          "oklch(60.7% 0.2152 262.88)",
+          "oklch(72.1% 0.2152 262.88)",
+          "oklch(83.6% 0.2152 262.88)",
+          "oklch(95.0% 0.2152 262.88)"
+        ]
+      },
+      "light-primary-hover": {
+        "role": "primary",
+        "displayName": "light-primary-hover",
+        "canonical": "#1d4ed8",
+        "tonalRamp": [
+          "oklch(15.0% 0.2172 264.38)",
+          "oklch(26.4% 0.2172 264.38)",
+          "oklch(37.9% 0.2172 264.38)",
+          "oklch(49.3% 0.2172 264.38)",
+          "oklch(60.7% 0.2172 264.38)",
+          "oklch(72.1% 0.2172 264.38)",
+          "oklch(83.6% 0.2172 264.38)",
+          "oklch(95.0% 0.2172 264.38)"
+        ]
+      },
+      "light-on-primary": {
+        "role": "neutral",
+        "displayName": "light-on-primary",
+        "canonical": "#ffffff",
+        "tonalRamp": [
+          "oklch(15.0% 0.0000 89.88)",
+          "oklch(26.4% 0.0000 89.88)",
+          "oklch(37.9% 0.0000 89.88)",
+          "oklch(49.3% 0.0000 89.88)",
+          "oklch(60.7% 0.0000 89.88)",
+          "oklch(72.1% 0.0000 89.88)",
+          "oklch(83.6% 0.0000 89.88)",
+          "oklch(95.0% 0.0000 89.88)"
+        ]
+      },
+      "light-page": {
+        "role": "neutral",
+        "displayName": "light-page",
+        "canonical": "#f6f7f9",
+        "tonalRamp": [
+          "oklch(15.0% 0.0029 264.54)",
+          "oklch(26.4% 0.0029 264.54)",
+          "oklch(37.9% 0.0029 264.54)",
+          "oklch(49.3% 0.0029 264.54)",
+          "oklch(60.7% 0.0029 264.54)",
+          "oklch(72.1% 0.0029 264.54)",
+          "oklch(83.6% 0.0029 264.54)",
+          "oklch(95.0% 0.0029 264.54)"
+        ]
+      },
+      "light-surface": {
+        "role": "neutral",
+        "displayName": "light-surface",
+        "canonical": "#ffffff",
+        "tonalRamp": [
+          "oklch(15.0% 0.0000 89.88)",
+          "oklch(26.4% 0.0000 89.88)",
+          "oklch(37.9% 0.0000 89.88)",
+          "oklch(49.3% 0.0000 89.88)",
+          "oklch(60.7% 0.0000 89.88)",
+          "oklch(72.1% 0.0000 89.88)",
+          "oklch(83.6% 0.0000 89.88)",
+          "oklch(95.0% 0.0000 89.88)"
+        ]
+      },
+      "light-chip": {
+        "role": "neutral",
+        "displayName": "light-chip",
+        "canonical": "#eef0f3",
+        "tonalRamp": [
+          "oklch(15.0% 0.0046 258.32)",
+          "oklch(26.4% 0.0046 258.32)",
+          "oklch(37.9% 0.0046 258.32)",
+          "oklch(49.3% 0.0046 258.32)",
+          "oklch(60.7% 0.0046 258.32)",
+          "oklch(72.1% 0.0046 258.32)",
+          "oklch(83.6% 0.0046 258.32)",
+          "oklch(95.0% 0.0046 258.32)"
+        ]
+      },
+      "light-hover": {
+        "role": "neutral",
+        "displayName": "light-hover",
+        "canonical": "#e9ecf0",
+        "tonalRamp": [
+          "oklch(15.0% 0.0063 255.48)",
+          "oklch(26.4% 0.0063 255.48)",
+          "oklch(37.9% 0.0063 255.48)",
+          "oklch(49.3% 0.0063 255.48)",
+          "oklch(60.7% 0.0063 255.48)",
+          "oklch(72.1% 0.0063 255.48)",
+          "oklch(83.6% 0.0063 255.48)",
+          "oklch(95.0% 0.0063 255.48)"
+        ]
+      },
+      "light-line": {
+        "role": "neutral",
+        "displayName": "light-line",
+        "canonical": "#e0e3e8",
+        "tonalRamp": [
+          "oklch(15.0% 0.0075 260.73)",
+          "oklch(26.4% 0.0075 260.73)",
+          "oklch(37.9% 0.0075 260.73)",
+          "oklch(49.3% 0.0075 260.73)",
+          "oklch(60.7% 0.0075 260.73)",
+          "oklch(72.1% 0.0075 260.73)",
+          "oklch(83.6% 0.0075 260.73)",
+          "oklch(95.0% 0.0075 260.73)"
+        ]
+      },
+      "light-content": {
+        "role": "neutral",
+        "displayName": "light-content",
+        "canonical": "#1a1a1a",
+        "tonalRamp": [
+          "oklch(15.0% 0.0000 89.88)",
+          "oklch(26.4% 0.0000 89.88)",
+          "oklch(37.9% 0.0000 89.88)",
+          "oklch(49.3% 0.0000 89.88)",
+          "oklch(60.7% 0.0000 89.88)",
+          "oklch(72.1% 0.0000 89.88)",
+          "oklch(83.6% 0.0000 89.88)",
+          "oklch(95.0% 0.0000 89.88)"
+        ]
+      },
+      "light-muted": {
+        "role": "neutral",
+        "displayName": "light-muted",
+        "canonical": "#5f6368",
+        "tonalRamp": [
+          "oklch(15.0% 0.0094 253.91)",
+          "oklch(26.4% 0.0094 253.91)",
+          "oklch(37.9% 0.0094 253.91)",
+          "oklch(49.3% 0.0094 253.91)",
+          "oklch(60.7% 0.0094 253.91)",
+          "oklch(72.1% 0.0094 253.91)",
+          "oklch(83.6% 0.0094 253.91)",
+          "oklch(95.0% 0.0094 253.91)"
+        ]
+      },
+      "light-faint": {
+        "role": "neutral",
+        "displayName": "light-faint",
+        "canonical": "#6b7280",
+        "tonalRamp": [
+          "oklch(15.0% 0.0234 264.36)",
+          "oklch(26.4% 0.0234 264.36)",
+          "oklch(37.9% 0.0234 264.36)",
+          "oklch(49.3% 0.0234 264.36)",
+          "oklch(60.7% 0.0234 264.36)",
+          "oklch(72.1% 0.0234 264.36)",
+          "oklch(83.6% 0.0234 264.36)",
+          "oklch(95.0% 0.0234 264.36)"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "wordmark": {
+        "displayName": "wordmark",
+        "purpose": "首页品牌标识。"
+      },
+      "headline": {
+        "displayName": "headline",
+        "purpose": "页面主标题。"
+      },
+      "title": {
+        "displayName": "title",
+        "purpose": "内容区块标题。"
+      },
+      "body": {
+        "displayName": "body",
+        "purpose": "说明与操作正文。"
+      },
+      "label": {
+        "displayName": "label",
+        "purpose": "中等字重动作标签。"
+      },
+      "caption": {
+        "displayName": "caption",
+        "purpose": "来源、日期与状态元数据。"
+      }
+    },
+    "shadows": [
+      {
+        "name": "poster-hover",
+        "value": "0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1)",
+        "purpose": "既有海报卡片悬停反馈。"
+      },
+      {
+        "name": "drawer-nonmodal",
+        "value": "0 25px 50px -12px rgb(0 0 0 / 0.25)",
+        "purpose": "非模态标记侧栏的深度。"
+      }
+    ],
+    "motion": [
+      {
+        "name": "control-color",
+        "value": "150ms cubic-bezier(0.4, 0, 0.2, 1)",
+        "purpose": "按钮、输入与导航颜色状态变化。"
+      },
+      {
+        "name": "drawer",
+        "value": "200ms cubic-bezier(0, 0, 0.2, 1)",
+        "purpose": "抽屉滑动与遮罩变化。"
+      },
+      {
+        "name": "poster-hover",
+        "value": "200ms cubic-bezier(0.4, 0, 0.2, 1)",
+        "purpose": "现有海报缩放与阴影。"
+      },
+      {
+        "name": "fade-in",
+        "value": "200ms ease-out",
+        "purpose": "播放器反馈提示。"
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "sm",
+        "value": "640px"
+      },
+      {
+        "name": "md",
+        "value": "768px"
+      },
+      {
+        "name": "lg",
+        "value": "1024px"
+      },
+      {
+        "name": "xl",
+        "value": "1280px"
+      },
+      {
+        "name": "2xl",
+        "value": "1536px"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "主要操作；深色青色底配深色字，随项目变量切换主题。",
+      "html": "<button class=\"ds-btn-primary\">绑定电视</button>",
+      "css": ".ds-btn-primary{font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;font-size:14px;line-height:20px;display:inline-flex;align-items:center;justify-content:center;gap:6px;padding:6px 12px;border:0;border-radius:6px;background:rgb(var(--c-accent,0 184 230));color:rgb(var(--c-on-accent,8 19 31));cursor:pointer;transition:background-color .15s,color .15s}.ds-btn-primary:hover{background:rgb(var(--c-accent-hover,51 214 255))}.ds-btn-primary:disabled{opacity:.4;cursor:not-allowed}.ds-btn-primary:focus-visible,.ds-btn-ghost:focus-visible,.ds-input:focus-visible,.ds-nav a:focus-visible,.ds-chip:focus-visible,.ds-poster:focus-visible,.ds-list button:focus-visible,.ds-fourk a:focus-visible{outline:2px solid rgb(var(--c-accent,0 184 230)/.4);outline-offset:2px;}"
+    },
+    {
+      "name": "Ghost Button",
+      "kind": "button",
+      "refersTo": "button-ghost",
+      "description": "同步、退出和解除等次要动作。",
+      "html": "<button class=\"ds-btn-ghost\">立即同步</button>",
+      "css": ".ds-btn-ghost{font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;font-size:14px;line-height:20px;display:inline-flex;align-items:center;justify-content:center;padding:6px 12px;border:1px solid rgb(var(--c-line,34 48 69));border-radius:6px;background:rgb(var(--c-chip,22 32 46));color:rgb(var(--c-muted,133 153 178));cursor:pointer;transition:background-color .15s,color .15s}.ds-btn-ghost:hover{background:rgb(var(--c-hover,29 42 61));color:rgb(var(--c-content,230 242 255))}.ds-btn-ghost:disabled{opacity:.4;cursor:not-allowed}.ds-btn-primary:focus-visible,.ds-btn-ghost:focus-visible,.ds-input:focus-visible,.ds-nav a:focus-visible,.ds-chip:focus-visible,.ds-poster:focus-visible,.ds-list button:focus-visible,.ds-fourk a:focus-visible{outline:2px solid rgb(var(--c-accent,0 184 230)/.4);outline-offset:2px;}"
+    },
+    {
+      "name": "Text Input",
+      "kind": "input",
+      "refersTo": "input",
+      "description": "持续可见标签、辅助说明和明确焦点。",
+      "html": "<label class=\"ds-field\">电视配对码<input class=\"ds-input\" placeholder=\"输入配对码\" autocomplete=\"one-time-code\"></label>",
+      "css": ".ds-field{font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;font-size:14px;line-height:20px;display:grid;gap:8px;color:rgb(var(--c-content,230 242 255))}.ds-input{font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;font-size:14px;line-height:20px;padding:8px 12px;border:1px solid rgb(var(--c-line,34 48 69));border-radius:6px;background:rgb(var(--c-chip,22 32 46));color:rgb(var(--c-content,230 242 255))}.ds-input::placeholder{color:rgb(var(--c-faint,122 140 166))}.ds-input:focus-visible{border-color:rgb(var(--c-accent,0 184 230))}.ds-btn-primary:focus-visible,.ds-btn-ghost:focus-visible,.ds-input:focus-visible,.ds-nav a:focus-visible,.ds-chip:focus-visible,.ds-poster:focus-visible,.ds-list button:focus-visible,.ds-fourk a:focus-visible{outline:2px solid rgb(var(--c-accent,0 184 230)/.4);outline-offset:2px;}"
+    },
+    {
+      "name": "Header Navigation",
+      "kind": "nav",
+      "refersTo": "nav-link",
+      "description": "完整中文标签与当前路由高亮；窄屏减小间距。",
+      "html": "<nav class=\"ds-nav\"><a href=\"#live\">直播</a><a href=\"#account\" aria-current=\"page\">账号</a><button type=\"button\" aria-label=\"观看历史\"><svg width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\"><circle cx=\"12\" cy=\"12\" r=\"9\"/><path d=\"M12 7v5l3 2\"/></svg></button></nav>",
+      "css": ".ds-nav{font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;font-size:14px;line-height:20px;display:flex;align-items:center;gap:4px;padding:8px;background:rgb(var(--c-surface,20 28 41))}.ds-nav a{padding:6px 10px;border-radius:6px;color:rgb(var(--c-muted,133 153 178));text-decoration:none;white-space:nowrap;flex-shrink:0}.ds-nav a:hover,.ds-nav a[aria-current]{color:rgb(var(--c-content,230 242 255));background:rgb(var(--c-hover,29 42 61))}.ds-nav button{display:flex;padding:8px;border:0;border-radius:6px;background:transparent;color:rgb(var(--c-muted,133 153 178));cursor:pointer}.ds-nav button:hover{color:rgb(var(--c-content,230 242 255));background:rgb(var(--c-hover,29 42 61))}.ds-nav button:focus-visible{outline:2px solid rgb(var(--c-accent,0 184 230)/.4)}@media(max-width:639px){.ds-nav{gap:0}}.ds-btn-primary:focus-visible,.ds-btn-ghost:focus-visible,.ds-input:focus-visible,.ds-nav a:focus-visible,.ds-chip:focus-visible,.ds-poster:focus-visible,.ds-list button:focus-visible,.ds-fourk a:focus-visible{outline:2px solid rgb(var(--c-accent,0 184 230)/.4);outline-offset:2px;}"
+    },
+    {
+      "name": "Filter Chip",
+      "kind": "chip",
+      "refersTo": "filter-chip",
+      "description": "小型分类选择，当前项以实心操作色表达。",
+      "html": "<div class=\"ds-chips\"><button class=\"ds-chip\" aria-pressed=\"true\">热门</button><button class=\"ds-chip\" aria-pressed=\"false\">经典</button></div>",
+      "css": ".ds-chips{display:flex;flex-wrap:wrap;gap:6px}.ds-chip{font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;font-size:14px;line-height:20px;font-size:12px;line-height:16px;padding:4px 10px;border:0;border-radius:9999px;background:rgb(var(--c-chip,22 32 46));color:rgb(var(--c-muted,133 153 178));cursor:pointer;transition:background-color .15s,color .15s}.ds-chip:hover{background:rgb(var(--c-hover,29 42 61));color:rgb(var(--c-content,230 242 255))}.ds-chip[aria-pressed=true]{background:rgb(var(--c-accent,0 184 230));color:rgb(var(--c-on-accent,8 19 31))}.ds-btn-primary:focus-visible,.ds-btn-ghost:focus-visible,.ds-input:focus-visible,.ds-nav a:focus-visible,.ds-chip:focus-visible,.ds-poster:focus-visible,.ds-list button:focus-visible,.ds-fourk a:focus-visible{outline:2px solid rgb(var(--c-accent,0 184 230)/.4);outline-offset:2px;}"
+    },
+    {
+      "name": "Poster Card",
+      "kind": "card",
+      "refersTo": "poster-card",
+      "description": "2:3海报与紧凑标题；预览中的图片区为明确占位。",
+      "html": "<button class=\"ds-poster\"><span class=\"ds-poster-image\">海报</span><span class=\"ds-poster-title\">影片名称</span></button>",
+      "css": ".ds-poster{font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;font-size:14px;line-height:20px;display:block;width:144px;padding:0;overflow:hidden;border:1px solid rgb(var(--c-line,34 48 69));border-radius:8px;background:rgb(var(--c-card,13 20 31));color:rgb(var(--c-content,230 242 255));text-align:left;cursor:pointer;transition:transform .2s,box-shadow .2s}.ds-poster-image{display:flex;align-items:center;justify-content:center;aspect-ratio:2/3;background:rgb(var(--c-chip,22 32 46));color:rgb(var(--c-faint,122 140 166))}.ds-poster-title{display:block;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;padding:8px;font-size:12px;font-weight:500;line-height:16px}.ds-poster:hover{transform:scale(1.03);box-shadow:0 4px 6px -1px rgb(0 0 0/.1),0 2px 4px -2px rgb(0 0 0/.1)}.ds-btn-primary:focus-visible,.ds-btn-ghost:focus-visible,.ds-input:focus-visible,.ds-nav a:focus-visible,.ds-chip:focus-visible,.ds-poster:focus-visible,.ds-list button:focus-visible,.ds-fourk a:focus-visible{outline:2px solid rgb(var(--c-accent,0 184 230)/.4);outline-offset:2px;}"
+    },
+    {
+      "name": "Device List Row",
+      "kind": "custom",
+      "description": "账户任务使用分隔行，长名称截断，操作独立。",
+      "html": "<div class=\"ds-list\"><div class=\"ds-list-copy\"><strong>手机 · 当前设备</strong><span>手机 / 平板 / 浏览器 · 2026/11/22 到期</span></div><button type=\"button\">解除</button></div>",
+      "css": ".ds-list{font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;font-size:14px;line-height:20px;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:16px 0;border-bottom:1px solid rgb(var(--c-line,34 48 69));color:rgb(var(--c-content,230 242 255))}.ds-list-copy{min-width:0}.ds-list strong{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-weight:400}.ds-list span{display:block;margin-top:4px;color:rgb(var(--c-faint,122 140 166));font-size:12px;line-height:16px}.ds-list button{font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;font-size:14px;line-height:20px;flex-shrink:0;padding:6px 12px;border:1px solid rgb(var(--c-line,34 48 69));border-radius:6px;background:rgb(var(--c-chip,22 32 46));color:rgb(var(--c-muted,133 153 178));cursor:pointer}.ds-list button:hover{background:rgb(var(--c-hover,29 42 61));color:rgb(var(--c-content,230 242 255))}.ds-btn-primary:focus-visible,.ds-btn-ghost:focus-visible,.ds-input:focus-visible,.ds-nav a:focus-visible,.ds-chip:focus-visible,.ds-poster:focus-visible,.ds-list button:focus-visible,.ds-fourk a:focus-visible{outline:2px solid rgb(var(--c-accent,0 184 230)/.4);outline-offset:2px;}"
+    },
+    {
+      "name": "Verified 4K List Row",
+      "kind": "custom",
+      "description": "完整视频尺寸、来源和核实日期先于播放动作。",
+      "html": "<div class=\"ds-fourk\"><div class=\"ds-fourk-copy\"><strong>4K影片名称</strong><span class=\"ds-fourk-size\">3840 × 2074 · H264</span><small>来源名称 · 核实日期</small></div><a href=\"#watch\">播放</a></div>",
+      "css": ".ds-fourk{font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;font-size:14px;line-height:20px;display:flex;align-items:center;gap:16px;padding:20px 0;border-bottom:1px solid rgb(var(--c-line,34 48 69));color:rgb(var(--c-content,230 242 255))}.ds-fourk-copy{flex:1;min-width:0}.ds-fourk strong{display:block;overflow-wrap:anywhere;font-size:14px;font-weight:500}.ds-fourk-size{display:block;margin-top:6px;color:rgb(var(--c-accent,0 184 230));font-variant-numeric:tabular-nums}.ds-fourk small{display:block;margin-top:6px;font-size:12px;line-height:16px;color:rgb(var(--c-faint,122 140 166))}.ds-fourk a{display:inline-flex;flex-shrink:0;padding:6px 12px;border-radius:6px;background:rgb(var(--c-accent,0 184 230));color:rgb(var(--c-on-accent,8 19 31));text-decoration:none}.ds-fourk a:hover{background:rgb(var(--c-accent-hover,51 214 255))}.ds-btn-primary:focus-visible,.ds-btn-ghost:focus-visible,.ds-input:focus-visible,.ds-nav a:focus-visible,.ds-chip:focus-visible,.ds-poster:focus-visible,.ds-list button:focus-visible,.ds-fourk a:focus-visible{outline:2px solid rgb(var(--c-accent,0 184 230)/.4);outline-offset:2px;}"
+    }
+  ],
+  "narrative": {
+    "northStar": "LibreTV 的深色片库",
+    "overview": "LibreTV 网页沿用深蓝黑背景、青色操作色与冷白文字，内容以搜索、海报和连续观看为中心。账户、配对与已核实片源使用安静的列表、分隔线和明确操作，不为设置任务增加大屏海报式包装。\n\n这份文档从现有源码和已检查的账户截图提取，描述手机、平板和桌面网页的共同系统。Android TV 的红色大屏界面、遥控焦点与原生组件由 android-tv/DESIGN.md 单独规定；两端共享 LibreTV 身份和内容，不共享全部组件尺寸与布局。",
+    "keyCharacteristics": [
+      "深蓝黑底、冷白层次和青色操作。",
+      "以真实影视内容为主体；操作页面使用列表和分隔。",
+      "紧凑控件、清晰状态和可恢复的加载错误。",
+      "同一语义颜色系统支持深色与浅色主题。"
+    ],
+    "rules": [
+      {
+        "name": "The Semantic Color Rule",
+        "body": "页面使用现有语义颜色变量；切换主题时整体更新。青色实心按钮在深色主题使用 on-primary 深色字，浅色主题使用白字。",
+        "section": "colors"
+      },
+      {
+        "name": "The Content Before Chrome Rule",
+        "body": "内容密度由任务决定：发现页容纳海报，账户与授权页保持清楚的标题、说明、列表和操作。",
+        "section": "typography"
+      },
+      {
+        "name": "The Tonal Layer Rule",
+        "body": "静止界面主要依靠底色层次与细分隔线表达关系；浮层遮罩和交互态阴影用于明确状态。",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "Do 使用现有语义颜色与原生中文系统字体，保留 LibreTV 的网页身份。",
+      "Do 让设备名称、播放状态、分辨率和动作标签优先可读；窄屏时允许辅助说明换行。",
+      "Do 为加载、错误、空列表、禁用和键盘焦点保留明确反馈。",
+      "Do 将实际视频尺寸写完整；宽银幕画幅按已核实尺寸展示。",
+      "Do 在手机、平板和桌面一起检查新增页面；为长列表保留加载更多和失败重试。"
+    ],
+    "donts": [
+      "Don't 将 Android TV 的红色大屏布局复制到网页账户和配对页面。",
+      "Don't 将品牌文字已有的青粉渐变扩散为普通标题、按钮或说明文字。",
+      "Don't 用额外卡片包裹每一行设备或片源；沿用列表分隔。",
+      "Don't 只依赖颜色解释同步、失败或授权状态。",
+      "Don't 把片源标题中的 4K、HDR 或音轨名称当成已验证的实际播放能力。"
+    ]
+  }
+}
+

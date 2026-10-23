@@ -3,6 +3,7 @@ import type { SourceConfig } from './types';
 // 仅类型引入：store.ts 运行时会引用本模块，反向只取类型不会形成运行时循环
 import type { LiveProbeEntry } from './store';
 import { PERSIST_KEY, flushPendingPersist } from './persist-storage';
+import type { CloudKind, CloudMutation, CloudRecord } from './cloud-types';
 
 /**
  * IndexedDB 持久化（替代旧版 localStorage 数据库）：
@@ -26,6 +27,11 @@ export interface HistoryEntry {
   playbackPosition: number;
   duration: number;
   timestamp: number;
+  /** Verified direct catalogue entries use the same history contract as Android TV. */
+  directUrl?: string;
+  width?: number;
+  height?: number;
+  codec?: string;
 }
 
 export interface ProgressEntry {
@@ -70,6 +76,26 @@ export interface DownloadTaskEntry {
   updatedAt: number;
 }
 
+export interface CloudQueueEntry extends CloudMutation {
+  id: string;
+  accountId: string;
+  queuedAt: number;
+}
+
+export interface LocalCloudRecord extends CloudRecord {
+  id: string;
+  accountId: string;
+}
+
+let syncAccountId: string | null = null;
+export function setLocalSyncAccount(accountId: string | null): void {
+  syncAccountId = accountId;
+}
+
+export function getLocalSyncAccount(): string | null {
+  return syncAccountId;
+}
+
 export const db = new Dexie('libretv') as Dexie & {
   history: EntityTable<HistoryEntry, 'id'>;
   progress: EntityTable<ProgressEntry, 'key'>;
@@ -77,6 +103,9 @@ export const db = new Dexie('libretv') as Dexie & {
   liveProbe: EntityTable<LiveProbeEntry & { url: string }, 'url'>;
   segmentMeta: EntityTable<SegmentMetaEntry, 'key'>;
   downloads: EntityTable<DownloadTaskEntry, 'id'>;
+  cloudQueue: EntityTable<CloudQueueEntry, 'id'>;
+  cloudRecords: EntityTable<LocalCloudRecord, 'id'>;
+  cloudMeta: EntityTable<{ key: string; value: string }, 'key'>;
 };
 
 db.version(1).stores({
@@ -96,6 +125,32 @@ db.version(3).stores({
   downloads: 'id, createdAt',
 });
 
+db.version(4).stores({
+  cloudQueue: 'id, accountId, queuedAt',
+  cloudRecords: 'id, accountId',
+  cloudMeta: 'key',
+});
+
+export function cloudDocumentId(accountId: string, kind: CloudKind, key: string): string {
+  return JSON.stringify([accountId, kind, key]);
+}
+
+/** Coalesce offline edits per document; an in-flight acknowledgement cannot delete a later edit. */
+export async function queueCloudChange(kind: CloudKind, key: string, value: unknown | null): Promise<void> {
+  const accountId = syncAccountId;
+  if (!accountId) return;
+  const id = cloudDocumentId(accountId, kind, key);
+  await db.transaction('rw', db.cloudRecords, db.cloudQueue, async () => {
+    const record = await db.cloudRecords.get(id);
+    await db.cloudQueue.put({
+      id, accountId, kind, key, value,
+      baseVersion: record?.version ?? 0,
+      eventId: crypto.randomUUID(),
+      queuedAt: Date.now(),
+    });
+  });
+}
+
 export const MAX_HISTORY = 100;
 export const MAX_SEARCH_HISTORY = 10;
 
@@ -111,6 +166,7 @@ export async function upsertHistory(entry: Omit<HistoryEntry, 'id'>): Promise<vo
     timestamp: Date.now(),
   };
   await db.history.put(merged);
+  await queueCloudChange('history', id, merged);
   // 淘汰最旧记录
   const count = await db.history.count();
   if (count > MAX_HISTORY) {
@@ -134,15 +190,24 @@ export async function updateHistoryProgress(
     duration,
     timestamp: Date.now(),
   });
+  const updated = await db.history.get(id);
+  if (updated) await queueCloudChange('history', id, updated);
 }
 
 export async function removeHistory(sourceKey: string, vodId: string): Promise<void> {
-  await db.history.delete(`${sourceKey}_${vodId}`);
+  const id = `${sourceKey}_${vodId}`;
+  await db.history.delete(id);
+  await queueCloudChange('history', id, null);
 }
 
 export async function clearAllHistory(): Promise<void> {
+  const [history, progress] = await Promise.all([db.history.toArray(), db.progress.toArray()]);
   // 一并清进度表：否则从历史重新打开时可能取到已清空的旧进度
   await Promise.all([db.history.clear(), db.progress.clear()]);
+  await Promise.all([
+    ...history.map((entry) => queueCloudChange('history', entry.id, null)),
+    ...progress.map((entry) => queueCloudChange('progress', entry.key, null)),
+  ]);
 }
 
 export function progressKeyOf(sourceKey: string, vodId: string, episodeIndex: number): string {
@@ -151,16 +216,20 @@ export function progressKeyOf(sourceKey: string, vodId: string, episodeIndex: nu
 
 export async function saveProgress(sourceKey: string, vodId: string, episodeIndex: number, position: number, duration: number): Promise<void> {
   if (!duration || position < 1) return;
-  await db.progress.put({
+  const entry = {
     key: progressKeyOf(sourceKey, vodId, episodeIndex),
     position,
     duration,
     updatedAt: Date.now(),
-  });
+  };
+  await db.progress.put(entry);
+  await queueCloudChange('progress', entry.key, entry);
 }
 
 export async function clearProgress(sourceKey: string, vodId: string, episodeIndex: number): Promise<void> {
-  await db.progress.delete(progressKeyOf(sourceKey, vodId, episodeIndex));
+  const key = progressKeyOf(sourceKey, vodId, episodeIndex);
+  await db.progress.delete(key);
+  await queueCloudChange('progress', key, null);
 }
 
 export async function addSearchHistory(text: string): Promise<void> {

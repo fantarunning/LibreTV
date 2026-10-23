@@ -1,0 +1,42 @@
+{
+  "checkedAt": "2026-10-23T04:10:44.033208+00:00",
+  "id": "hunan-gist-candidate",
+  "host": "hlsal-ldvt.qing.mgtv.com",
+  "exitCode": 0,
+  "metadata": {
+    "programs": [
+      {
+        "streams": [
+          {
+            "codec_name": "hevc",
+            "codec_type": "video",
+            "width": 3840,
+            "height": 2160,
+            "avg_frame_rate": "25/1"
+          },
+          {
+            "codec_name": "aac",
+            "codec_type": "audio",
+            "avg_frame_rate": "0/0"
+          }
+        ]
+      }
+    ],
+    "streams": [
+      {
+        "codec_name": "hevc",
+        "codec_type": "video",
+        "width": 3840,
+        "height": 2160,
+        "avg_frame_rate": "25/1"
+      },
+      {
+        "codec_name": "aac",
+        "codec_type": "audio",
+        "avg_frame_rate": "0/0"
+      }
+    ]
+  },
+  "result": "metadata-read",
+  "urlPersisted": false
+}

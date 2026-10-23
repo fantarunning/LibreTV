@@ -1,111 +1,97 @@
 import crypto from 'node:crypto';
 
-/**
- * 会话鉴权：httpOnly cookie + HMAC 签名。
- *
- * 相比旧版的改进：
- * - 页面源码不再下发 sha256(password)，前端拿不到任何可重放的凭证；
- * - 兼容模式「哈希即凭证」被彻底移除；
- * - 登录接口只接受 POST body，不再把明文密码放 query。
- */
-
 export const SESSION_COOKIE = 'ltv_session';
-const SESSION_TTL_MS = 90 * 24 * 60 * 60 * 1000; // 90 天
+export const WEB_SESSION_DAYS = 30;
+export const TV_SESSION_DAYS = 365;
+export const SESSION_DAY_MS = 24 * 60 * 60 * 1000;
 
-export function getPassword(): string {
-  return process.env.PASSWORD || '';
-}
+export function getPassword(): string { return process.env.PASSWORD || ''; }
+export function isPasswordConfigured(): boolean { return getPassword().length > 0; }
 
-export function isPasswordConfigured(): boolean {
-  return getPassword().length > 0;
-}
-
-function getSecret(): string {
-  if (process.env.PROXY_SECRET) return process.env.PROXY_SECRET;
-  return crypto.createHash('sha256').update(getPassword() + ':libretv::session-salt').digest('hex');
-}
-
-function hmac(payload: string): string {
-  return crypto.createHmac('sha256', getSecret()).update(payload).digest('hex');
-}
-
-/** 生成签名会话 token：`<expiresAtMs>.<hmac>` */
-export function signSession(): { token: string; expiresAt: number } {
-  const expiresAt = Date.now() + SESSION_TTL_MS;
-  const payload = String(expiresAt);
-  return { token: `${payload}.${hmac(payload)}`, expiresAt };
-}
-
-/** 校验会话 token 的签名与有效期 */
-export function verifySession(token: string | undefined | null): boolean {
-  if (!token) return false;
-  const dot = token.lastIndexOf('.');
-  if (dot <= 0) return false;
-  const payload = token.slice(0, dot);
-  const sig = token.slice(dot + 1);
-  const expected = hmac(payload);
-  const a = Buffer.from(sig);
-  const b = Buffer.from(expected);
-  if (a.length !== b.length || !crypto.timingSafeEqual(a, b)) return false;
-  const expiresAt = parseInt(payload, 10);
-  if (!Number.isFinite(expiresAt)) return false;
-  return Date.now() < expiresAt;
-}
-
-/** 恒定时间比较密码（比较 sha256 摘要避免长度泄漏） */
+/** Passwords remain on the server; only random opaque credentials leave it. */
 export function checkPassword(input: string): boolean {
-  const password = getPassword();
-  if (!password) return false;
-  const a = crypto.createHash('sha256').update(input).digest();
-  const b = crypto.createHash('sha256').update(password).digest();
-  return crypto.timingSafeEqual(a, b);
+  if (!getPassword()) return false;
+  return crypto.timingSafeEqual(
+    crypto.createHash('sha256').update(input).digest(),
+    crypto.createHash('sha256').update(getPassword()).digest(),
+  );
 }
 
-/** 从请求 Cookie 中解析会话 */
-export function sessionFromCookieHeader(cookieHeader: string | null): boolean {
-  if (!cookieHeader) return false;
-  const cookies = cookieHeader.split(';');
-  for (const c of cookies) {
-    const eq = c.indexOf('=');
-    if (eq === -1) continue;
-    const name = c.slice(0, eq).trim();
-    if (name === SESSION_COOKIE) {
-      return verifySession(decodeURIComponent(c.slice(eq + 1).trim()));
-    }
+export function tokenHash(token: string): string {
+  return crypto.createHash('sha256').update(token).digest('hex');
+}
+
+export function newSessionToken(): string { return `lt2_${crypto.randomBytes(32).toString('hex')}`; }
+export function isSessionToken(token: string | null | undefined): token is string {
+  return typeof token === 'string' && /^lt2_[a-f0-9]{64}$/.test(token);
+}
+
+/** Changes to PASSWORD or the signing secret invalidate all previously issued devices. */
+export function credentialEpoch(): string {
+  return crypto.createHmac('sha256', process.env.PROXY_SECRET || 'libretv-account-epoch')
+    .update(getPassword()).digest('hex');
+}
+
+export function tokenFromCookieHeader(header: string | null): string | null {
+  for (const cookie of header?.split(';') || []) {
+    const equal = cookie.indexOf('=');
+    if (equal < 0 || cookie.slice(0, equal).trim() !== SESSION_COOKIE) continue;
+    try {
+      const value = decodeURIComponent(cookie.slice(equal + 1).trim());
+      return isSessionToken(value) ? value : null;
+    } catch { return null; }
   }
-  return false;
+  return null;
 }
 
-// —— 登录速率限制（内存实现，单实例部署足够；多实例可换 Redis） ——
+export function tokenFromRequest(req: Request): string | null {
+  const authorization = req.headers.get('authorization');
+  if (authorization) {
+    const match = /^Bearer (lt2_[a-f0-9]{64})$/.exec(authorization);
+    return match?.[1] || null;
+  }
+  return tokenFromCookieHeader(req.headers.get('cookie'));
+}
+
+export function requestOrigin(req: Request): string {
+  if (process.env.APP_ORIGIN) return new URL(process.env.APP_ORIGIN).origin;
+  const proto = req.headers.get('x-forwarded-proto')?.split(',')[0]?.trim();
+  const host = req.headers.get('x-forwarded-host')?.split(',')[0]?.trim();
+  return host && proto ? new URL(`${proto}://${host}`).origin : new URL(req.url).origin;
+}
+
+/** Native Bearer requests have no ambient credentials; cookie writes must be same-origin. */
+export function isTrustedWrite(req: Request): boolean {
+  if (['GET', 'HEAD', 'OPTIONS'].includes(req.method)) return true;
+  const origin = req.headers.get('origin');
+  if (origin) {
+    try { return new URL(origin).origin === requestOrigin(req); } catch { return false; }
+  }
+  if (req.headers.has('authorization')) return /^Bearer lt2_[a-f0-9]{64}$/.test(req.headers.get('authorization') || '');
+  const site = req.headers.get('sec-fetch-site');
+  if (site === 'same-origin' || site === 'none') return true;
+  // Native pairing creates an unprivileged, short-lived challenge without browser cookies.
+  return !req.headers.has('cookie') && !site;
+}
 
 const attemptMap = new Map<string, { count: number; resetAt: number }>();
-const MAX_ATTEMPTS = 10;
-const WINDOW_MS = 10 * 60 * 1000;
-
-export function checkRateLimit(ip: string): boolean {
+export function checkRateLimit(key: string, maximum = 10, windowMs = 10 * 60 * 1000): boolean {
   const now = Date.now();
-  const entry = attemptMap.get(ip);
+  const entry = attemptMap.get(key);
   if (!entry || now > entry.resetAt) {
-    attemptMap.set(ip, { count: 1, resetAt: now + WINDOW_MS });
+    // Bound memory even when clients use many IPs.
+    if (attemptMap.size >= 10000) {
+      for (const [oldKey, oldEntry] of attemptMap) if (now > oldEntry.resetAt) attemptMap.delete(oldKey);
+      if (attemptMap.size >= 10000) return false;
+    }
+    attemptMap.set(key, { count: 1, resetAt: now + windowMs });
     return true;
   }
-  if (entry.count >= MAX_ATTEMPTS) return false;
+  if (entry.count >= maximum) return false;
   entry.count += 1;
   return true;
 }
-
-export function clearRateLimit(ip: string): void {
-  attemptMap.delete(ip);
-}
-
-// 定期清理过期限流记录，避免长期运行下 Map 膨胀
-if (typeof setInterval === 'function') {
-  const timer = setInterval(() => {
-    const now = Date.now();
-    for (const [ip, entry] of attemptMap) {
-      if (now > entry.resetAt) attemptMap.delete(ip);
-    }
-  }, 60 * 1000);
-  // 不阻止 Node 进程退出
-  if (typeof timer.unref === 'function') timer.unref();
+export function clearRateLimit(key: string): void { attemptMap.delete(key); }
+export function clientIp(req: Request): string {
+  return req.headers.get('x-forwarded-for')?.split(',')[0]?.trim() || req.headers.get('x-real-ip') || 'unknown';
 }

@@ -1,0 +1,280 @@
+{
+  "checkedAt": "2026-10-23T03:33:01.980Z",
+  "vantage": "tokyo-existing-network",
+  "query": "西游记",
+  "note": "Search, detail, HLS manifest and one middle segment checked; device decoding and sustained playback were not tested.",
+  "results": [
+    {
+      "name": "如意资源",
+      "url": "https://cj.rycjapi.com/api.php/provide/vod",
+      "stages": [],
+      "status": "failed",
+      "reason": "http-403",
+      "elapsedMs": 572
+    },
+    {
+      "name": "极速资源",
+      "url": "https://jszyapi.com/api.php/provide/vod",
+      "stages": [
+        "search",
+        "detail",
+        "manifest",
+        "segment"
+      ],
+      "status": "chain-passed",
+      "segmentBytes": 65536,
+      "encrypted": true,
+      "segmentCount": 350,
+      "elapsedMs": 2176
+    },
+    {
+      "name": "光速资源",
+      "url": "https://api.guangsuapi.com/api.php/provide/vod",
+      "stages": [
+        "search",
+        "detail",
+        "manifest",
+        "segment"
+      ],
+      "status": "chain-passed",
+      "segmentBytes": 65536,
+      "encrypted": true,
+      "segmentCount": 345,
+      "elapsedMs": 2134
+    },
+    {
+      "name": "新浪资源",
+      "url": "https://api.xinlangapi.com/xinlangapi.php/provide/vod",
+      "stages": [
+        "search",
+        "detail",
+        "manifest",
+        "segment"
+      ],
+      "status": "chain-passed",
+      "segmentBytes": 65536,
+      "encrypted": true,
+      "segmentCount": 345,
+      "elapsedMs": 2734
+    },
+    {
+      "name": "百度资源",
+      "url": "https://api.apibdzy.com/api.php/provide/vod",
+      "stages": [
+        "search",
+        "detail",
+        "manifest",
+        "segment"
+      ],
+      "status": "chain-passed",
+      "segmentBytes": 65536,
+      "encrypted": false,
+      "segmentCount": 1256,
+      "elapsedMs": 2521
+    },
+    {
+      "name": "魔都资源",
+      "url": "https://www.mdzyapi.com/api.php/provide/vod",
+      "stages": [
+        "search",
+        "detail",
+        "manifest",
+        "segment"
+      ],
+      "status": "chain-passed",
+      "segmentBytes": 65536,
+      "encrypted": false,
+      "segmentCount": 44,
+      "elapsedMs": 2437
+    },
+    {
+      "name": "电影天堂资源",
+      "url": "http://caiji.dyttzyapi.com/api.php/provide/vod",
+      "stages": [
+        "search",
+        "detail",
+        "manifest",
+        "segment"
+      ],
+      "status": "chain-passed",
+      "segmentBytes": 65536,
+      "encrypted": false,
+      "segmentCount": 301,
+      "elapsedMs": 2887
+    },
+    {
+      "name": "暴风资源",
+      "url": "https://bfzyapi.com/api.php/provide/vod",
+      "stages": [
+        "search",
+        "detail",
+        "manifest",
+        "segment"
+      ],
+      "status": "chain-passed",
+      "segmentBytes": 65536,
+      "encrypted": false,
+      "segmentCount": 2680,
+      "elapsedMs": 3497
+    },
+    {
+      "name": "天涯资源",
+      "url": "https://tyyszy.com/api.php/provide/vod",
+      "stages": [],
+      "status": "failed",
+      "reason": "not-json",
+      "elapsedMs": 217
+    },
+    {
+      "name": "小猫咪资源",
+      "url": "https://zy.xmm.hk/api.php/provide/vod",
+      "stages": [],
+      "status": "failed",
+      "reason": "ENOTFOUND",
+      "elapsedMs": 9
+    },
+    {
+      "name": "非凡影视",
+      "url": "http://ffzy5.tv/api.php/provide/vod",
+      "stages": [
+        "search",
+        "detail",
+        "manifest",
+        "segment"
+      ],
+      "status": "chain-passed",
+      "segmentBytes": 65536,
+      "encrypted": false,
+      "segmentCount": 301,
+      "elapsedMs": 3027
+    },
+    {
+      "name": "黑木耳",
+      "url": "https://json.heimuer.xyz/api.php/provide/vod",
+      "stages": [],
+      "status": "failed",
+      "reason": "not-json",
+      "elapsedMs": 413
+    },
+    {
+      "name": "360资源",
+      "url": "https://360zy.com/api.php/provide/vod",
+      "stages": [
+        "search",
+        "detail",
+        "manifest",
+        "segment"
+      ],
+      "status": "chain-passed",
+      "segmentBytes": 65536,
+      "encrypted": true,
+      "segmentCount": 1264,
+      "elapsedMs": 3774
+    },
+    {
+      "name": "iqiyi资源",
+      "url": "https://www.iqiyizyapi.com/api.php/provide/vod",
+      "stages": [],
+      "status": "failed",
+      "reason": "http-503",
+      "elapsedMs": 512
+    },
+    {
+      "name": "卧龙资源",
+      "url": "https://wolongzyw.com/api.php/provide/vod",
+      "stages": [],
+      "status": "failed",
+      "reason": "not-json",
+      "elapsedMs": 1562
+    },
+    {
+      "name": "华为吧资源",
+      "url": "https://cjhwba.com/api.php/provide/vod",
+      "stages": [],
+      "status": "failed",
+      "reason": "not-json",
+      "elapsedMs": 369
+    },
+    {
+      "name": "豆瓣资源",
+      "url": "https://dbzy.tv/api.php/provide/vod",
+      "stages": [],
+      "status": "failed",
+      "reason": "no-search-results",
+      "elapsedMs": 822
+    },
+    {
+      "name": "魔爪资源",
+      "url": "https://mozhuazy.com/api.php/provide/vod",
+      "stages": [],
+      "status": "failed",
+      "reason": "TypeError",
+      "elapsedMs": 156
+    },
+    {
+      "name": "最大资源",
+      "url": "https://api.zuidapi.com/api.php/provide/vod",
+      "stages": [
+        "search",
+        "detail",
+        "manifest",
+        "segment"
+      ],
+      "status": "chain-passed",
+      "segmentBytes": 65536,
+      "encrypted": false,
+      "segmentCount": 1278,
+      "elapsedMs": 3547
+    },
+    {
+      "name": "樱花资源",
+      "url": "https://m3u8.apiyhzy.com/api.php/provide/vod",
+      "stages": [],
+      "status": "failed",
+      "reason": "http-403",
+      "elapsedMs": 513
+    },
+    {
+      "name": "无尽资源",
+      "url": "https://api.wujinapi.me/api.php/provide/vod",
+      "stages": [],
+      "status": "failed",
+      "reason": "http-403",
+      "elapsedMs": 37
+    },
+    {
+      "name": "旺旺短剧",
+      "url": "https://wwzy.tv/api.php/provide/vod",
+      "stages": [],
+      "status": "failed",
+      "reason": "not-json",
+      "elapsedMs": 706
+    },
+    {
+      "name": "iKun资源",
+      "url": "https://ikunzyapi.com/api.php/provide/vod",
+      "stages": [
+        "search",
+        "detail",
+        "manifest",
+        "segment"
+      ],
+      "status": "chain-passed",
+      "segmentBytes": 65536,
+      "encrypted": false,
+      "segmentCount": 855,
+      "elapsedMs": 3267
+    },
+    {
+      "name": "量子资源站",
+      "url": "https://cj.lziapi.com/api.php/provide/vod",
+      "stages": [
+        "search",
+        "detail"
+      ],
+      "status": "failed",
+      "reason": "http-404",
+      "elapsedMs": 4027
+    }
+  ]
+}

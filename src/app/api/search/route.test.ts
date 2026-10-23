@@ -1,6 +1,8 @@
 import { afterEach, beforeAll, describe, expect, it, vi } from 'vitest';
 import { POST } from './route';
-import { SESSION_COOKIE, signSession } from '@/lib/auth';
+import { SESSION_COOKIE } from '@/lib/auth';
+import { testSessionToken as signSession } from '@/test/account-fixture';
+vi.mock('@/lib/account-store', async () => (await import('@/test/account-fixture')).mockAccountStore());
 import type { SearchResponse, SearchStreamEvent, SourceConfig } from '@/lib/types';
 
 /**
@@ -41,7 +43,7 @@ function makeRequest(body: unknown, stream = false): Request {
   return new Request(`https://local.test/api/search${stream ? '?stream=1' : ''}`, {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json',
+      'Content-Type': 'application/json', Origin: 'https://local.test',
       cookie: `${SESSION_COOKIE}=${token}`,
     },
     body: JSON.stringify(body),
@@ -205,7 +207,7 @@ describe('POST /api/search', () => {
     }
     const noCookie = new Request('https://local.test/api/search', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: { 'Content-Type': 'application/json', Origin: 'https://local.test' },
       body: JSON.stringify({ wd: 'x', sources: SOURCES }),
     });
     const unauthorized = await POST(noCookie);

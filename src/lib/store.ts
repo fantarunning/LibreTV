@@ -943,7 +943,12 @@ export function resolveSource(
   fallback?: { url?: string; detail?: string; name?: string }
 ): SourceConfig | undefined {
   const found = store.customAPIs.find((a) => a.key === key) ?? store.envSources.find((a) => a.key === key);
-  if (found) return found;
+  const recordedUrl = fallback?.url?.replace(/\/+$/, '');
+  if (found && (!recordedUrl || found.url.replace(/\/+$/, '') === recordedUrl)) return found;
+  if (recordedUrl) {
+    const matchingUrl = [...store.customAPIs, ...store.envSources].find((source) => source.url.replace(/\/+$/, '') === recordedUrl);
+    if (matchingUrl) return { ...matchingUrl, key };
+  }
   if (fallback?.url) {
     return {
       key,

@@ -1,0 +1,568 @@
+{
+  "checkedAt": "2026-10-23T04:01:34.632Z",
+  "vantage": "windows-current-network",
+  "note": "Discovery only; no resolution claims.",
+  "results": [
+    {
+      "name": "最大资源",
+      "url": "https://api.zuidapi.com/api.php/provide/vod",
+      "categories": [
+        {
+          "type_id": 62,
+          "type_name": "4K电影"
+        }
+      ],
+      "searches": [
+        {
+          "query": "category:62",
+          "total": 212,
+          "returned": 20
+        },
+        {
+          "query": "category:62",
+          "total": 212,
+          "returned": 20
+        },
+        {
+          "query": "4K",
+          "total": 108,
+          "returned": 20
+        },
+        {
+          "query": "2160",
+          "total": 0,
+          "returned": 0
+        },
+        {
+          "query": "杜比",
+          "total": 0,
+          "returned": 0
+        }
+      ],
+      "titles": [
+        {
+          "id": 112657,
+          "title": "黑金村传说",
+          "remarks": "更新4K",
+          "category": "4K电影"
+        },
+        {
+          "id": 117536,
+          "title": "攻壳机动队4K",
+          "remarks": "更新4K",
+          "category": "4K电影"
+        },
+        {
+          "id": 117535,
+          "title": "东邪西毒国语4K",
+          "remarks": "更新4K",
+          "category": "4K电影"
+        },
+        {
+          "id": 117534,
+          "title": "东邪西毒粤语4K",
+          "remarks": "更新4K",
+          "category": "4K电影"
+        },
+        {
+          "id": 117533,
+          "title": "傲慢与偏见国语4K",
+          "remarks": "更新4K",
+          "category": "4K电影"
+        },
+        {
+          "id": 117532,
+          "title": "傲慢与偏见4K",
+          "remarks": "更新4K",
+          "category": "4K电影"
+        },
+        {
+          "id": 117530,
+          "title": "房间4K",
+          "remarks": "更新4K",
+          "category": "4K电影"
+        },
+        {
+          "id": 117529,
+          "title": "第六感国语4K",
+          "remarks": "更新4K",
+          "category": "4K电影"
+        },
+        {
+          "id": 117528,
+          "title": "第六感4K",
+          "remarks": "更新4K",
+          "category": "4K电影"
+        },
+        {
+          "id": 117527,
+          "title": "步履不停4K",
+          "remarks": "更新4K",
+          "category": "4K电影"
+        },
+        {
+          "id": 117277,
+          "title": "恋战冲绳粤语4K",
+          "remarks": "更新4K",
+          "category": "4K电影"
+        },
+        {
+          "id": 117276,
+          "title": "作家的谎言：笔忠诱罪粤语4K",
+          "remarks": "更新4K",
+          "category": "4K电影"
+        },
+        {
+          "id": 117275,
+          "title": "十月初五的月光4K",
+          "remarks": "更新4K",
+          "category": "4K电影"
+        },
+        {
+          "id": 117274,
+          "title": "天生爱情狂粤语4K",
+          "remarks": "更新4K",
+          "category": "4K电影"
+        },
+        {
+          "id": 117273,
+          "title": "寻常女子的失常狂想4K",
+          "remarks": "更新4K",
+          "category": "4K电影"
+        },
+        {
+          "id": 117272,
+          "title": "天亮之前4K",
+          "remarks": "更新4K",
+          "category": "4K电影"
+        },
+        {
+          "id": 117271,
+          "title": "小兵张嘎4K",
+          "remarks": "更新4K",
+          "category": "4K电影"
+        },
+        {
+          "id": 117270,
+          "title": "小男人周记之吾家有喜粤语4K",
+          "remarks": "更新4K",
+          "category": "4K电影"
+        },
+        {
+          "id": 117269,
+          "title": "倚天屠龙记之魔教教主4K",
+          "remarks": "更新4K",
+          "category": "4K电影"
+        },
+        {
+          "id": 117268,
+          "title": "南海十三郎粤语4K",
+          "remarks": "更新4K",
+          "category": "4K电影"
+        },
+        {
+          "id": 117267,
+          "title": "忠烈杨家将国语4K",
+          "remarks": "更新4K",
+          "category": "4K电影"
+        },
+        {
+          "id": 117266,
+          "title": "忠烈杨家将粤语4K",
+          "remarks": "更新4K",
+          "category": "4K电影"
+        },
+        {
+          "id": 117265,
+          "title": "奇迹国语4K",
+          "remarks": "更新4K",
+          "category": "4K电影"
+        },
+        {
+          "id": 117264,
+          "title": "奇迹粤语4K",
+          "remarks": "更新4K",
+          "category": "4K电影"
+        },
+        {
+          "id": 117263,
+          "title": "战·争4K",
+          "remarks": "更新4K",
+          "category": "4K电影"
+        },
+        {
+          "id": 117262,
+          "title": "新天龙八部之天山童姥国语4K",
+          "remarks": "更新4K",
+          "category": "4K电影"
+        },
+        {
+          "id": 117261,
+          "title": "无处逢生4K",
+          "remarks": "更新4K",
+          "category": "4K电影"
+        },
+        {
+          "id": 117260,
+          "title": "新天龙八部之天山童姥粤语4K",
+          "remarks": "更新4K",
+          "category": "4K电影"
+        },
+        {
+          "id": 117259,
+          "title": "杀死福顺4K",
+          "remarks": "更新4K",
+          "category": "4K电影"
+        },
+        {
+          "id": 117069,
+          "title": "英雄本色2粤语4K",
+          "remarks": "更新4K",
+          "category": "4K电影"
+        },
+        {
+          "id": 117068,
+          "title": "极盗车神4K",
+          "remarks": "更新4K",
+          "category": "4K电影"
+        },
+        {
+          "id": 117067,
+          "title": "警察故事3：超级警察国语4K",
+          "remarks": "更新4K",
+          "category": "4K电影"
+        },
+        {
+          "id": 117066,
+          "title": "警察故事3：超级警察粤语4K",
+          "remarks": "更新4K",
+          "category": "4K电影"
+        },
+        {
+          "id": 117065,
+          "title": "金枝玉叶24K",
+          "remarks": "更新4K",
+          "category": "4K电影"
+        },
+        {
+          "id": 117064,
+          "title": "英雄本色3：夕阳之歌粤语4K",
+          "remarks": "更新4K",
+          "category": "4K电影"
+        },
+        {
+          "id": 117063,
+          "title": "驯龙高手3国语4K",
+          "remarks": "更新4K",
+          "category": "4K电影"
+        },
+        {
+          "id": 117062,
+          "title": "驯龙高手34K",
+          "remarks": "更新4K",
+          "category": "4K电影"
+        },
+        {
+          "id": 117061,
+          "title": "家有喜事国语4K",
+          "remarks": "更新4K",
+          "category": "4K电影"
+        },
+        {
+          "id": 117060,
+          "title": "家有喜事粤语4K",
+          "remarks": "更新4K",
+          "category": "4K电影"
+        },
+        {
+          "id": 117059,
+          "title": "坏蛋联盟粤语4K",
+          "remarks": "更新4K",
+          "category": "4K电影"
+        },
+        {
+          "id": 123109,
+          "title": "我的24k氪金神眼",
+          "remarks": "更新全集",
+          "category": "现代都市"
+        }
+      ]
+    },
+    {
+      "name": "快车资源",
+      "url": "https://caiji.kuaichezy.org/api.php/provide/vod",
+      "categories": [
+        {
+          "type_id": 62,
+          "type_name": "4K电影"
+        }
+      ],
+      "searches": [
+        {
+          "query": "category:62",
+          "total": 256,
+          "returned": 20
+        },
+        {
+          "query": "category:62",
+          "total": 256,
+          "returned": 20
+        },
+        {
+          "query": "4K",
+          "error": "Unexpected token '暂', \"暂不支持搜索\" is not valid JSON"
+        },
+        {
+          "query": "2160",
+          "error": "Unexpected token '暂', \"暂不支持搜索\" is not valid JSON"
+        },
+        {
+          "query": "杜比",
+          "error": "Unexpected token '暂', \"暂不支持搜索\" is not valid JSON"
+        }
+      ],
+      "titles": [
+        {
+          "id": 115069,
+          "title": "黑金村传说",
+          "remarks": "更新4K",
+          "category": "4K电影"
+        },
+        {
+          "id": 121551,
+          "title": "怪物史瑞克2国语4K",
+          "remarks": "更新4K",
+          "category": "4K电影"
+        },
+        {
+          "id": 121550,
+          "title": "怪物史瑞克2粤语4K",
+          "remarks": "更新4K",
+          "category": "4K电影"
+        },
+        {
+          "id": 121549,
+          "title": "怪物史瑞克24K",
+          "remarks": "更新4K",
+          "category": "4K电影"
+        },
+        {
+          "id": 121548,
+          "title": "怪物史瑞克粤语4K",
+          "remarks": "更新4K",
+          "category": "4K电影"
+        },
+        {
+          "id": 121547,
+          "title": "怪物史瑞克国语4K",
+          "remarks": "更新4K",
+          "category": "4K电影"
+        },
+        {
+          "id": 121546,
+          "title": "怪物史瑞克4K",
+          "remarks": "更新4K",
+          "category": "4K电影"
+        },
+        {
+          "id": 120100,
+          "title": "攻壳机动队4K",
+          "remarks": "更新4K",
+          "category": "4K电影"
+        },
+        {
+          "id": 120099,
+          "title": "东邪西毒国语4K",
+          "remarks": "更新4K",
+          "category": "4K电影"
+        },
+        {
+          "id": 120098,
+          "title": "东邪西毒粤语4K",
+          "remarks": "更新4K",
+          "category": "4K电影"
+        },
+        {
+          "id": 120097,
+          "title": "傲慢与偏见国语4K",
+          "remarks": "更新4K",
+          "category": "4K电影"
+        },
+        {
+          "id": 120096,
+          "title": "傲慢与偏见4K",
+          "remarks": "更新4K",
+          "category": "4K电影"
+        },
+        {
+          "id": 120094,
+          "title": "房间4K",
+          "remarks": "更新4K",
+          "category": "4K电影"
+        },
+        {
+          "id": 120093,
+          "title": "第六感国语4K",
+          "remarks": "更新4K",
+          "category": "4K电影"
+        },
+        {
+          "id": 120092,
+          "title": "第六感4K",
+          "remarks": "更新4K",
+          "category": "4K电影"
+        },
+        {
+          "id": 120091,
+          "title": "步履不停4K",
+          "remarks": "更新4K",
+          "category": "4K电影"
+        },
+        {
+          "id": 119841,
+          "title": "恋战冲绳粤语4K",
+          "remarks": "更新4K",
+          "category": "4K电影"
+        },
+        {
+          "id": 119840,
+          "title": "作家的谎言：笔忠诱罪粤语4K",
+          "remarks": "更新4K",
+          "category": "4K电影"
+        },
+        {
+          "id": 119839,
+          "title": "十月初五的月光4K",
+          "remarks": "更新4K",
+          "category": "4K电影"
+        },
+        {
+          "id": 119838,
+          "title": "天生爱情狂粤语4K",
+          "remarks": "更新4K",
+          "category": "4K电影"
+        },
+        {
+          "id": 119837,
+          "title": "寻常女子的失常狂想4K",
+          "remarks": "更新4K",
+          "category": "4K电影"
+        },
+        {
+          "id": 119836,
+          "title": "天亮之前4K",
+          "remarks": "更新4K",
+          "category": "4K电影"
+        },
+        {
+          "id": 119835,
+          "title": "小兵张嘎4K",
+          "remarks": "更新4K",
+          "category": "4K电影"
+        },
+        {
+          "id": 119834,
+          "title": "小男人周记之吾家有喜粤语4K",
+          "remarks": "更新4K",
+          "category": "4K电影"
+        },
+        {
+          "id": 119833,
+          "title": "倚天屠龙记之魔教教主4K",
+          "remarks": "更新4K",
+          "category": "4K电影"
+        },
+        {
+          "id": 119832,
+          "title": "南海十三郎粤语4K",
+          "remarks": "更新4K",
+          "category": "4K电影"
+        },
+        {
+          "id": 119831,
+          "title": "忠烈杨家将国语4K",
+          "remarks": "更新4K",
+          "category": "4K电影"
+        },
+        {
+          "id": 119830,
+          "title": "忠烈杨家将粤语4K",
+          "remarks": "更新4K",
+          "category": "4K电影"
+        },
+        {
+          "id": 119829,
+          "title": "奇迹国语4K",
+          "remarks": "更新4K",
+          "category": "4K电影"
+        },
+        {
+          "id": 119828,
+          "title": "奇迹粤语4K",
+          "remarks": "更新4K",
+          "category": "4K电影"
+        },
+        {
+          "id": 119827,
+          "title": "战·争4K",
+          "remarks": "更新4K",
+          "category": "4K电影"
+        },
+        {
+          "id": 119826,
+          "title": "新天龙八部之天山童姥国语4K",
+          "remarks": "更新4K",
+          "category": "4K电影"
+        },
+        {
+          "id": 119825,
+          "title": "无处逢生4K",
+          "remarks": "更新4K",
+          "category": "4K电影"
+        },
+        {
+          "id": 119824,
+          "title": "新天龙八部之天山童姥粤语4K",
+          "remarks": "更新4K",
+          "category": "4K电影"
+        },
+        {
+          "id": 119823,
+          "title": "杀死福顺4K",
+          "remarks": "更新4K",
+          "category": "4K电影"
+        },
+        {
+          "id": 119635,
+          "title": "极盗车神4K",
+          "remarks": "更新4K",
+          "category": "4K电影"
+        },
+        {
+          "id": 119634,
+          "title": "金枝玉叶24K",
+          "remarks": "更新4K",
+          "category": "4K电影"
+        },
+        {
+          "id": 119633,
+          "title": "英雄本色3：夕阳之歌粤语4K",
+          "remarks": "更新4K",
+          "category": "4K电影"
+        },
+        {
+          "id": 119632,
+          "title": "驯龙高手3国语4K",
+          "remarks": "更新4K",
+          "category": "4K电影"
+        },
+        {
+          "id": 119631,
+          "title": "驯龙高手34K",
+          "remarks": "更新4K",
+          "category": "4K电影"
+        }
+      ]
+    }
+  ]
+}

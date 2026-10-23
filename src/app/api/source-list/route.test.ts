@@ -1,6 +1,8 @@
 import { beforeAll, beforeEach, describe, expect, it, vi } from 'vitest';
 import { GET } from './route';
-import { SESSION_COOKIE, signSession } from '@/lib/auth';
+import { SESSION_COOKIE } from '@/lib/auth';
+import { testSessionToken as signSession } from '@/test/account-fixture';
+vi.mock('@/lib/account-store', async () => (await import('@/test/account-fixture')).mockAccountStore());
 
 /**
  * 订阅接口单测：格式自动识别（LibreTV-SourceList / TVBOX）、统计透传，
